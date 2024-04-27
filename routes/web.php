@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Web\Auth\AuthController;
 use App\Http\Controllers\Web\Admin\BoatController;
+use App\Http\Controllers\Web\Admin\FeedbackController;
 use App\Http\Controllers\Web\Front\MainController;
 use App\Http\Controllers\Web\Front\NewsController;
 use App\Http\Controllers\Web\Front\EventController;
@@ -80,6 +81,10 @@ Route::prefix('/menu')->middleware(['auth'])->group(function () {
     Route::prefix('/pengaturan')->group(function () {
         Route::get('/', [SettingController::class, 'setting'])->name('admin.pengaturan');
         Route::post('/', [SettingController::class, 'settingUpdate'])->name('admin.pengaturan.update');
+    });
+    Route::prefix('/kuisioner')->group(function () {
+        Route::get('/', [FeedbackController::class, 'feedback'])->name('admin.kuisioner');
+        Route::post('/{id}/destroy', [FeedbackController::class, 'feedbackDestroy'])->name('admin.kuisioner.destroy');
     });
 });
 
