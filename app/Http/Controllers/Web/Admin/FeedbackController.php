@@ -17,4 +17,10 @@ class FeedbackController extends Controller
         ];
         return view('admin.pages.feedback.feedback',  $data);
     }
+
+    public function feedbackDestroy($id){
+        $feedback = Feedback::find($id);
+        $feedback->delete();
+        return redirect()->route('admin.kuisioner')->with('success','Berhasil menghapus tanggapan');
+    }
 }

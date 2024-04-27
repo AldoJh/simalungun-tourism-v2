@@ -67,7 +67,7 @@
                       </div>
                     </td>
                     <td class="text-end">
-                      <a href="#" id="{{ route('admin.kapal.destroy', $item->id) }}" class="btn btn-sm btn-light btn-active-light-primary btn-icon btn-flex btn-center" >
+                      <button id="{{ route('admin.kuisioner.destroy', $item->id) }}" class="btn btn-sm btn-light btn-active-light-primary btn-icon btn-flex btn-center btn-del" >
                         <span class="svg-icon fs-2 m-0 ">
                           <i class="ki-duotone ki-trash fs-2">
                             <span class="path1"></span>
@@ -77,7 +77,7 @@
                             <span class="path5"></span>
                           </i>
                         </span>
-                      </a>
+                      </button>
                     </td>
                   </tr>
                 @endforeach

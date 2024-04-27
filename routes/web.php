@@ -84,7 +84,7 @@ Route::prefix('/menu')->middleware(['auth'])->group(function () {
     });
     Route::prefix('/kuisioner')->group(function () {
         Route::get('/', [FeedbackController::class, 'feedback'])->name('admin.kuisioner');
-        Route::post('/{id}/destroy', [FeedbackController::class, 'feedbackDestroy'])->name('admin.kuisioner.destroy');
+        Route::get('/{id}/destroy', [FeedbackController::class, 'feedbackDestroy'])->name('admin.kuisioner.destroy');
     });
 });
 
