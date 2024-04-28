@@ -29,7 +29,7 @@ class ImportAdministrativeArea extends Command
     {
         try {
             DB::unprepared(file_get_contents(resource_path('data/administrative_area.sql')));
-            $this->info('Imported administrative area has been successfully');
+            $this->info('administrative area has been imported successfully');
         } catch (Exception $e) {
             var_dump($e->getMessage());
         }

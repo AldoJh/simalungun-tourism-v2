@@ -14,6 +14,7 @@ use App\Http\Controllers\Web\Front\TourismController;
 use App\Http\Controllers\Web\Admin\MasterDataController;
 use App\Http\Controllers\Web\Front\RestaurantController;
 use App\Http\Controllers\Web\Admin\NewsController as AdminNewsController;
+use App\Http\Controllers\Web\Admin\UserController;
 
 Route::get('/', [MainController::class, 'index'])->name('home');
 Route::get('/hotel', [HotelController::class, 'index'])->name('hotel');
@@ -74,9 +75,9 @@ Route::prefix('/menu')->middleware(['auth'])->group(function () {
     });
     Route::prefix('/berita')->group(function () {
         Route::get('/', [AdminNewsController::class, 'news'])->name('admin.berita.berita');
-        Route::post('/', [BoatController::class, 'boatStore'])->name('admin.kapal.store');
-        Route::post('/{id}/update', [BoatController::class, 'boatUpdate'])->name('admin.kapal.update');
-        Route::get('/{id}/destroy', [BoatController::class, 'boatDestroy'])->name('admin.kapal.destroy');
+        Route::post('/', [AdminNewsController::class, 'newsStore'])->name('admin.berita.store');
+        Route::post('/{id}/update', [AdminNewsController::class, 'newsUpdate'])->name('admin.berita.update');
+        Route::get('/{id}/destroy', [AdminNewsController::class, 'newsDestroy'])->name('admin.berita.destroy');
     });
     Route::prefix('/pengaturan')->group(function () {
         Route::get('/', [SettingController::class, 'setting'])->name('admin.pengaturan');
@@ -85,6 +86,12 @@ Route::prefix('/menu')->middleware(['auth'])->group(function () {
     Route::prefix('/kuisioner')->group(function () {
         Route::get('/', [FeedbackController::class, 'feedback'])->name('admin.kuisioner');
         Route::get('/{id}/destroy', [FeedbackController::class, 'feedbackDestroy'])->name('admin.kuisioner.destroy');
+    });
+    Route::prefix('/pengguna')->group(function () {
+        Route::get('/', [UserController::class, 'user'])->name('admin.pengguna');
+        Route::post('/', [UserController::class, 'userStore'])->name('admin.pengguna.store');
+        Route::post('/{id}/update', [UserController::class, 'userUpdate'])->name('admin.pengguna.update');
+        Route::get('/{id}/destroy', [UserController::class, 'userDestroy'])->name('admin.pengguna.destroy');
     });
 });
 

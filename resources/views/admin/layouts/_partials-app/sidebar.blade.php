@@ -278,8 +278,8 @@
           </a>
         </div>
 
-        <div class="menu-item">
-          <a class="menu-link" href="#">
+        <div class="menu-item @if ($title == 'Pengguna') here @endif">
+          <a class="menu-link" href="{{ route('admin.pengguna') }}">
             <span class="menu-icon">
               <i class="ki-duotone ki-address-book fs-2">
                 <span class="path1"></span>
