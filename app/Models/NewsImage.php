@@ -11,7 +11,7 @@ class NewsImage extends Model
 {
     use HasFactory;
     public $timestamps = true;
-    protected $table = 'news_image';
+    protected $table = 'news_images';
     protected $primaryKey = 'id';
 
     protected $fillable = [

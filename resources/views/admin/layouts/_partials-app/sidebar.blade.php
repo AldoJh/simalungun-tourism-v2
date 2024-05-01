@@ -229,8 +229,8 @@
                 <span class="menu-title">Data Berita</span>
               </a>
             </div>
-            <div class="menu-item">
-              <a class="menu-link" href="#">
+            <div class="menu-item @if ($subTitle == 'Komentar') here @endif">
+              <a class="menu-link" href="{{ route('admin.berita.komentar') }}">
                 <span class="menu-bullet">
                   <span class="bullet bullet-dot"></span>
                 </span>

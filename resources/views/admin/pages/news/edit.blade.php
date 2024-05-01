@@ -2,7 +2,7 @@
 
 @section('content')
 
-  <form action="{{ route('admin.berita.berita.store') }}" enctype="multipart/form-data" method="post" class="row g-5 g-xl-8">
+  <form action="{{ route('admin.berita.berita.update', $news->id) }}" enctype="multipart/form-data" method="post" class="row g-5 g-xl-8">
     @csrf
     <div class="col-xl-3 mb-8">
       <div class="row">
@@ -16,10 +16,10 @@
           </div>
           <div class="card-body text-center pt-0">
             <div class="image-input image-input-empty" data-kt-image-input="true">
-              <div class="image-input-wrapper w-200px h-150px" style="background-image: url('{{ asset('admin-assets/media/svg/files/blank-image.svg') }}')"></div>
+              <div class="image-input-wrapper w-200px h-150px" style="background-image: url('{{ Storage::url( $news->image) }}')"></div>
               <label class="btn btn-icon btn-circle btn-color-muted btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" data-bs-dismiss="click" title="Change thumbnail">
                   <i class="ki-duotone ki-pencil fs-6"><span class="path1"></span><span class="path2"></span></i>
-                  <input type="file" name="thumbnail" accept=".png, .jpg, .jpeg" required />
+                  <input type="file" name="thumbnail" accept=".png, .jpg, .jpeg/>
                   <input type="hidden" name="avatar_remove" />
               </label>
               <span class="btn btn-icon btn-circle btn-color-muted btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" data-bs-dismiss="click" title="Cancel thumbnail">
@@ -43,11 +43,11 @@
           <div class="card-body pt-0">
             <div class="mb-3 mt-9">
               <label for="exampleFormControlInput1" class="col-form-label required fw-bold fs-6">Penulis</label>
-              <input type="text" class="form-control form-control-solid" disabled value="{{ Auth::user()->name }}"/>
+              <input type="text" class="form-control form-control-solid" disabled value="{{ $news->user->name }}"/>
             </div>
             <div>
               <label for="exampleFormControlInput1" class="col-form-label required fw-bold fs-6">Meta Deskripsi</label>
-              <textarea class="form-control form-control-solid @error('description') is-invalid @enderror" rows="5" name="description" placeholder="Tulis deskripsi singkat..." required>{{ old('description') }}</textarea>
+              <textarea class="form-control form-control-solid @error('description') is-invalid @enderror" rows="5" name="description" placeholder="Tulis deskripsi singkat..." required>{{ old('description') ??  $news->description }}</textarea>
               @error('description')
                 <div class="invalid-feedback">
                   {{ $message }}
@@ -70,7 +70,7 @@
           <div class="card-body pt-0">
             <div class="mb-3 mt-9">
               <label for="exampleFormControlInput1" class="col-form-label required fw-bold fs-6">Judul</label>
-              <input type="text" name="title" class="form-control form-control-solid @error('title') is-invalid @enderror" value="{{ old('title') }}" placeholder="Judul Berita" required/>
+              <input type="text" name="title" class="form-control form-control-solid @error('title') is-invalid @enderror" value="{{ old('title') ?? $news->title }}" placeholder="Judul Berita" required/>
               @error('title')
                 <div class="invalid-feedback">
                   {{ $message }}
@@ -79,7 +79,7 @@
             </div>
             <div class="mb-5">
               <label for="exampleFormControlInput1" class="col-form-label required fw-bold fs-6">Lokasi</label>
-              <input type="text" name="location" class="form-control form-control-solid @error('location') is-invalid @enderror" value="{{ old('location') }}" placeholder="Lokasi" required/>
+              <input type="text" name="location" class="form-control form-control-solid @error('location') is-invalid @enderror" value="{{ old('location') ??  $news->address }}" placeholder="Lokasi" required/>
               @error('location')
                 <div class="invalid-feedback">
                   {{ $message }}
@@ -89,7 +89,7 @@
             <div class="mb-5">
               <label for="exampleFormControlInput1" class="col-form-label required fw-bold fs-6">Isi Berita</label>
               <textarea name="content" id="kt_docs_ckeditor_classic" required>
-                {{ old('content') }}
+                {{ old('content') ??  $news->content }}
               </textarea>
               @error('content')
                 <div class="invalid-feedback">

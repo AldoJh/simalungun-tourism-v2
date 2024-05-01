@@ -129,7 +129,4 @@
 @endsection
 
 @section('script')
-<script>
-  $("#kt_datatable_zero_configuration").DataTable();
-</script>
 @endsection

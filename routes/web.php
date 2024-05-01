@@ -75,9 +75,20 @@ Route::prefix('/menu')->middleware(['auth'])->group(function () {
     });
     Route::prefix('/berita')->group(function () {
         Route::get('/', [AdminNewsController::class, 'news'])->name('admin.berita.berita');
-        Route::post('/', [AdminNewsController::class, 'newsStore'])->name('admin.berita.store');
-        Route::post('/{id}/update', [AdminNewsController::class, 'newsUpdate'])->name('admin.berita.update');
-        Route::get('/{id}/destroy', [AdminNewsController::class, 'newsDestroy'])->name('admin.berita.destroy');
+        Route::get('/add', [AdminNewsController::class, 'newsAdd'])->name('admin.berita.berita.add');
+        Route::post('/add', [AdminNewsController::class, 'newsStore'])->name('admin.berita.berita.store');
+        Route::get('/{id}/edit', [AdminNewsController::class, 'newsEdit'])->name('admin.berita.berita.edit');
+        Route::post('/{id}/edit', [AdminNewsController::class, 'newsUpdate'])->name('admin.berita.berita.update');
+        Route::get('/{id}/destroy', [AdminNewsController::class, 'newsDestroy'])->name('admin.berita.berita.destroy');
+        Route::get('/{id}/komentar', [AdminNewsController::class, 'newsComment'])->name('admin.berita.berita.komentar');
+        Route::get('/{id}/komentar/{idComment}/destroy', [AdminNewsController::class, 'newsCommentDestroy'])->name('admin.berita.berita.komentar.destroy');
+        Route::get('/{id}/galeri', [AdminNewsController::class, 'newsGallery'])->name('admin.berita.berita.galeri');
+        Route::post('/{id}/galeri', [AdminNewsController::class, 'newsGalleryStore'])->name('admin.berita.berita.galeri.store');
+        Route::get('/{id}/galeri/{idGallery}/destroy', [AdminNewsController::class, 'newsGalleryDestroy'])->name('admin.berita.berita.galeri.destroy');
+        Route::get('/komentar', [AdminNewsController::class, 'comment'])->name('admin.berita.komentar');
+        Route::get('/komentar/{id}/destroy', [AdminNewsController::class, 'commentDestroy'])->name('admin.berita.komentar.destroy');
+
+
     });
     Route::prefix('/pengaturan')->group(function () {
         Route::get('/', [SettingController::class, 'setting'])->name('admin.pengaturan');

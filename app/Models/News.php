@@ -19,14 +19,14 @@ class News extends Model
     protected $primaryKey = 'id';
 
     protected $fillable = [
+        'id',
         'title',
         'slug',
+        'description',
+        'content',
+        'image',
         'date',
         'address',
-        'latitude',
-        'longitude',
-        'description',
-        'image',
         'user_id',
     ];
 

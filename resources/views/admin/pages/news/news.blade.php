@@ -13,9 +13,9 @@
             </h3>
           </div>
           <div class="card-toolbar">
-            <button data-bs-toggle="modal" data-bs-target="#add" class="btn btn-primary d-flex align-items-center"><i class="ki-duotone ki-plus fs-2"></i>
+            <a href="{{ route('admin.berita.berita.add') }}" class="btn btn-primary d-flex align-items-center"><i class="ki-duotone ki-plus fs-2"></i>
               Tambah
-            </button>
+            </a>
           </div>
         </div>
         <div class="card-body pt-0">
@@ -37,7 +37,7 @@
                     <td>
                       <div class="d-flex align-items-center">
                         <a href="#" class="symbol symbol-50px">
-                          <span class="symbol-label" style="background-image:url({{ asset('assets/media//stock/ecommerce/50.gif') }});"></span>
+                          <span class="symbol-label" style="background-image:url({{ Storage::url($item->image) }});"></span>
                         </a>
                         <div class="ms-5">
                           <span class="text-gray-800 text-hover-primary fs-5 fw-bold mb-1">{{ $item->title }}</span>
@@ -47,7 +47,7 @@
                     </td>
                     <td>
                       <div class="d-flex">
-                        <div class="fs-6 fw-bold">{{ $item->date }}</div>
+                        <div class="fs-6 fw-bold">{{ $item->user->name }}</div>
                       </div>
                     </td>
                     <td>
@@ -57,12 +57,12 @@
                     </td>
                     <td>
                       <div class="d-flex">
-                        <div class="fs-6 fw-bold">100</div>
+                        <div class="fs-6 fw-bold">{{ count($item->newsViewer) }}</div>
                       </div>
                     </td>
                     <td>
                       <div class="d-flex">
-                        <div class="fs-6 fw-bold">100</div>
+                        <div class="fs-6 fw-bold">{{ count($item->newsViewer) }}</div>
                       </div>
                     </td>
                     <td class="text-end">
@@ -79,10 +79,13 @@
                       </a>
                       <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4" data-kt-menu="true">
                         <div class="menu-item px-3">
-                          <a href="#" data-bs-toggle="modal" data-bs-target="#edit{{$item->id}}" class="menu-link px-3">Edit</a>
+                          <a href="{{ route('admin.berita.berita.komentar', $item->id) }}" class="menu-link px-3">Detail</a>
                         </div>
                         <div class="menu-item px-3">
-                          <a id="{{ route('admin.data-master.fasilitas.destroy', $item->id) }}" class="menu-link px-3 btn-del">Hapus</a>
+                          <a href="{{ route('admin.berita.berita.edit', $item->id) }}" class="menu-link px-3">Edit</a>
+                        </div>
+                        <div class="menu-item px-3">
+                          <a id="{{ route('admin.berita.berita.destroy', $item->id) }}" class="menu-link px-3 btn-del">Hapus</a>
                         </div>
                       </div>
                     </td>

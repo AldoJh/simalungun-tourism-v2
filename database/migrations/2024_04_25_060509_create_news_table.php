@@ -16,18 +16,16 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id')->nullable();
             $table->string('title');
             $table->string('slug')->unique();
+            $table->text('description');
+            $table->text('content');
+            $table->string('image');
             $table->date('date');  
             $table->string('address');
-            $table->double('latitude');
-            $table->double('longitude'); 
-            $table->string('description');
-            $table->string('image');
-
             $table->foreign('user_id')
             ->references('id')
             ->on('users')
-            ->cascadeOnDelete()
-            ->cascadeOnUpdate();
+            ->onDelete('set null')
+            ->onUpdate('cascade');
             $table->timestamps();
             $table->index('title');
             $table->index('slug');
