@@ -13,7 +13,7 @@ class FeedbackController extends Controller
             'title' => 'Kuisioner',
             'subTitle' => null,
             'page_id' => 8,
-            'feedback' => Feedback::all()
+            'feedback' => Feedback::paginate(10)
         ];
         return view('admin.pages.feedback.feedback',  $data);
     }

@@ -15,7 +15,7 @@ class UserController extends Controller
             'title' => 'Pengguna',
             'subTitle' => null,
             'page_id' => 10,
-            'user' => User::where('role', 'superadmin')->orWhere('role', 'admin')->get()
+            'user' => User::where('role', 'superadmin')->orWhere('role', 'admin')->paginate(10)
         ];
         return view('admin.pages.user.user',  $data);
     }

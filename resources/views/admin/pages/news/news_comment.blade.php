@@ -87,7 +87,7 @@
     </div>
   @endforeach
   @else
-    <span class="mt-20 text-gray-500 text-center">~ Tidak ada data ~</span>
+    <span class="mt-md-20 mb-20 text-gray-500 text-center">~ Tidak ada data ~</span>
   @endif
 </div>
 

@@ -15,7 +15,7 @@ class BoatController extends Controller
             'title' => 'Kapal',
             'subTitle' => null,
             'page_id' => 7,
-            'boats' => Boat::all()
+            'boats' => Boat::paginate(10)
         ];
         return view('admin.pages.boat.boat',  $data);
     }

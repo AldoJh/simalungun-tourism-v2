@@ -23,6 +23,14 @@
                 </span>
               </div>
             </div>
+            <div class="d-flex my-4">
+              <a href="#" class="btn btn-sm btn-light me-2" id="kt_user_follow_button">
+                Lihat
+              </a>          
+              <a href="{{ route('admin.berita.berita.edit', $news->id) }}" class="btn btn-sm btn-primary me-3">
+                Edit
+              </a>
+            </div>
           </div>
           <div class="d-flex flex-wrap flex-stack">
             <div class="d-flex flex-column flex-grow-1 pe-8">
@@ -77,7 +85,7 @@
         </div>
       @endforeach
     @else
-        <span class="mt-20 text-gray-500 text-center">~ Tidak ada data ~</span>
+        <span class="mt-md-20 mb-20 text-gray-500 text-center">~ Tidak ada data ~</span>
     @endif
   </div>
 </div>

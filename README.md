@@ -47,3 +47,9 @@ After ensuring the system requirements are met, follow these steps to set up the
     ```bash
    php artisan import:administrative-area
     ```
+
+7. Import data for the news:
+
+    ```bash
+   php artisan import:news
+    ```

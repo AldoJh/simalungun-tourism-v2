@@ -25,45 +25,53 @@
                 </tr>
               </thead>
               <tbody>
-                @foreach ($comment as $item)     
-                  <tr class="max-w-10px">
-                    <td>
-                      <div class="d-flex">
-                        <a href="#" class="symbol symbol-35px">
-                          <span class="symbol-label" style="background-image:url('@if($item->user->photo) {{ $item->user->photo }} @else https://ui-avatars.com/api/?background=E79024&color=fff&name={{ $item->user->name }} @endif');"></span>
-                        </a>
-                        <div class="ms-5">
-                          <span class="text-gray-800 text-hover-primary fs-5 fw-bold mb-1">{{ $item->user->name }}</span>
-                          <div class="text-muted fs-7 fw-bold">{{ $item->content }}</div>                    
+                @if ($comment->total() == 0)
+                <tr class="max-w-10px">
+                  <td colspan="4" class="text-center">
+                    No data available in table
+                  </td>
+                </tr>
+                @else
+                  @foreach ($comment as $item)     
+                    <tr class="max-w-10px">
+                      <td>
+                        <div class="d-flex">
+                          <a href="#" class="symbol symbol-35px">
+                            <span class="symbol-label" style="background-image:url('@if($item->user->photo) {{ $item->user->photo }} @else https://ui-avatars.com/api/?background=E79024&color=fff&name={{ $item->user->name }} @endif');"></span>
+                          </a>
+                          <div class="ms-5">
+                            <span class="text-gray-800 text-hover-primary fs-5 fw-bold mb-1">{{ $item->user->name }}</span>
+                            <div class="text-muted fs-7 fw-bold">{{ $item->content }}</div>                    
+                          </div>
                         </div>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="d-flex align-items-center">
-                        <a href="">
-                          <span class="text-gray-800 text-hover-primary fs-5 fw-bold mb-1">{{ $item->news->title }}</span>
-                          <div class="text-muted fs-7 fw-bold">{{ $item->news->slug }}</div>                    
+                      </td>
+                      <td>
+                        <div class="d-flex align-items-center">
+                          <a href="">
+                            <span class="text-gray-800 text-hover-primary fs-5 fw-bold mb-1">{{ $item->news->title }}</span>
+                            <div class="text-muted fs-7 fw-bold">{{ $item->news->slug }}</div>                    
+                          </a>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="d-flex">
+                          <div class="fs-6 fw-bold">{{ $item->created_at }}</div>
+                        </div>
+                      </td>
+                      <td class="text-end">
+                        <a id="{{ route('admin.berita.komentar.destroy', $item->id) }}" class="btn btn-light btn-icon btn-sm btn-del">
+                          <i class="ki-duotone ki-trash">
+                            <span class="path1"></span>
+                            <span class="path2"></span>
+                            <span class="path3"></span>
+                            <span class="path4"></span>
+                            <span class="path5"></span>
+                          </i>
                         </a>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="d-flex">
-                        <div class="fs-6 fw-bold">{{ $item->created_at }}</div>
-                      </div>
-                    </td>
-                    <td class="text-end">
-                      <a id="{{ route('admin.berita.komentar.destroy', $item->id) }}" class="btn btn-light btn-icon btn-sm btn-del">
-                        <i class="ki-duotone ki-trash">
-                          <span class="path1"></span>
-                          <span class="path2"></span>
-                          <span class="path3"></span>
-                          <span class="path4"></span>
-                          <span class="path5"></span>
-                        </i>
-                      </a>
-                    </td>
-                  </tr>
-                @endforeach
+                      </td>
+                    </tr>
+                  @endforeach
+                @endif
               </tbody>
             </table>
           </div>

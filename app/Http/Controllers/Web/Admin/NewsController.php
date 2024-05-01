@@ -14,12 +14,15 @@ use sirajcse\UniqueIdGenerator\UniqueIdGenerator;
 
 class NewsController extends Controller
 {
-    public function news(){
+    public function news(Request $request){
+        $search = $request->input('q');
+        $data = News::where('title', 'LIKE', '%' . $search . '%')->orderBy('created_at', 'desc')->paginate(10);
+        $data->appends(['q' => $search]);
         $data = [
             'title' => 'Berita',
             'subTitle' => 'Data Berita',
             'page_id' => 6,
-            'news' => News::all()
+            'news' => $data
         ];
         return view('admin.pages.news.news',  $data);
     }
