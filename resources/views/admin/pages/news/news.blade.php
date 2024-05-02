@@ -61,7 +61,7 @@
                             <span class="symbol-label" style="background-image:url({{ Storage::url($item->image) }});"></span>
                           </a>
                           <div class="ms-5">
-                            <span class="text-gray-800 text-hover-primary fs-5 fw-bold mb-1">{{ $item->title }}</span>
+                            <a href="{{ route('berita.show', $item->slug) }}" target="_blank" class="text-gray-800 text-hover-primary fs-5 fw-bold mb-1">{{ $item->title }}</a>
                             <div class="text-muted fs-7 fw-bold">{{ $item->slug }}</div>                    
                           </div>
                         </div>
@@ -83,7 +83,7 @@
                       </td>
                       <td>
                         <div class="text-center">
-                          <div class="fs-6 fw-bold">{{ count($item->newsViewer) }}</div>
+                          <div class="fs-6 fw-bold">{{ count($item->comment) }}</div>
                         </div>
                       </td>
                       <td class="text-end">

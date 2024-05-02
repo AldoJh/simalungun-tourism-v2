@@ -26,11 +26,12 @@
             <span class="js-title">Filter</span>
           </div>
 
-          <form class="dropdown__menu px-30 py-30 shadow-1 border-1 js-">
+          <form  method="GET" action="{{ route('berita') }}" class="dropdown__menu px-30 py-30 shadow-1 border-1 js-">
             <h5 class="text-18 fw-500">Cari Berita</h5>
+            <input type="hidden" name="page" value="{{ request('page', 1) }}">
             <div class="pt-20">
               <div class="d-flex flex-column y-gap-15">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <input class="form-control me-2" type="search" placeholder="Search" name="q" value="{{ request('q') }}" aria-label="Search">
               </div>
             </div>
             <button type="submit" class="button px-25 py-10 lh-12 -accent-1 text-accent-1 bg-accent-1-05 border-accent-1 mt-20">
@@ -48,208 +49,85 @@
   <div data-anim-wrap class="container">
     <div class="grid -type-2 pt-20 sm:pt-20">
 
-      <a href="#" data-anim-child="slide-up delay-1" class="featureCard -type-1 overflow-hidden rounded-12 px-30 py-30 -hover-image-scale">
+      @foreach ($tranding as $item)
+      <a href="{{ route('berita.show', $item->slug) }}" data-anim-child="slide-up delay-1" class="featureCard -type-1 overflow-hidden rounded-12 px-30 py-30 -hover-image-scale">
         <div class="featureCard__image -hover-image-scale__image">
-          <img src="{{ asset('front-assets/') }}/img/features/2/1.jpg" alt="image">
+          <img src="{{ Storage::url($item->image) }}" alt="image">
         </div>
-
         <div class="featureCard__content d-block">
           <h4 class="text-white d-block">
-            SIMALUNGUN CAR FREE DAY 2023 MERIAH
+            {{ $item->title }}
           </h4>
           <div class="blogCard__info text-14 text-white-50 d-flex">
-            <div class="lh-13">April 06 2023 </div>
+            <div class="lh-13">{{ \Carbon\Carbon::createFromFormat('Y-m-d', $item->date )->format('d F Y') }}</div>
           </div>
         </div>
       </a>
-
-      <a href="#" data-anim-child="slide-up delay-2" class="featureCard -type-1 overflow-hidden rounded-12 px-30 py-30 -hover-image-scale">
-        <div class="featureCard__image -hover-image-scale__image">
-          <img src="{{ asset('front-assets/') }}/img/features/2/2.jpg" alt="image">
-        </div>
-
-        <div class="featureCard__content d-block">
-          <h4 class="text-white d-block">
-            SIMALUNGUN CAR FREE DAY 2023 MERIAH
-          </h4>
-          <div class="blogCard__info text-14 text-white-50 d-flex">
-            <div class="lh-13">April 06 2023 </div>
-          </div>
-        </div>
-      </a>
-
-      <a href="#" data-anim-child="slide-up delay-3" class="featureCard -type-1 overflow-hidden rounded-12 px-30 py-30 -hover-image-scale">
-        <div class="featureCard__image -hover-image-scale__image">
-          <img src="{{ asset('front-assets/') }}/img/features/2/3.jpg" alt="image">
-        </div>
-
-        <div class="featureCard__content">
-          <h4 class="text-white">
-            City Tours
-          </h4>
-        </div>
-      </a>
-
-      <a href="#" data-anim-child="slide-up delay-4" class="featureCard -type-1 overflow-hidden rounded-12 px-30 py-30 -hover-image-scale">
-        <div class="featureCard__image -hover-image-scale__image">
-          <img src="{{ asset('front-assets/') }}/img/features/2/4.jpg" alt="image">
-        </div>
-
-        <div class="featureCard__content">
-          <h4 class="text-white">
-            Museum Tour
-          </h4>
-        </div>
-      </a>
-
-      <a href="#" data-anim-child="slide-up delay-5" class="featureCard -type-1 overflow-hidden rounded-12 px-30 py-30 -hover-image-scale">
-        <div class="featureCard__image -hover-image-scale__image">
-          <img src="{{ asset('front-assets/') }}/img/features/2/5.jpg" alt="image">
-        </div>
-
-        <div class="featureCard__content">
-          <h4 class="text-white">
-            Food
-          </h4>
-        </div>
-      </a>
-
-      <a href="#" data-anim-child="slide-up delay-6" class="featureCard -type-1 overflow-hidden rounded-12 px-30 py-30 -hover-image-scale">
-        <div class="featureCard__image -hover-image-scale__image">
-          <img src="{{ asset('front-assets/') }}/img/features/2/6.jpg" alt="image">
-        </div>
-
-        <div class="featureCard__content">
-          <h4 class="text-white">
-            Hiking
-          </h4>
-        </div>
-      </a>
+      @endforeach
 
     </div>
   </div>
 </section>
 
 <section data-anim-wrap class="layout-pb-xl">
-  <div class="container">
+  <div class="container mt-40">
     <div class="row y-gap-30 pt-30 mt-30">
-      <div class="col-lg-4 col-md-6">
-        <a href="#" class="blogCard -type-1">
-          <div class="blogCard__image ratio ratio-41:30">
-            <img src="{{ asset('front-assets/') }}/img/blogCards/1/1.png" alt="image" class="img-ratio rounded-12">
-          </div>
-          <div class="blogCard__content mt-30">
-            <div class="blogCard__info text-14">
-              <div class="lh-13">April 06 2023</div>
-              <div class="blogCard__line"></div>
-              <div class="lh-13">By Ali Tufan</div>
+      @if ($news->total() == 0)
+          <span class="text-center">
+            Data yang kamu cari tidak ditemukan !!
+          </span>
+      @else
+        @foreach ($news as $item)     
+        <div class="col-lg-4 col-md-6 mb-15">
+          <a href="{{ route('berita.show', $item->slug) }}" class="blogCard -type-1">
+            <div class="blogCard__image ratio ratio-41:30">
+              <img src="{{ Storage::url($item->image) }}" alt="image" class="img-ratio rounded-12">
             </div>
-            <h3 class="blogCard__title text-18 fw-500 mt-10">Kenya vs Tanzania Safari: The Better African Safari Experience</h3>
-          </div>
-        </a>
-      </div>
-
-      <div class="col-lg-4 col-md-6">
-        <a href="#" class="blogCard -type-1">
-          <div class="blogCard__image ratio ratio-41:30">
-            <img src="{{ asset('front-assets/') }}/img/blogCards/1/1.png" alt="image" class="img-ratio rounded-12">
-          </div>
-          <div class="blogCard__content mt-30">
-            <div class="blogCard__info text-14">
-              <div class="lh-13">April 06 2023</div>
-              <div class="blogCard__line"></div>
-              <div class="lh-13">By Ali Tufan</div>
+            <div class="blogCard__content mt-30">
+              <div class="blogCard__info text-14">
+                <div class="lh-13">{{ \Carbon\Carbon::createFromFormat('Y-m-d', $item->date )->format('d F Y') }}</div>
+                <div class="blogCard__line"></div>
+                <div class="lh-13">{{ $item->user->name }}</div>
+              </div>
+              <h3 class="blogCard__title text-18 fw-500 mt-10">{{ $item->title }}</h3>
             </div>
-            <h3 class="blogCard__title text-18 fw-500 mt-10">Kenya vs Tanzania Safari: The Better African Safari Experience</h3>
-          </div>
-        </a>
-      </div>
-
-      <div class="col-lg-4 col-md-6">
-        <a href="#" class="blogCard -type-1">
-          <div class="blogCard__image ratio ratio-41:30">
-            <img src="{{ asset('front-assets/') }}/img/blogCards/1/1.png" alt="image" class="img-ratio rounded-12">
-          </div>
-          <div class="blogCard__content mt-30">
-            <div class="blogCard__info text-14">
-              <div class="lh-13">April 06 2023</div>
-              <div class="blogCard__line"></div>
-              <div class="lh-13">By Ali Tufan</div>
-            </div>
-            <h3 class="blogCard__title text-18 fw-500 mt-10">Kenya vs Tanzania Safari: The Better African Safari Experience</h3>
-          </div>
-        </a>
-      </div>
-
-      <div class="col-lg-4 col-md-6">
-        <a href="#" class="blogCard -type-1">
-          <div class="blogCard__image ratio ratio-41:30">
-            <img src="{{ asset('front-assets/') }}/img/blogCards/1/1.png" alt="image" class="img-ratio rounded-12">
-          </div>
-          <div class="blogCard__content mt-30">
-            <div class="blogCard__info text-14">
-              <div class="lh-13">April 06 2023</div>
-              <div class="blogCard__line"></div>
-              <div class="lh-13">By Ali Tufan</div>
-            </div>
-            <h3 class="blogCard__title text-18 fw-500 mt-10">Kenya vs Tanzania Safari: The Better African Safari Experience</h3>
-          </div>
-        </a>
-      </div>
-
-      <div class="col-lg-4 col-md-6">
-        <a href="#" class="blogCard -type-1">
-          <div class="blogCard__image ratio ratio-41:30">
-            <img src="{{ asset('front-assets/') }}/img/blogCards/1/1.png" alt="image" class="img-ratio rounded-12">
-          </div>
-          <div class="blogCard__content mt-30">
-            <div class="blogCard__info text-14">
-              <div class="lh-13">April 06 2023</div>
-              <div class="blogCard__line"></div>
-              <div class="lh-13">By Ali Tufan</div>
-            </div>
-            <h3 class="blogCard__title text-18 fw-500 mt-10">Kenya vs Tanzania Safari: The Better African Safari Experience</h3>
-          </div>
-        </a>
-      </div>
-
-      <div class="col-lg-4 col-md-6">
-        <a href="#" class="blogCard -type-1">
-          <div class="blogCard__image ratio ratio-41:30">
-            <img src="{{ asset('front-assets/') }}/img/blogCards/1/1.png" alt="image" class="img-ratio rounded-12">
-          </div>
-          <div class="blogCard__content mt-30">
-            <div class="blogCard__info text-14">
-              <div class="lh-13">April 06 2023</div>
-              <div class="blogCard__line"></div>
-              <div class="lh-13">By Ali Tufan</div>
-            </div>
-            <h3 class="blogCard__title text-18 fw-500 mt-10">Kenya vs Tanzania Safari: The Better African Safari Experience</h3>
-          </div>
-        </a>
-      </div>
-
+          </a>
+        </div>
+        @endforeach
+      @endif
     </div>
 
     <div class="d-flex justify-center flex-column mt-60">
       <div class="pagination justify-center">
-        <button class="pagination__button button -accent-1 mr-15 -prev">
-          <i class="icon-arrow-left text-15"></i>
-        </button>
+
+        @if ($news->onFirstPage())
+          <button class="pagination__button button -accent-1 mr-15 -prev" disabled>
+            <i class="icon-arrow-left text-15"></i>
+          </button>
+        @else
+          <a href="{{ $news->previousPageUrl() }}" class="pagination__button button -accent-1 mr-15 -prev">
+            <i class="icon-arrow-left text-15"></i>
+          </a>
+        @endif
+
         <div class="pagination__count">
-          <a href="#">1</a>
-          <a href="#" class="is-active">2</a>
-          <a href="#">3</a>
-          <a href="#">4</a>
-          <a href="#">5</a>
-          <div>...</div>
-          <a href="#">20</a>
+          @foreach ($news->getUrlRange(1, $news->lastPage()) as $page => $url)
+          <a href="{{ $url }}" class="{{ ($page == $news->currentPage()) ? ' is-active' : '' }}">{{ $page }}</a>
+          @endforeach
         </div>
-        <button class="pagination__button button -accent-1 ml-15 -next">
-          <i class="icon-arrow-right text-15"></i>
-        </button>
+
+        @if ($news->hasMorePages())
+          <a href="{{ $news->nextPageUrl() }}" class="pagination__button button -accent-1 ml-15 -next">
+            <i class="icon-arrow-right text-15"></i>
+          </a>
+        @else
+          <button class="pagination__button button -accent-1 ml-15 -next" disabled>
+            <i class="icon-arrow-right text-15"></i>
+          </button>
+        @endif
+
       </div>
-      <div class="text-14 text-center mt-20">Showing results 1-8 of 1,415</div>
+      <div class="text-14 text-center mt-20">Showing results {{ $news->firstItem() }}-{{ $news->lastItem() }} of {{ $news->total() }}</div>
     </div>
   </div>
 </section>

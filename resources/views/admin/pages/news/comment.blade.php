@@ -47,7 +47,7 @@
                       </td>
                       <td>
                         <div class="d-flex align-items-center">
-                          <a href="">
+                          <a href="{{ route('berita.show', $item->news->slug) }}" target="_blank">
                             <span class="text-gray-800 text-hover-primary fs-5 fw-bold mb-1">{{ $item->news->title }}</span>
                             <div class="text-muted fs-7 fw-bold">{{ $item->news->slug }}</div>                    
                           </a>

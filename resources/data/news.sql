@@ -600,10 +600,10 @@ INSERT INTO news_images(id,news_id,image,created_at,updated_at) VALUES (34,20,'n
 INSERT INTO news_images(id,news_id,image,created_at,updated_at) VALUES (35,20,'news/collection/1689209902-news.png','2023-07-13','2023-07-13');
 INSERT INTO news_images(id,news_id,image,created_at,updated_at) VALUES (36,21,'news/collection/1689691898-news.png','2023-07-19','2023-07-19');
 INSERT INTO news_images(id,news_id,image,created_at,updated_at) VALUES (37,21,'news/collection/1689691917-news.png','2023-07-19','2023-07-19');
-INSERT INTO news_images(id,news_id,image,created_at,updated_at) VALUES (38,22,'news/collection/news/collection/1691481526-news.png','2023-08-08','2023-08-08');
-INSERT INTO news_images(id,news_id,image,created_at,updated_at) VALUES (39,22,'news/collection/news/collection/1691481552-news.png','2023-08-08','2023-08-08');
-INSERT INTO news_images(id,news_id,image,created_at,updated_at) VALUES (40,22,'news/collection/news/collection/1691481577-news.png','2023-08-08','2023-08-08');
-INSERT INTO news_images(id,news_id,image,created_at,updated_at) VALUES (41,22,'news/collection/news/collection/1691481605-news.png','2023-08-08','2023-08-08');
+INSERT INTO news_images(id,news_id,image,created_at,updated_at) VALUES (38,22,'news/collection/1691481526-news.png','2023-08-08','2023-08-08');
+INSERT INTO news_images(id,news_id,image,created_at,updated_at) VALUES (39,22,'news/collection/1691481552-news.png','2023-08-08','2023-08-08');
+INSERT INTO news_images(id,news_id,image,created_at,updated_at) VALUES (40,22,'news/collection/1691481577-news.png','2023-08-08','2023-08-08');
+INSERT INTO news_images(id,news_id,image,created_at,updated_at) VALUES (41,22,'news/collection/1691481605-news.png','2023-08-08','2023-08-08');
 INSERT INTO news_images(id,news_id,image,created_at,updated_at) VALUES (42,23,'news/collection/1693577808-news.png','2023-09-02','2023-09-02');
 INSERT INTO news_images(id,news_id,image,created_at,updated_at) VALUES (43,24,'news/collection/1693989415-news.png','2023-09-06','2023-09-06');
 INSERT INTO news_images(id,news_id,image,created_at,updated_at) VALUES (44,24,'news/collection/1693989448-news.png','2023-09-06','2023-09-06');

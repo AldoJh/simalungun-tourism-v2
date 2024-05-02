@@ -24,7 +24,7 @@
               </div>
             </div>
             <div class="d-flex my-4">
-              <a href="#" class="btn btn-sm btn-light me-2" id="kt_user_follow_button">
+              <a href="{{ route('berita.show', $news->slug) }}" target="_blank" class="btn btn-sm btn-light me-2" id="kt_user_follow_button">
                 Lihat
               </a>          
               <a href="{{ route('admin.berita.berita.edit', $news->id) }}" class="btn btn-sm btn-primary me-3">
