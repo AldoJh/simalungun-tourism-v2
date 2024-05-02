@@ -55,10 +55,10 @@
           <img src="{{ Storage::url($item->image) }}" alt="image">
         </div>
         <div class="featureCard__content d-block">
-          <h4 class="text-white d-block">
+          <h4 class="text-white d-block text-14">
             {{ $item->title }}
           </h4>
-          <div class="blogCard__info text-14 text-white-50 d-flex">
+          <div class="blogCard__info text-13 text-white-50 d-flex">
             <div class="lh-13">{{ \Carbon\Carbon::createFromFormat('Y-m-d', $item->date )->format('d F Y') }}</div>
           </div>
         </div>
