@@ -16,7 +16,7 @@ class EventViewer extends Model
     protected $primaryKey = 'id';
 
     protected $fillable = [
-        'news_id',
+        'event_id',
         'user_id',
     ];
 

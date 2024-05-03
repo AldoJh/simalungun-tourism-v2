@@ -2,7 +2,7 @@
 
 @section('content')
 
-  <form action="{{ route('admin.berita.berita.store') }}" enctype="multipart/form-data" method="post" class="row g-5 g-xl-8">
+  <form action="{{ route('admin.festival.festival.store') }}" enctype="multipart/form-data" method="post" class="row g-5 g-xl-8">
     @csrf
     <div class="col-xl-3 mb-8">
       <div class="row">
@@ -42,13 +42,18 @@
         <div class="card card-flush">
           <div class="card-body pt-0">
             <div class="mb-3 mt-9">
-              <label for="exampleFormControlInput1" class="col-form-label required fw-bold fs-6">Penulis</label>
-              <input type="text" class="form-control form-control-solid" disabled value="{{ Auth::user()->name }}"/>
+              <label for="exampleFormControlInput1" class="col-form-label required fw-bold fs-6">Harga</label>
+              <input type="number" name="price" class="form-control form-control-solid @error('price') is-invalid @enderror" value="{{ old('price') ?? 0}}" required/>
+              @error('price')
+                <div class="invalid-feedback">
+                  {{ $message }}
+                </div>
+              @enderror
             </div>
             <div>
-              <label for="exampleFormControlInput1" class="col-form-label required fw-bold fs-6">Meta Deskripsi</label>
-              <textarea class="form-control form-control-solid @error('description') is-invalid @enderror" rows="5" name="description" placeholder="Tulis deskripsi singkat..." required>{{ old('description') }}</textarea>
-              @error('description')
+              <label for="exampleFormControlInput1" class="col-form-label required fw-bold fs-6">tanggal</label>
+              <input type="date" name="date" class="form-control form-control-solid @error('dae') is-invalid @enderror" value="{{ old('date') }}" required/>
+              @error('date')
                 <div class="invalid-feedback">
                   {{ $message }}
                 </div>
@@ -59,7 +64,7 @@
       </div>
       <div class="row mt-5">
         <div class="card card-flush py-5 d-flex">
-          <a href="{{ route('admin.berita.berita') }}" class="btn btn-light-primary">Batal</a>
+          <a href="{{ route('admin.festival.festival') }}" class="btn btn-light-primary">Batal</a>
           <button type="submit" class="btn btn-primary mt-4">Publish</button>
         </div>
       </div>
@@ -69,29 +74,49 @@
         <div class="card card-flush">
           <div class="card-body pt-0">
             <div class="mb-3 mt-9">
-              <label for="exampleFormControlInput1" class="col-form-label required fw-bold fs-6">Judul</label>
-              <input type="text" name="title" class="form-control form-control-solid @error('title') is-invalid @enderror" value="{{ old('title') }}" placeholder="Judul Berita" required/>
-              @error('title')
+              <label for="exampleFormControlInput1" class="col-form-label required fw-bold fs-6">Nama</label>
+              <input type="text" name="name" class="form-control form-control-solid @error('name') is-invalid @enderror" value="{{ old('name') }}" placeholder="Nama Festival" required/>
+              @error('name')
                 <div class="invalid-feedback">
                   {{ $message }}
                 </div>
               @enderror
             </div>
             <div class="mb-5">
-              <label for="exampleFormControlInput1" class="col-form-label required fw-bold fs-6">Lokasi</label>
-              <input type="text" name="location" class="form-control form-control-solid @error('location') is-invalid @enderror" value="{{ old('location') }}" placeholder="Lokasi" required/>
+              <label for="exampleFormControlInput1" class="col-form-label fw-bold fs-6">Lokasi</label>
+              <input type="text" name="location" class="form-control form-control-solid @error('location') is-invalid @enderror" value="{{ old('location') }}" placeholder="Lokasi"/>
               @error('location')
                 <div class="invalid-feedback">
                   {{ $message }}
                 </div>
               @enderror
             </div>
+            <div class="row">
+              <div class="col mb-5">
+                <label for="exampleFormControlInput1" class="col-form-label fw-bold fs-6">Latitude</label>
+                <input type="number" name="lat" class="form-control form-control-solid @error('lat') is-invalid @enderror" value="{{ old('lat') }}" placeholder="Latitude"/>
+                @error('lat')
+                  <div class="invalid-feedback">
+                    {{ $message }}
+                  </div>
+                @enderror
+              </div>
+              <div class="col mb-5">
+                <label for="exampleFormControlInput1" class="col-form-label fw-bold fs-6">Longitude</label>
+                <input type="number" name="long" class="form-control form-control-solid @error('long') is-invalid @enderror" value="{{ old('long') }}" placeholder="Longitude"/>
+                @error('long')
+                  <div class="invalid-feedback">
+                    {{ $message }}
+                  </div>
+                @enderror
+              </div>
+            </div>
             <div class="mb-5">
-              <label for="exampleFormControlInput1" class="col-form-label required fw-bold fs-6">Isi Berita</label>
-              <textarea name="content" id="kt_docs_ckeditor_classic" required>
-                {{ old('content') }}
+              <label for="exampleFormControlInput1" class="col-form-label required fw-bold fs-6">Deskripsi</label>
+              <textarea name="description" id="kt_docs_ckeditor_classic" required>
+                {{ old('description') }}
               </textarea>
-              @error('content')
+              @error('description')
                 <div class="invalid-feedback">
                   {{ $message }}
                 </div>

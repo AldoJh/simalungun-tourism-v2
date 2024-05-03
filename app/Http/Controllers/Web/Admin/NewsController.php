@@ -21,7 +21,7 @@ class NewsController extends Controller
         $data = [
             'title' => 'Berita',
             'subTitle' => 'Data Berita',
-            'page_id' => 6,
+            'page_id' => 7,
             'news' => $data
         ];
         return view('admin.pages.news.news',  $data);
@@ -31,7 +31,7 @@ class NewsController extends Controller
         $data = [
             'title' => 'Berita',
             'subTitle' => 'Tambah Berita',
-            'page_id' => 6,
+            'page_id' => 7,
         ];
         return view('admin.pages.news.add',  $data);
     }
@@ -74,7 +74,7 @@ class NewsController extends Controller
         $data = [
             'title' => 'Berita',
             'subTitle' => 'Edit Berita',
-            'page_id' => 6,
+            'page_id' => 7,
             'news' => News::findOrFail($id),
         ];
         return view('admin.pages.news.edit',  $data);
@@ -117,7 +117,7 @@ class NewsController extends Controller
         $data = [
             'title' => 'Berita',
             'subTitle' => $news->slug,
-            'page_id' => 6,
+            'page_id' => 7,
             'news' => $news,
             'komentar' => Comment::where('news_id', $id)->get()
         ];
@@ -135,7 +135,7 @@ class NewsController extends Controller
         $data = [
             'title' => 'Berita',
             'subTitle' => $news->slug,
-            'page_id' => 6,
+            'page_id' => 7,
             'news' => $news,
             'gallery' => NewsImage::where('news_id', $id)->get()
         ];
@@ -166,7 +166,7 @@ class NewsController extends Controller
         $data = [
             'title' => 'Berita',
             'subTitle' => 'Komentar',
-            'page_id' => 6,
+            'page_id' => 7,
             'comment' => Comment::paginate(10)
         ];
         // dd($data);

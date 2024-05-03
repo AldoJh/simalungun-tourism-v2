@@ -220,15 +220,15 @@
           </span>
           <div class="menu-sub menu-sub-accordion menu-active-bg">
             <div class="menu-item @if ($subTitle == 'Data Festival') here @endif">
-              <a class="menu-link" href="">
+              <a class="menu-link" href="{{ route('admin.festival.festival') }}">
                 <span class="menu-bullet">
                   <span class="bullet bullet-dot"></span>
                 </span>
                 <span class="menu-title">Data Festifal</span>
               </a>
             </div>
-            <div class="menu-item ">
-              <a class="menu-link" href="">
+            <div class="menu-item @if ($subTitle == 'Pengunjung Festival') here @endif">
+              <a class="menu-link" href="{{ route('admin.festival.pengunjung') }}">
                 <span class="menu-bullet">
                   <span class="bullet bullet-dot"></span>
                 </span>

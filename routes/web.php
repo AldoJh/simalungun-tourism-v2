@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Web\Auth\AuthController;
 use App\Http\Controllers\Web\Admin\BoatController;
+use App\Http\Controllers\Web\Admin\EventController as AdminEventController;
 use App\Http\Controllers\Web\Admin\FeedbackController;
 use App\Http\Controllers\Web\Front\MainController;
 use App\Http\Controllers\Web\Front\NewsController;
@@ -88,9 +89,14 @@ Route::prefix('/menu')->middleware(['auth'])->group(function () {
         Route::get('/{id}/galeri/{idGallery}/destroy', [AdminNewsController::class, 'newsGalleryDestroy'])->name('admin.berita.berita.galeri.destroy');
         Route::get('/komentar', [AdminNewsController::class, 'comment'])->name('admin.berita.komentar');
         Route::get('/komentar/{id}/destroy', [AdminNewsController::class, 'commentDestroy'])->name('admin.berita.komentar.destroy');
-
-
     });
+    Route::prefix('/festival')->group(function () {
+        Route::get('/', [AdminEventController::class, 'event'])->name('admin.festival.festival');
+        Route::get('/add', [AdminEventController::class, 'eventAdd'])->name('admin.festival.festival.add');
+        Route::post('/add', [AdminEventController::class, 'eventStore'])->name('admin.festival.festival.store');
+        Route::get('/pengunjung', [AdminEventController::class, 'visitor'])->name('admin.festival.pengunjung');
+    });
+    
     Route::prefix('/pengaturan')->group(function () {
         Route::get('/', [SettingController::class, 'setting'])->name('admin.pengaturan');
         Route::post('/', [SettingController::class, 'settingUpdate'])->name('admin.pengaturan.update');

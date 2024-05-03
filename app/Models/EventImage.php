@@ -11,11 +11,11 @@ class EventImage extends Model
 {
     use HasFactory;
     public $timestamps = true;
-    protected $table = 'Event_images';
+    protected $table = 'event_images';
     protected $primaryKey = 'id';
 
     protected $fillable = [
-        'news_id',
+        'event_id',
         'image',
     ];
 
