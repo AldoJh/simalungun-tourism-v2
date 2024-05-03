@@ -47,23 +47,66 @@ class EventController extends Controller
         $id = UniqueIdGenerator::generate(['table' => 'events', 'length' => 9, 'prefix' => date('ymd')]);
         $imagePath = $request->file('thumbnail')->store('event', 'public');
 
-        $news = New Event();
-        $news->id = $id;
-        $news->name = $request->input('name');
-        $news->date = $request->input('date');
-        $news->price = $request->input('price');
-        $news->address = $request->input('location');
-        $news->latitude = $request->input('lat');
-        $news->longitude = $request->input('long');
-        $news->description = $request->input('description');
-        $news->image =  $imagePath;
-        $news->save();
+        $event = New Event();
+        $event->id = $id;
+        $event->name = $request->input('name');
+        $event->date = $request->input('date');
+        $event->price = $request->input('price');
+        $event->address = $request->input('location');
+        $event->latitude = $request->input('lat');
+        $event->longitude = $request->input('long');
+        $event->description = $request->input('description');
+        $event->image =  $imagePath;
+        $event->save();
 
-        $newsImage = New EventImage();
-        $newsImage->event_id = $id;
-        $newsImage->image = $imagePath;
-        $newsImage->save();
+        $eventImage = New EventImage();
+        $eventImage->event_id = $id;
+        $eventImage->image = $imagePath;
+        $eventImage->save();
 
-        return redirect()->route('admin.festival.festival.komentar', $id)->with('success', 'Berhasil menambahkan festival baru');
+        return redirect()->route('admin.festival.festival.pengunjung', $id)->with('success', 'Berhasil menambahkan festival baru');
+    }
+
+    public function eventEdit($id){
+        $data = [
+            'title' => 'Festival',
+            'subTitle' => 'Edit Festival',
+            'page_id' => 7,
+            'event' => Event::findOrFail($id),
+        ];
+        return view('admin.pages.event.edit',  $data);
+    }
+    
+    public function eventUpdate($id, Request $request){
+        $validator = Validator::make($request->all(), [
+            'thumbnail' => 'nullable|sometimes|image|mimes:jpeg,bmp,png,jpg,svg|max:2000',
+            'price' => 'required',
+            'date' => 'required',
+            'name' => 'required',
+            'description' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return redirect()->route('admin.festival.festival.edit', $id)->with('error', 'Gagal merubah data festival')->withInput()->withErrors($validator);
+        }
+
+        $event = Event::findOrFail($id);
+        $event->name = $request->input('name');
+        $event->date = $request->input('date');
+        $event->price = $request->input('price');
+        $event->address = $request->input('location');
+        $event->latitude = $request->input('lat');
+        $event->longitude = $request->input('long');
+        $event->description = $request->input('description');
+        if($request->has('thumbnail')){
+            $event->image =   $request->file('thumbnail')->store('news', 'public');
+        }
+        $event->save();
+        return redirect()->route('admin.festival.festival.pengunjung', $id)->with('success', 'Berhasil menambahkan data festival');
+    }
+
+    public function eventDestroy($id){
+        $event = Event::findOrFail($id);
+        $event->delete();
+        return redirect()->route('admin.festival.festival')->with('success','Berhasil menghapus festival');
     }
 }

@@ -94,6 +94,10 @@ Route::prefix('/menu')->middleware(['auth'])->group(function () {
         Route::get('/', [AdminEventController::class, 'event'])->name('admin.festival.festival');
         Route::get('/add', [AdminEventController::class, 'eventAdd'])->name('admin.festival.festival.add');
         Route::post('/add', [AdminEventController::class, 'eventStore'])->name('admin.festival.festival.store');
+        Route::get('/{id}/edit', [AdminEventController::class, 'eventEdit'])->name('admin.festival.festival.edit');
+        Route::post('/{id}/edit', [AdminEventController::class, 'eventUpdate'])->name('admin.festival.festival.update');
+        Route::get('/{id}/destroy', [AdminEventController::class, 'eventDestroy'])->name('admin.festival.festival.destroy');
+        Route::get('/{id}/pengunjung', [AdminEventController::class, 'eventPengunjung'])->name('admin.festival.festival.pengunjung');
         Route::get('/pengunjung', [AdminEventController::class, 'visitor'])->name('admin.festival.pengunjung');
     });
     

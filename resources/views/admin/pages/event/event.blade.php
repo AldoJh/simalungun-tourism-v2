@@ -100,13 +100,13 @@
                         </a>
                         <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4" data-kt-menu="true">
                           <div class="menu-item px-3">
-                            <a href="{{ route('admin.berita.berita.komentar', $item->id) }}" class="menu-link px-3">Detail</a>
+                            <a href="{{ route('admin.festival.festival.pengunjung', $item->id) }}" class="menu-link px-3">Detail</a>
                           </div>
                           <div class="menu-item px-3">
-                            <a href="{{ route('admin.berita.berita.edit', $item->id) }}" class="menu-link px-3">Edit</a>
+                            <a href="{{ route('admin.festival.festival.edit', $item->id) }}" class="menu-link px-3">Edit</a>
                           </div>
                           <div class="menu-item px-3">
-                            <a id="{{ route('admin.berita.berita.destroy', $item->id) }}" class="menu-link px-3 btn-del">Hapus</a>
+                            <a id="{{ route('admin.festival.festival.destroy', $item->id) }}" class="menu-link px-3 btn-del">Hapus</a>
                           </div>
                         </div>
                       </td>
