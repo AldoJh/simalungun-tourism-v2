@@ -215,7 +215,7 @@
                 <span class="path2"></span>
               </i>
             </span>
-            <span class="menu-title">Festifal</span>
+            <span class="menu-title">Festival</span>
             <span class="menu-arrow"></span>
           </span>
           <div class="menu-sub menu-sub-accordion menu-active-bg">
@@ -224,7 +224,7 @@
                 <span class="menu-bullet">
                   <span class="bullet bullet-dot"></span>
                 </span>
-                <span class="menu-title">Data Festifal</span>
+                <span class="menu-title">Data Festival</span>
               </a>
             </div>
             <div class="menu-item @if ($subTitle == 'Pengunjung Festival') here @endif">

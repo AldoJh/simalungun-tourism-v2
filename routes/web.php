@@ -97,7 +97,15 @@ Route::prefix('/menu')->middleware(['auth'])->group(function () {
         Route::get('/{id}/edit', [AdminEventController::class, 'eventEdit'])->name('admin.festival.festival.edit');
         Route::post('/{id}/edit', [AdminEventController::class, 'eventUpdate'])->name('admin.festival.festival.update');
         Route::get('/{id}/destroy', [AdminEventController::class, 'eventDestroy'])->name('admin.festival.festival.destroy');
-        Route::get('/{id}/pengunjung', [AdminEventController::class, 'eventPengunjung'])->name('admin.festival.festival.pengunjung');
+        Route::get('/{id}/pengunjung', [AdminEventController::class, 'eventVisitor'])->name('admin.festival.festival.pengunjung');
+        Route::post('/{id}/pengunjung', [AdminEventController::class, 'eventVisitorStore'])->name('admin.festival.festival.pengunjung.store');
+        Route::post('/{id}/pengunjung/{idVisitor}/update', [AdminEventController::class, 'eventVisitorUpdate'])->name('admin.festival.festival.pengunjung.update');
+        Route::get('/{id}/pengunjung/{idVisitor}/destroy', [AdminEventController::class, 'eventVisitorDestroy'])->name('admin.festival.festival.pengunjung.destroy');
+        Route::get('/{id}/galeri', [AdminEventController::class, 'eventGallery'])->name('admin.festival.festival.galeri');
+        Route::post('/{id}/galeri', [AdminEventController::class, 'eventGalleryStore'])->name('admin.festival.festival.galeri.store');
+        Route::get('/{id}/galeri/{idGallery}/destroy', [AdminEventController::class, 'eventGalleryDestroy'])->name('admin.festival.festival.galeri.destroy');
+        Route::get('/{id}/atribut', [AdminEventController::class, 'eventAttribute'])->name('admin.festival.festival.atribut');
+        Route::get('/{id}/admin', [AdminEventController::class, 'eventAdmin'])->name('admin.festival.festival.admin');
         Route::get('/pengunjung', [AdminEventController::class, 'visitor'])->name('admin.festival.pengunjung');
     });
     

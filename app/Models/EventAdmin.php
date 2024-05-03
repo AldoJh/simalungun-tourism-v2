@@ -2,27 +2,31 @@
 
 namespace App\Models;
 
-use App\Models\District;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class EventVisitor extends Model
+class EventAdmin extends Model
 {
     use HasFactory;
     public $timestamps = true;
-    protected $table = 'event_visitors';
+    protected $table = 'event_admins';
     protected $primaryKey = 'id';
 
     protected $fillable = [
         'event_id',
-        'visitor',
-        'attachment',
-        'date',
+        'user_id',
     ];
 
     public function event(): BelongsTo
     {
         return $this->belongsTo(Event::class);
+    }
+
+     
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 }

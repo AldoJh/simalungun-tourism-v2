@@ -12,7 +12,7 @@
           </div>
         </div>
         <div class="flex-grow-1">
-          <div class="d-flex justify-content-between align-items-start flex-wrap mb-2">
+          <div class="d-md-flex justify-content-between align-items-start mb-2">
             <div class="d-flex flex-column">
               <div class="d-flex align-items-center mb-2">
                 <span class="text-gray-900 text-hover-primary fs-1 fw-bolder me-1">{{ $news->title }}</span>

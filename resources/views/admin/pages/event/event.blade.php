@@ -83,7 +83,7 @@
                       </td>
                       <td>
                         <div class="text-center">
-                          <div class="fs-6 fw-bold">{{ count($item->eventVisitor) }}</div>
+                          <div class="fs-6 fw-bold">{{ $item->eventVisitor->sum('visitor') }}</div>
                         </div>
                       </td>
                       <td class="text-end">

@@ -1,8 +1,8 @@
-# Medan Tourism App
+# Simalungun Tourism App
 
 # Introduction
 
-"Medan Tourism" is a Simalungun tourism promotion website
+"Simalungun Tourism" is a Simalungun tourism promotion website
 managed by the Simalungun Regency Culture, Tourism and Creative Economy Service
 
 ## Installation
@@ -52,4 +52,10 @@ After ensuring the system requirements are met, follow these steps to set up the
 
     ```bash
    php artisan import:news
+    ```
+
+8. Import data for the events:
+
+    ```bash
+   php artisan import:event
     ```

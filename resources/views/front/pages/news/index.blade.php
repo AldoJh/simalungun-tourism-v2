@@ -16,10 +16,49 @@
         </div>
       </div>
     </div>
-
     <div class="row pt-10">
       <div class="col-12 d-lg-flex justify-between">
-        <h1 class="pageHeader__title">Berita</h1>
+        <h1 class="pageHeader__title">Berita Terpopuler</h1>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div data-anim-wrap class="container">
+    <div class="grid -type-2 pt-10 sm:pt-20">
+
+      @foreach ($tranding as $item)
+      <a href="{{ route('berita.show', $item->slug) }}" data-anim-child="slide-up delay-1" class="featureCard -type-1 overflow-hidden rounded-12 px-30 py-30 -hover-image-scale">
+        <div class="featureCard__image -hover-image-scale__image">
+          <img src="{{ Storage::url($item->image) }}" alt="image">
+        </div>
+        <div class="featureCard__content d-block">
+          <h4 class="text-white d-block text-14">
+            {{ $item->title }}
+          </h4>
+          <div class="blogCard__info text-13 text-white-50 d-flex">
+            <div class="lh-13">{{ \Carbon\Carbon::createFromFormat('Y-m-d', $item->date )->format('d F Y') }}</div>
+          </div>
+        </div>
+      </a>
+      @endforeach
+
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="row pt-40 mt-30">
+      <div class="col-12 d-lg-flex justify-between">
+        <h1 class="pageHeader__title">
+          @if (request('q'))
+              Cari: "{{ request('q') }}"
+          @else
+              Berita Terbaru
+          @endif
+        </h1>
         <div class="dropdown -base -price js-dropdown js-form-dd" data-main-value="">
           <div class="dropdown__button h-50 min-w-auto js-button -outline-dark-1">
             <i class="icon-sort-down text-18 mr-10"></i>
@@ -45,33 +84,9 @@
   </div>
 </section>
 
-<section>
-  <div data-anim-wrap class="container">
-    <div class="grid -type-2 pt-20 sm:pt-20">
-
-      @foreach ($tranding as $item)
-      <a href="{{ route('berita.show', $item->slug) }}" data-anim-child="slide-up delay-1" class="featureCard -type-1 overflow-hidden rounded-12 px-30 py-30 -hover-image-scale">
-        <div class="featureCard__image -hover-image-scale__image">
-          <img src="{{ Storage::url($item->image) }}" alt="image">
-        </div>
-        <div class="featureCard__content d-block">
-          <h4 class="text-white d-block text-14">
-            {{ $item->title }}
-          </h4>
-          <div class="blogCard__info text-13 text-white-50 d-flex">
-            <div class="lh-13">{{ \Carbon\Carbon::createFromFormat('Y-m-d', $item->date )->format('d F Y') }}</div>
-          </div>
-        </div>
-      </a>
-      @endforeach
-
-    </div>
-  </div>
-</section>
-
 <section data-anim-wrap class="layout-pb-xl">
-  <div class="container mt-40">
-    <div class="row y-gap-30 pt-30 mt-30">
+  <div class="container mt-20">
+    <div class="row y-gap-30">
       @if ($news->total() == 0)
           <span class="text-center">
             Data yang kamu cari tidak ditemukan !!

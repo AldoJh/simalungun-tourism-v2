@@ -23,6 +23,9 @@ return new class extends Migration
             $table->string('description');
             $table->string('image');        
             $table->timestamps();
+            $table->index('name');
+            $table->index('slug');
+            $table->index('date');
         });
     }
 

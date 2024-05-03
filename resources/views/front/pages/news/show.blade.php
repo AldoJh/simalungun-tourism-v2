@@ -4,7 +4,7 @@
 <div data-anim="fade" class="container">
   <div class="row justify-between py-30 mt-80">
     <div class="col-auto">
-      <div class="text-14">Home > Berita >{{ $news->slug }}</div>
+      <div class="text-14">Home > Berita > {{ $news->slug }}</div>
     </div>
   </div>
 </div>
@@ -173,7 +173,7 @@
             <div class="contactForm">
               <div class="row">
                 <div class="col-auto">
-                  <h2 class="text-18">Tranding</h2>
+                  <h2 class="text-18">Terpopuler</h2>
                 </div>
                 @foreach ($tranding as $item)
                   <div class="col-12 mt-20">
