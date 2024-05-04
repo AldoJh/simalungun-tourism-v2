@@ -267,4 +267,14 @@ class EventController extends Controller
         ];
         return view('admin.pages.event.event_admin',  $data);
     }
+
+    public function visitor(){
+        $data = [
+            'title' => 'Festival',
+            'subTitle' => 'Pengunjung',
+            'page_id' => 6,
+            'visitor' => EventVisitor::paginate(10)
+        ];
+        return view('admin.pages.event.visitor',  $data);
+    }
 }

@@ -227,7 +227,7 @@
                 <span class="menu-title">Data Festival</span>
               </a>
             </div>
-            <div class="menu-item @if ($subTitle == 'Pengunjung Festival') here @endif">
+            <div class="menu-item @if ($subTitle == 'Pengunjung') here @endif">
               <a class="menu-link" href="{{ route('admin.festival.pengunjung') }}">
                 <span class="menu-bullet">
                   <span class="bullet bullet-dot"></span>
