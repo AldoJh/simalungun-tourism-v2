@@ -37,7 +37,7 @@
                       <td>
                         <div class="d-flex">
                           <a href="#" class="symbol symbol-35px">
-                            <span class="symbol-label" style="background-image:url('@if($item->user->photo) {{ $item->user->photo }} @else https://ui-avatars.com/api/?background=E79024&color=fff&name={{ $item->user->name }} @endif');"></span>
+                            <span class="symbol-label" style="background-image:url('@if($item->user->photo) {{ Storage::url($item->user->photo) }} @else https://ui-avatars.com/api/?background=E79024&color=fff&name={{ $item->user->name }} @endif');"></span>
                           </a>
                           <div class="ms-5">
                             <span class="text-gray-800 text-hover-primary fs-5 fw-bold mb-1">{{ $item->user->name }}</span>

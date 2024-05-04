@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web\Admin;
 use App\Models\Event;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\EventAdmin;
 use App\Models\EventAttribute;
 use App\Models\EventImage;
 use App\Models\EventVisitor;
@@ -73,7 +74,7 @@ class EventController extends Controller
         $data = [
             'title' => 'Festival',
             'subTitle' => 'Edit Festival',
-            'page_id' => 7,
+            'page_id' => 6,
             'event' => Event::findOrFail($id),
         ];
         return view('admin.pages.event.edit',  $data);
@@ -117,7 +118,7 @@ class EventController extends Controller
         $data = [
             'title' => 'Festival',
             'subTitle' => $event->slug,
-            'page_id' => 7,
+            'page_id' => 6,
             'event' => $event,
             'visitor' => EventVisitor::where('event_id', $id)->paginate(10),
         ];
@@ -174,7 +175,7 @@ class EventController extends Controller
         $data = [
             'title' => 'Festival',
             'subTitle' => $event->slug,
-            'page_id' => 7,
+            'page_id' => 6,
             'event' => $event,
             'gallery' => EventImage::where('event_id', $id)->get()
         ];
@@ -206,10 +207,64 @@ class EventController extends Controller
         $data = [
             'title' => 'Festival',
             'subTitle' => $event->slug,
-            'page_id' => 7,
+            'page_id' => 6,
             'event' => $event,
             'attribute' => EventAttribute::where('event_id', $id)->paginate(10)
         ];
         return view('admin.pages.event.event_attribute',  $data);
+    }
+
+    public function eventAttributeStore($id, Request $request){
+        $validator = Validator::make($request->all(), [
+            'image' => 'required|image|mimes:jpeg,bmp,png,jpg,svg|max:2000',
+            'name' => 'required',
+            'description' => 'required',
+            'value' => 'required'
+        ]);
+        if ($validator->fails()) {
+            return redirect()->route('admin.festival.festival.atribut', $id)->with('error', 'Gagal menambahkan data pengunjung')->withInput()->withErrors($validator);
+        }
+        $event = New EventAttribute();
+        $event->event_id = $id;
+        $event->name = $request->input('name');
+        $event->description = $request->input('description');
+        $event->value = $request->input('value');
+        $event->image =  $request->file('image')->store('event/attribute-event', 'public');
+        $event->save();
+        return redirect()->route('admin.festival.festival.atribut', $id)->with('success', 'Berhasil menambahkan data pengunjung');
+    }
+
+    public function eventAttributeUpdate($id, $idAttribute, Request $request){
+        $validator = Validator::make($request->all(), [
+            'image' => 'nullable|sometimes|mimes:jpeg,bmp,png,jpg,svg|max:2000',
+            'name' => 'required',
+            'description' => 'required',
+            'value' => 'required'
+        ]);
+        if ($validator->fails()) {
+            return redirect()->route('admin.festival.festival.atribut', $id)->with('error', 'Gagal menambahkan data pengunjung')->withInput()->withErrors($validator);
+        }
+        $event = EventAttribute::findOrFail($idAttribute);
+        $event->event_id = $id;
+        $event->name = $request->input('name');
+        $event->description = $request->input('description');
+        $event->value = $request->input('value');
+        if($request->has('image')){
+            $event->image =  $request->file('image')->store('event/attribute-event', 'public');
+        }
+        $event->save();
+        return redirect()->route('admin.festival.festival.atribut', $id)->with('success', 'Berhasil menambahkan data pengunjung');
+    }
+
+    public function eventAdmin($id){
+        $event = Event::findOrFail($id);
+        $data = [
+            'title' => 'Festival',
+            'subTitle' => $event->slug,
+            'page_id' => 6,
+            'event' => $event,
+            'admin' => EventAdmin::all()
+        ];
+        return view('admin.pages.event.event_admin',  $data);
     }
 }

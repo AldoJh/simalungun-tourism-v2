@@ -78,7 +78,7 @@
     <div class="card-header align-items-center py-5 gap-2 gap-md-5">
       <div class="card-title">
         <h3 class="card-title align-items-start flex-column">
-          <span class="card-label fw-bold fs-3 mb-1">Pengunjung</span>
+          <span class="card-label fw-bold fs-3 mb-1">Atribut</span>
         </h3>
       </div>
       <div class="card-toolbar">
@@ -87,38 +87,47 @@
         </button>
         <div class="modal fade" tabindex="-1" id="add">
           <div class="modal-dialog">
-              <form method="POST" action="{{ route('admin.festival.festival.pengunjung.store', $event->id) }}" class="modal-content" enctype="multipart/form-data">
+              <form method="POST" action="{{ route('admin.festival.festival.atribut.store', $event->id) }}" class="modal-content" enctype="multipart/form-data">
                 @csrf
                   <div class="modal-header">
-                      <h3 class="modal-title">Tambah Pengunjung</h3>
+                      <h3 class="modal-title">Tambah Atribut</h3>
                       <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
                           <i class="ki-duotone ki-cross fs-1"><span class="path1"></span><span class="path2"></span></i>
                       </div>
                   </div>
                   <div class="modal-body">
                     <div class="mb-3">
-                      <label for="exampleFormControlInput1" class="required form-label">Tanggal</label>
-                      <input type="date" name="date" class="form-control form-control-solid @error('date') is-invalid @enderror"  value="{{ old('date') }}" required/>
-                      @error('date')
+                      <label for="exampleFormControlInput1" class="required form-label">Nama</label>
+                      <input type="text" name="name" class="form-control form-control-solid @error('name') is-invalid @enderror"  value="{{ old('name') }}" placeholder="Nama Atribut" required/>
+                      @error('name')
                         <div class="invalid-feedback">
                           {{ $message }}
                         </div>
                       @enderror
                     </div>
                     <div class="mb-3">
-                      <label for="exampleFormControlInput1" class="required form-label">Jumlah pengunjung</label>
-                      <input type="number" name="visitor" class="form-control form-control-solid @error('visitor') is-invalid @enderror"  value="{{ old('visitor') }}" placeholder="Jumlah Pengunjung" required/>
-                      @error('visitor')
+                      <label for="exampleFormControlInput1" class="required form-label">Deskripsi</label>
+                      <textarea name="description" class="form-control form-control-solid @error('description') is-invalid @enderror"  placeholder="Deskripsi" required>{{ old('description') }}</textarea>
+                      @error('description')
                         <div class="invalid-feedback">
                           {{ $message }}
                         </div>
                       @enderror
                     </div>
                     <div class="mb-3">
-                      <label for="exampleFormControlInput1" class="required form-label">Lampiran</label>
-                      <input type="file" accept=".png, .jpg, .jpeg" name="attachment" class="form-control form-control-solid @error('attachment') is-invalid @enderror"  value="{{ old('attachment') }}" required/>
+                      <label for="exampleFormControlInput1" class="required form-label">Nilai</label>
+                      <input type="text" name="value" class="form-control form-control-solid @error('value') is-invalid @enderror"  value="{{ old('value') }}" placeholder="Nama Atribut" required/>
+                      @error('value')
+                        <div class="invalid-feedback">
+                          {{ $message }}
+                        </div>
+                      @enderror
+                    </div>
+                    <div class="mb-3">
+                      <label for="exampleFormControlInput1" class="required form-label">Gambar</label>
+                      <input type="file" accept=".png, .jpg, .jpeg" name="image" class="form-control form-control-solid @error('image') is-invalid @enderror"  value="{{ old('image') }}" required/>
                       <small class="text-muted ms-2 pt-2">File yang diizinkan: *.png, *.jpg, *.jpeg. Maksimal 2mb</small>
-                      @error('attachment')
+                      @error('image')
                         <div class="invalid-feedback">
                           {{ $message }}
                         </div>
@@ -139,16 +148,15 @@
         <table class="table table-row-dashed fs-6 gy-5">
           <thead>
             <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
-              <th>Tanggal</th>
-              <th>Jumlah Pengunjung</th>
-              <th>Lampiran</th>
+              <th>Atribut</th>
+              <th class="text-end">Nilai</th>
               <th class="text-end">Aksi</th>
             </tr>
           </thead>
           <tbody>
             @if ($attribute->total() == 0)
               <tr class="max-w-10px">
-                <td colspan="6" class="text-center">
+                <td colspan="3" class="text-center">
                   No data available in table
                 </td>
               </tr>
@@ -157,18 +165,17 @@
                 <tr>
                   <td>
                     <div class="d-flex">
-                      <div class="fs-6 fw-bold">{{ $item->date }}</div>
+                      <a href="#" class="symbol symbol-50px">
+                        <span class="symbol-label" style="background-image:url('{{ Storage::url($item->image) }}');"></span>
+                      </a>
+                      <div class="ms-5">
+                        <span class="text-gray-800 text-hover-primary fs-5 fw-bold mb-1">{{ $item->name }}</span>
+                        <div class="text-muted fs-7 fw-bold">{{ $item->description }}</div>                    
+                      </div>
                     </div>
                   </td>
-                  <td>
-                    <div class="d-flex">
-                      <div class="fs-6 fw-bold">{{ $item->visitor }}</div>
-                    </div>
-                  </td>
-                  <td>
-                    <div class="d-flex">
-                      <a class="fs-6 fw-bold" href="{{ Storage::url($item->attachment) }}" target="_blank"><u>Lihat</u></a>
-                    </div>
+                  <td class="text-end">
+                      <div class="fs-6 fw-bold">{{ $item->value }}</div>
                   </td>
                   <td class="text-end">
                     <a href="#" class="btn btn-sm btn-light btn-active-light-primary btn-flex btn-center" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
@@ -236,7 +243,7 @@
 @foreach ($attribute as $item)     
   <div class="modal fade" tabindex="-1" id="edit{{ $item->id }}">
     <div class="modal-dialog">
-        <form method="POST" action="{{ route('admin.festival.festival.pengunjung.update', ['id' => $event->id, 'idVisitor' => $item->id]) }}" class="modal-content" enctype="multipart/form-data">
+        <form method="POST" action="{{ route('admin.festival.festival.atribut.update', ['id' => $event->id, 'idAttribute' => $item->id]) }}" class="modal-content" enctype="multipart/form-data">
           @csrf
             <div class="modal-header">
                 <h3 class="modal-title">Edit data pengunjung</h3>
@@ -246,28 +253,37 @@
             </div>
             <div class="modal-body">
               <div class="mb-3">
-                <label for="exampleFormControlInput1" class="required form-label">Tanggal</label>
-                <input type="date" name="date" class="form-control form-control-solid @error('date') is-invalid @enderror"  value="{{ old('date') ?? $item->date }}" required/>
-                @error('date')
+                <label for="exampleFormControlInput1" class="required form-label">Nama</label>
+                <input type="text" name="name" class="form-control form-control-solid @error('name') is-invalid @enderror"  value="{{ old('name') ?? $item->name }}" placeholder="Nama Atribut" required/>
+                @error('name')
                   <div class="invalid-feedback">
                     {{ $message }}
                   </div>
                 @enderror
               </div>
               <div class="mb-3">
-                <label for="exampleFormControlInput1" class="required form-label">Jumlah pengunjung</label>
-                <input type="number" name="visitor" class="form-control form-control-solid @error('visitor') is-invalid @enderror"  value="{{ old('visitor') ?? $item->visitor }}" placeholder="Jumlah Pengunjung" required/>
-                @error('visitor')
+                <label for="exampleFormControlInput1" class="required form-label">Deskripsi</label>
+                <textarea name="description" class="form-control form-control-solid @error('description') is-invalid @enderror"  placeholder="Deskripsi" required>{{ old('description') ?? $item->description }}</textarea>
+                @error('description')
                   <div class="invalid-feedback">
                     {{ $message }}
                   </div>
                 @enderror
               </div>
               <div class="mb-3">
-                <label for="exampleFormControlInput1" class="form-label">Lampiran</label>
-                <input type="file" accept=".png, .jpg, .jpeg" name="attachment" class="form-control form-control-solid @error('attachment') is-invalid @enderror"  value="{{ old('attachment') }}"/>
+                <label for="exampleFormControlInput1" class="required form-label">Nilai</label>
+                <input type="text" name="value" class="form-control form-control-solid @error('value') is-invalid @enderror"  value="{{ old('value') ?? $item->value }}" placeholder="Nama Atribut" required/>
+                @error('value')
+                  <div class="invalid-feedback">
+                    {{ $message }}
+                  </div>
+                @enderror
+              </div>
+              <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Gambar</label>
+                <input type="file" accept=".png, .jpg, .jpeg" name="image" class="form-control form-control-solid @error('image') is-invalid @enderror"  value="{{ old('image') }}"/>
                 <small class="text-muted ms-2 pt-2">File yang diizinkan: *.png, *.jpg, *.jpeg. Maksimal 2mb</small>
-                @error('attachment')
+                @error('image')
                   <div class="invalid-feedback">
                     {{ $message }}
                   </div>

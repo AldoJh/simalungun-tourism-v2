@@ -148,7 +148,7 @@
           <tbody>
             @if ($visitor->total() == 0)
               <tr class="max-w-10px">
-                <td colspan="6" class="text-center">
+                <td colspan="4" class="text-center">
                   No data available in table
                 </td>
               </tr>

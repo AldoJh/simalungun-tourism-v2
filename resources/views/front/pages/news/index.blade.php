@@ -116,7 +116,7 @@
       <div class="pagination justify-center">
 
         @if ($news->onFirstPage())
-          <button class="pagination__button button -accent-1 mr-15 -prev" disabled>
+          <button class="pagination__button button mr-15 -prev" disabled>
             <i class="icon-arrow-left text-15"></i>
           </button>
         @else
@@ -136,7 +136,7 @@
             <i class="icon-arrow-right text-15"></i>
           </a>
         @else
-          <button class="pagination__button button -accent-1 ml-15 -next" disabled>
+          <button class="pagination__button button ml-15 -next" disabled>
             <i class="icon-arrow-right text-15"></i>
           </button>
         @endif

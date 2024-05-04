@@ -105,6 +105,8 @@ Route::prefix('/menu')->middleware(['auth'])->group(function () {
         Route::post('/{id}/galeri', [AdminEventController::class, 'eventGalleryStore'])->name('admin.festival.festival.galeri.store');
         Route::get('/{id}/galeri/{idGallery}/destroy', [AdminEventController::class, 'eventGalleryDestroy'])->name('admin.festival.festival.galeri.destroy');
         Route::get('/{id}/atribut', [AdminEventController::class, 'eventAttribute'])->name('admin.festival.festival.atribut');
+        Route::post('/{id}/atribut', [AdminEventController::class, 'eventAttributeStore'])->name('admin.festival.festival.atribut.store');
+        Route::post('/{id}/atribut/{idAttribute}/update', [AdminEventController::class, 'eventAttributeUpdate'])->name('admin.festival.festival.atribut.update');
         Route::get('/{id}/admin', [AdminEventController::class, 'eventAdmin'])->name('admin.festival.festival.admin');
         Route::get('/pengunjung', [AdminEventController::class, 'visitor'])->name('admin.festival.pengunjung');
     });
