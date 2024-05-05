@@ -1,4 +1,45 @@
 @extends('front.app')
+
+@section('seo')
+  <meta
+  name="keywords"
+  content="wisata, simalungun, sumut, toba, sidamanik, tourism, destinasi, hotel, festival, restaurant, resto, berita"
+  />
+  <meta name="author" content="DISPAR Simalungun" />
+  <meta name="description" content="{!! \App\Models\Setting::webBase()->description !!}" />
+
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:url" content="{{ route('home') }}" />
+  <meta property="og:title" content="Simalungun | {{$title ?? ''}}" />
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="{{ asset('front-assets/meta/berita.png') }}" />
+  <meta
+    property="og:description"
+    content="{!! \App\Models\Setting::webBase()->description !!}"
+  />
+  <meta property="og:locale" content="id_ID" />
+
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Simalungun | {{$title ?? ''}}" />
+  <meta
+    name="twitter:description"
+    content="{!! \App\Models\Setting::webBase()->description !!}"
+  />
+  <meta name="twitter:image" content="{{ asset('front-assets/meta/berita.png') }}" />
+
+  <!-- Additional SEO Meta Tags -->
+  <meta name="distribution" content="global" />
+  <meta name="revisit-after" content="7 days" />
+  <meta name="rating" content="general" />
+  <meta name="language" content="Indonesian" />
+  <meta name="geo.region" content="ID" />
+  <meta name="geo.placename" content="Simalungun" />
+
+  <!-- Canonical Tag -->
+  <link rel="canonical" href="{{ route('home') }}" />
+@endsection
+
 @section('content')
 
 <section data-anim-wrap class="hero -type-7">

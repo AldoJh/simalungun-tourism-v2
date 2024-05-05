@@ -1,4 +1,45 @@
 @extends('front.app')
+
+@section('seo')
+  <meta
+  name="keywords"
+  content="wisata, simalungun, sumut, toba, sidamanik, tourism, destinasi, hotel, festival, restaurant, resto, berita"
+  />
+  <meta name="author" content="{{ $news->user->name }}" />
+  <meta name="description" content="{{ $news->description }}" />
+
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:url" content="{{ route('berita.show', $news->slug) }}" />
+  <meta property="og:title" content="{{$news->title ?? ''}}" />
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="{{url(Storage::url($news->image))}}" />
+  <meta
+    property="og:description"
+    content="{{ $news->description }}"
+  />
+  <meta property="og:locale" content="id_ID" />
+
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="{{$news->title}}" />
+  <meta
+    name="twitter:description"
+    content="{{ $news->description }}"
+  />
+  <meta name="twitter:image" content="{{url(Storage::url($news->image))}}" />
+
+  <!-- Additional SEO Meta Tags -->
+  <meta name="distribution" content="global" />
+  <meta name="revisit-after" content="7 days" />
+  <meta name="rating" content="general" />
+  <meta name="language" content="Indonesian" />
+  <meta name="geo.region" content="ID" />
+  <meta name="geo.placename" content="Simalungun" />
+
+  <!-- Canonical Tag -->
+  <link rel="canonical" href="{{ route('berita.show', $news->slug) }}" />
+@endsection
+
 @section('content')
 
 <div data-anim="fade" class="container">
