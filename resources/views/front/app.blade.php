@@ -102,8 +102,8 @@
               </a>
             </li>
             <li class="menuNav__item">
-              <a href="{{ route('restaurant') }}">
-                Resto
+              <a href="{{ route('restoran') }}">
+                Restoran
                 <i class="icon-chevron-right"></i>
               </a>
             </li>

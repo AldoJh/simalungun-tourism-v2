@@ -59,3 +59,9 @@ After ensuring the system requirements are met, follow these steps to set up the
     ```bash
    php artisan import:event
     ```
+
+9. Import data for the restaurant:
+
+    ```bash
+   php artisan import:restaurant
+    ```   

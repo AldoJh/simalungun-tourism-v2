@@ -164,7 +164,7 @@
           </div>
         </div>
 
-        <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+        <div data-kt-menu-trigger="click" class="menu-item menu-accordion @if ($title == 'Restoran') here show @endif">
           <span class="menu-link">
             <span class="menu-icon">
               <i class="ki-duotone ki-coffee fs-2">
@@ -176,16 +176,16 @@
                 <span class="path6"></span>
               </i>
             </span>
-            <span class="menu-title">Resto</span>
+            <span class="menu-title">Restoran</span>
             <span class="menu-arrow"></span>
           </span>
           <div class="menu-sub menu-sub-accordion menu-active-bg">
-            <div class="menu-item">
-              <a class="menu-link" href="#">
+            <div class="menu-item @if ($subTitle == 'Data Restoran') here @endif">
+              <a class="menu-link" href="{{ route('admin.restoran.restoran') }}">
                 <span class="menu-bullet">
                   <span class="bullet bullet-dot"></span>
                 </span>
-                <span class="menu-title">Data Resto</span>
+                <span class="menu-title">Data Restoran</span>
               </a>
             </div>
             <div class="menu-item">

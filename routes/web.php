@@ -15,13 +15,14 @@ use App\Http\Controllers\Web\Front\TourismController;
 use App\Http\Controllers\Web\Admin\MasterDataController;
 use App\Http\Controllers\Web\Front\RestaurantController;
 use App\Http\Controllers\Web\Admin\NewsController as AdminNewsController;
+use App\Http\Controllers\Web\Admin\RestaurantController as AdminRestaurantController;
 use App\Http\Controllers\Web\Admin\UserController;
 
 Route::get('/', [MainController::class, 'index'])->name('home');
 Route::get('/hotel', [HotelController::class, 'index'])->name('hotel');
 Route::get('/hotel/{slug}', [HotelController::class, 'show'])->name('hotel.show');
-Route::get('/restaurant', [RestaurantController::class, 'index'])->name('restaurant');
-Route::get('/restaurant/{slug}', [RestaurantController::class, 'show'])->name('restaurant.show');
+Route::get('/restoran', [RestaurantController::class, 'index'])->name('restoran');
+Route::get('/restoran/{slug}', [RestaurantController::class, 'show'])->name('restoran.show');
 Route::get('/wisata', [TourismController::class, 'index'])->name('wisata');
 Route::get('/wisata/{slug}', [TourismController::class, 'show'])->name('wisata.show');
 Route::get('/berita', [NewsController::class, 'index'])->name('berita');
@@ -109,6 +110,17 @@ Route::prefix('/menu')->middleware(['auth'])->group(function () {
         Route::post('/{id}/atribut/{idAttribute}/update', [AdminEventController::class, 'eventAttributeUpdate'])->name('admin.festival.festival.atribut.update');
         Route::get('/{id}/admin', [AdminEventController::class, 'eventAdmin'])->name('admin.festival.festival.admin');
         Route::get('/pengunjung', [AdminEventController::class, 'visitor'])->name('admin.festival.pengunjung');
+    });
+
+    Route::prefix('/restoran')->group(function () {
+        Route::get('/', [AdminRestaurantController::class, 'restaurant'])->name('admin.restoran.restoran');
+        Route::get('/add', [AdminRestaurantController::class, 'restaurantAdd'])->name('admin.restoran.restoran.add');
+        Route::post('/add', [AdminRestaurantController::class, 'restaurantStore'])->name('admin.restoran.restoran.store');
+        Route::get('/{id}/edit', [AdminRestaurantController::class, 'restaurantEdit'])->name('admin.restoran.restoran.edit');
+        Route::post('/{id}/edit', [AdminRestaurantController::class, 'restaurantUpdate'])->name('admin.restoran.restoran.update');
+        Route::get('/{id}/destroy', [AdminRestaurantController::class, 'restaurantDestroy'])->name('admin.restoran.restoran.destroy');
+        Route::get('/{id}/pengunjung', [AdminRestaurantController::class, 'restaurantVisitor'])->name('admin.restoran.restoran.pengunjung');
+
     });
     
     Route::prefix('/pengaturan')->group(function () {
