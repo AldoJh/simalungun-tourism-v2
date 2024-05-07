@@ -184,9 +184,9 @@
           </div>
           <div class="d-flex flex-stack flex-wrap my-3">
             <div class="fs-6 fw-semibold text-gray-700">
-              Showing {{ $user->firstItem() }} to {{ $user->lastItem() }} of {{ $user->total() }}  records
+                Showing {{ $user->firstItem() }} to {{ $user->lastItem() }} of {{ $user->total() }}  records
             </div>
-              <ul class="pagination">
+            <ul class="pagination">
                 @if ($user->onFirstPage())
                     <li class="page-item previous">
                         <a href="#" class="page-link"><i class="previous"></i></a>
@@ -196,13 +196,33 @@
                         <a href="{{ $user->previousPageUrl() }}" class="page-link bg-light"><i class="previous"></i></a>
                     </li>
                 @endif
-    
-                @foreach ($user->getUrlRange(1, $user->lastPage()) as $page => $url)
+        
+                @php
+                    // Menghitung halaman pertama dan terakhir yang akan ditampilkan
+                    $start = max($user->currentPage() - 2, 1);
+                    $end = min($start + 4, $user->lastPage());
+                @endphp
+        
+                @if ($start > 1)
+                    <!-- Menampilkan tanda elipsis jika halaman pertama tidak termasuk dalam tampilan -->
+                    <li class="page-item disabled">
+                        <span class="page-link">...</span>
+                    </li>
+                @endif
+        
+                @foreach ($user->getUrlRange($start, $end) as $page => $url)
                     <li class="page-item{{ ($page == $user->currentPage()) ? ' active' : '' }}">
                         <a class="page-link" href="{{ $url }}">{{ $page }}</a>
                     </li>
                 @endforeach
-    
+        
+                @if ($end < $user->lastPage())
+                    <!-- Menampilkan tanda elipsis jika halaman terakhir tidak termasuk dalam tampilan -->
+                    <li class="page-item disabled">
+                        <span class="page-link">...</span>
+                    </li>
+                @endif
+        
                 @if ($user->hasMorePages())
                     <li class="page-item next">
                         <a href="{{ $user->nextPageUrl() }}" class="page-link bg-light"><i class="next"></i></a>
@@ -212,7 +232,7 @@
                         <a href="#" class="page-link"><i class="next"></i></a>
                     </li>
                 @endif
-              </ul>
+            </ul>
           </div>
         </div>
       </div>

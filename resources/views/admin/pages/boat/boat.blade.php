@@ -159,9 +159,9 @@
           </div>
           <div class="d-flex flex-stack flex-wrap my-3">
             <div class="fs-6 fw-semibold text-gray-700">
-              Showing {{ $boats->firstItem() }} to {{ $boats->lastItem() }} of {{ $boats->total() }}  records
+                Showing {{ $boats->firstItem() }} to {{ $boats->lastItem() }} of {{ $boats->total() }}  records
             </div>
-              <ul class="pagination">
+            <ul class="pagination">
                 @if ($boats->onFirstPage())
                     <li class="page-item previous">
                         <a href="#" class="page-link"><i class="previous"></i></a>
@@ -171,13 +171,33 @@
                         <a href="{{ $boats->previousPageUrl() }}" class="page-link bg-light"><i class="previous"></i></a>
                     </li>
                 @endif
-    
-                @foreach ($boats->getUrlRange(1, $boats->lastPage()) as $page => $url)
+        
+                @php
+                    // Menghitung halaman pertama dan terakhir yang akan ditampilkan
+                    $start = max($boats->currentPage() - 2, 1);
+                    $end = min($start + 4, $boats->lastPage());
+                @endphp
+        
+                @if ($start > 1)
+                    <!-- Menampilkan tanda elipsis jika halaman pertama tidak termasuk dalam tampilan -->
+                    <li class="page-item disabled">
+                        <span class="page-link">...</span>
+                    </li>
+                @endif
+        
+                @foreach ($boats->getUrlRange($start, $end) as $page => $url)
                     <li class="page-item{{ ($page == $boats->currentPage()) ? ' active' : '' }}">
                         <a class="page-link" href="{{ $url }}">{{ $page }}</a>
                     </li>
                 @endforeach
-    
+        
+                @if ($end < $boats->lastPage())
+                    <!-- Menampilkan tanda elipsis jika halaman terakhir tidak termasuk dalam tampilan -->
+                    <li class="page-item disabled">
+                        <span class="page-link">...</span>
+                    </li>
+                @endif
+        
                 @if ($boats->hasMorePages())
                     <li class="page-item next">
                         <a href="{{ $boats->nextPageUrl() }}" class="page-link bg-light"><i class="next"></i></a>
@@ -187,7 +207,7 @@
                         <a href="#" class="page-link"><i class="next"></i></a>
                     </li>
                 @endif
-              </ul>
+            </ul>
           </div>
         </div>
       </div>

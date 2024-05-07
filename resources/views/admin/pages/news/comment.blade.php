@@ -77,9 +77,9 @@
           </div>
           <div class="d-flex flex-stack flex-wrap my-3">
             <div class="fs-6 fw-semibold text-gray-700">
-              Showing {{ $comment->firstItem() }} to {{ $comment->lastItem() }} of {{ $comment->total() }}  records
+                Showing {{ $comment->firstItem() }} to {{ $comment->lastItem() }} of {{ $comment->total() }}  records
             </div>
-              <ul class="pagination">
+            <ul class="pagination">
                 @if ($comment->onFirstPage())
                     <li class="page-item previous">
                         <a href="#" class="page-link"><i class="previous"></i></a>
@@ -89,13 +89,33 @@
                         <a href="{{ $comment->previousPageUrl() }}" class="page-link bg-light"><i class="previous"></i></a>
                     </li>
                 @endif
-    
-                @foreach ($comment->getUrlRange(1, $comment->lastPage()) as $page => $url)
+        
+                @php
+                    // Menghitung halaman pertama dan terakhir yang akan ditampilkan
+                    $start = max($comment->currentPage() - 2, 1);
+                    $end = min($start + 4, $comment->lastPage());
+                @endphp
+        
+                @if ($start > 1)
+                    <!-- Menampilkan tanda elipsis jika halaman pertama tidak termasuk dalam tampilan -->
+                    <li class="page-item disabled">
+                        <span class="page-link">...</span>
+                    </li>
+                @endif
+        
+                @foreach ($comment->getUrlRange($start, $end) as $page => $url)
                     <li class="page-item{{ ($page == $comment->currentPage()) ? ' active' : '' }}">
                         <a class="page-link" href="{{ $url }}">{{ $page }}</a>
                     </li>
                 @endforeach
-    
+        
+                @if ($end < $comment->lastPage())
+                    <!-- Menampilkan tanda elipsis jika halaman terakhir tidak termasuk dalam tampilan -->
+                    <li class="page-item disabled">
+                        <span class="page-link">...</span>
+                    </li>
+                @endif
+        
                 @if ($comment->hasMorePages())
                     <li class="page-item next">
                         <a href="{{ $comment->nextPageUrl() }}" class="page-link bg-light"><i class="next"></i></a>
@@ -105,7 +125,7 @@
                         <a href="#" class="page-link"><i class="next"></i></a>
                     </li>
                 @endif
-              </ul>
+            </ul>
           </div>
         </div>
       </div>

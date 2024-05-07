@@ -94,9 +94,9 @@
           </div>
           <div class="d-flex flex-stack flex-wrap my-3">
             <div class="fs-6 fw-semibold text-gray-700">
-              Showing {{ $feedback->firstItem() }} to {{ $feedback->lastItem() }} of {{ $feedback->total() }}  records
+                Showing {{ $feedback->firstItem() }} to {{ $feedback->lastItem() }} of {{ $feedback->total() }}  records
             </div>
-              <ul class="pagination">
+            <ul class="pagination">
                 @if ($feedback->onFirstPage())
                     <li class="page-item previous">
                         <a href="#" class="page-link"><i class="previous"></i></a>
@@ -106,13 +106,33 @@
                         <a href="{{ $feedback->previousPageUrl() }}" class="page-link bg-light"><i class="previous"></i></a>
                     </li>
                 @endif
-    
-                @foreach ($feedback->getUrlRange(1, $feedback->lastPage()) as $page => $url)
+        
+                @php
+                    // Menghitung halaman pertama dan terakhir yang akan ditampilkan
+                    $start = max($feedback->currentPage() - 2, 1);
+                    $end = min($start + 4, $feedback->lastPage());
+                @endphp
+        
+                @if ($start > 1)
+                    <!-- Menampilkan tanda elipsis jika halaman pertama tidak termasuk dalam tampilan -->
+                    <li class="page-item disabled">
+                        <span class="page-link">...</span>
+                    </li>
+                @endif
+        
+                @foreach ($feedback->getUrlRange($start, $end) as $page => $url)
                     <li class="page-item{{ ($page == $feedback->currentPage()) ? ' active' : '' }}">
                         <a class="page-link" href="{{ $url }}">{{ $page }}</a>
                     </li>
                 @endforeach
-    
+        
+                @if ($end < $feedback->lastPage())
+                    <!-- Menampilkan tanda elipsis jika halaman terakhir tidak termasuk dalam tampilan -->
+                    <li class="page-item disabled">
+                        <span class="page-link">...</span>
+                    </li>
+                @endif
+        
                 @if ($feedback->hasMorePages())
                     <li class="page-item next">
                         <a href="{{ $feedback->nextPageUrl() }}" class="page-link bg-light"><i class="next"></i></a>
@@ -122,7 +142,7 @@
                         <a href="#" class="page-link"><i class="next"></i></a>
                     </li>
                 @endif
-              </ul>
+            </ul>
           </div>
         </div>
       </div>

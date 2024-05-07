@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\RestaurantMenu;
 use App\Models\RestaurantAdmin;
 use App\Models\RestaurantImage;
+use App\Models\RestaurantReview;
 use App\Models\RestaurantViewer;
 use App\Models\RestaurantVisitor;
 use Illuminate\Database\Eloquent\Model;
@@ -51,6 +52,11 @@ class Restaurant extends Model
     public function restaurantImage()
     {
         return $this->hasMany(RestaurantImage::class);
+    }
+
+    public function restaurantReview()
+    {
+        return $this->hasMany(RestaurantReview::class);
     }
 
     public function restaurantViewer()

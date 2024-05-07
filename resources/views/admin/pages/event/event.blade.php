@@ -100,7 +100,16 @@
                         </a>
                         <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4" data-kt-menu="true">
                           <div class="menu-item px-3">
-                            <a href="{{ route('admin.festival.festival.pengunjung', $item->id) }}" class="menu-link px-3">Detail</a>
+                            <a href="{{ route('admin.festival.festival.pengunjung', $item->id) }}" class="menu-link px-3">Pengunjung</a>
+                          </div>
+                          <div class="menu-item px-3">
+                            <a href="{{ route('admin.festival.festival.galeri', $item->id) }}" class="menu-link px-3">Galeri</a>
+                          </div>
+                          <div class="menu-item px-3">
+                            <a href="{{ route('admin.festival.festival.atribut', $item->id) }}" class="menu-link px-3">Atribut</a>
+                          </div>
+                          <div class="menu-item px-3">
+                            <a href="{{ route('admin.festival.festival.admin', $item->id) }}" class="menu-link px-3">Admin</a>
                           </div>
                           <div class="menu-item px-3">
                             <a href="{{ route('admin.festival.festival.edit', $item->id) }}" class="menu-link px-3">Edit</a>
@@ -118,9 +127,9 @@
           </div>
           <div class="d-flex flex-stack flex-wrap my-3">
             <div class="fs-6 fw-semibold text-gray-700">
-              Showing {{ $event->firstItem() }} to {{ $event->lastItem() }} of {{ $event->total() }}  records
+                Showing {{ $event->firstItem() }} to {{ $event->lastItem() }} of {{ $event->total() }}  records
             </div>
-              <ul class="pagination">
+            <ul class="pagination">
                 @if ($event->onFirstPage())
                     <li class="page-item previous">
                         <a href="#" class="page-link"><i class="previous"></i></a>
@@ -130,13 +139,33 @@
                         <a href="{{ $event->previousPageUrl() }}" class="page-link bg-light"><i class="previous"></i></a>
                     </li>
                 @endif
-    
-                @foreach ($event->getUrlRange(1, $event->lastPage()) as $page => $url)
+        
+                @php
+                    // Menghitung halaman pertama dan terakhir yang akan ditampilkan
+                    $start = max($event->currentPage() - 2, 1);
+                    $end = min($start + 4, $event->lastPage());
+                @endphp
+        
+                @if ($start > 1)
+                    <!-- Menampilkan tanda elipsis jika halaman pertama tidak termasuk dalam tampilan -->
+                    <li class="page-item disabled">
+                        <span class="page-link">...</span>
+                    </li>
+                @endif
+        
+                @foreach ($event->getUrlRange($start, $end) as $page => $url)
                     <li class="page-item{{ ($page == $event->currentPage()) ? ' active' : '' }}">
                         <a class="page-link" href="{{ $url }}">{{ $page }}</a>
                     </li>
                 @endforeach
-    
+        
+                @if ($end < $event->lastPage())
+                    <!-- Menampilkan tanda elipsis jika halaman terakhir tidak termasuk dalam tampilan -->
+                    <li class="page-item disabled">
+                        <span class="page-link">...</span>
+                    </li>
+                @endif
+        
                 @if ($event->hasMorePages())
                     <li class="page-item next">
                         <a href="{{ $event->nextPageUrl() }}" class="page-link bg-light"><i class="next"></i></a>
@@ -146,7 +175,7 @@
                         <a href="#" class="page-link"><i class="next"></i></a>
                     </li>
                 @endif
-              </ul>
+            </ul>
           </div>
         </div>
       </div>

@@ -199,9 +199,9 @@
       </div>
       <div class="d-flex flex-stack flex-wrap my-3">
         <div class="fs-6 fw-semibold text-gray-700">
-          Showing {{ $visitor->firstItem() }} to {{ $visitor->lastItem() }} of {{ $visitor->total() }}  records
+            Showing {{ $visitor->firstItem() }} to {{ $visitor->lastItem() }} of {{ $visitor->total() }}  records
         </div>
-          <ul class="pagination">
+        <ul class="pagination">
             @if ($visitor->onFirstPage())
                 <li class="page-item previous">
                     <a href="#" class="page-link"><i class="previous"></i></a>
@@ -211,13 +211,33 @@
                     <a href="{{ $visitor->previousPageUrl() }}" class="page-link bg-light"><i class="previous"></i></a>
                 </li>
             @endif
-
-            @foreach ($visitor->getUrlRange(1, $visitor->lastPage()) as $page => $url)
+    
+            @php
+                // Menghitung halaman pertama dan terakhir yang akan ditampilkan
+                $start = max($visitor->currentPage() - 2, 1);
+                $end = min($start + 4, $visitor->lastPage());
+            @endphp
+    
+            @if ($start > 1)
+                <!-- Menampilkan tanda elipsis jika halaman pertama tidak termasuk dalam tampilan -->
+                <li class="page-item disabled">
+                    <span class="page-link">...</span>
+                </li>
+            @endif
+    
+            @foreach ($visitor->getUrlRange($start, $end) as $page => $url)
                 <li class="page-item{{ ($page == $visitor->currentPage()) ? ' active' : '' }}">
                     <a class="page-link" href="{{ $url }}">{{ $page }}</a>
                 </li>
             @endforeach
-
+    
+            @if ($end < $visitor->lastPage())
+                <!-- Menampilkan tanda elipsis jika halaman terakhir tidak termasuk dalam tampilan -->
+                <li class="page-item disabled">
+                    <span class="page-link">...</span>
+                </li>
+            @endif
+    
             @if ($visitor->hasMorePages())
                 <li class="page-item next">
                     <a href="{{ $visitor->nextPageUrl() }}" class="page-link bg-light"><i class="next"></i></a>
@@ -227,7 +247,7 @@
                     <a href="#" class="page-link"><i class="next"></i></a>
                 </li>
             @endif
-          </ul>
+        </ul>
       </div>
     </div>
   </div>
