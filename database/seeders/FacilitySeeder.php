@@ -64,7 +64,7 @@ class FacilitySeeder extends Seeder
         ]);
 
         Facility::create([
-            'id'    => 21,
+            'id'    => 11,
             'name' => 'Aula / Meeting Room',
         ]);
 

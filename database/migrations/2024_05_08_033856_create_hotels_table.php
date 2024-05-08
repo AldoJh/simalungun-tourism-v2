@@ -28,8 +28,8 @@ return new class extends Migration
             $table->bigInteger('district_id')->unsigned()->nullable();
             $table->bigInteger('village_id')->unsigned()->nullable();      
             $table->string('owner');
-            $table->string('min_price');
-            $table->string('max_price'); 
+            $table->integer('min_price');
+            $table->integer('max_price'); 
             $table->boolean('is_verified')->default(false);     
             $table->timestamps();
 

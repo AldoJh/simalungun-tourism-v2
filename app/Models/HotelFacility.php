@@ -17,7 +17,7 @@ class HotelFacility extends Model
 
     protected $fillable = [
         'hotel_id',
-        'user_id',
+        'facility_id',
     ];
 
     public function hotel(): BelongsTo
