@@ -21,6 +21,8 @@ use App\Http\Controllers\Web\Admin\UserController;
 Route::get('/', [MainController::class, 'index'])->name('home');
 Route::get('/hotel', [HotelController::class, 'index'])->name('hotel');
 Route::get('/hotel/{slug}', [HotelController::class, 'show'])->name('hotel.show');
+Route::get('/hotel/{slug}', [HotelController::class, 'show'])->name('hotel.show');
+Route::post('/hotel/{id}/review', [HotelController::class, 'store'])->name('hotel.review');
 Route::get('/restoran', [RestaurantController::class, 'index'])->name('restoran');
 Route::get('/restoran/{slug}', [RestaurantController::class, 'show'])->name('restoran.show');
 Route::post('/restoran/{id}/review', [RestaurantController::class, 'store'])->name('restoran.review');

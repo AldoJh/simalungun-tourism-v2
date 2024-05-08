@@ -10,6 +10,7 @@ use App\Models\HotelVisitor;
 use App\Models\HotelFacility;
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Hotel extends Model
@@ -49,6 +50,10 @@ class Hotel extends Model
         ];
     }
 
+    public function hotelCategory(): BelongsTo
+    {
+        return $this->belongsTo(HotelCategory::class, 'category_id', 'id');
+    }
 
     public function hotelImage()
     {

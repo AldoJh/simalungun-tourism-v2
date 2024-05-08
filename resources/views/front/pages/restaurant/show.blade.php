@@ -233,7 +233,7 @@
 
         @if ($review->isEmpty())
         <div class="text-center">
-          <span class="text-center">~ Belum ada komentar ~</span>
+          <span class="text-center">~ Belum ada review ~</span>
         </div>
         @else
           @foreach ($review as $item)
