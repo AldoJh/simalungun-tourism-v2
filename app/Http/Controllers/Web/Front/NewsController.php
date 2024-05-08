@@ -28,10 +28,10 @@ class NewsController extends Controller
     public function show($slug){
         $news =  News::where('slug', $slug)->first();
 
-        $comment = New NewsViewer();
-        $comment->news_id = $news->id;
-        $comment->user_id = Auth::user()->id ?? null;
-        $comment->save();
+        $viewer = New NewsViewer();
+        $viewer->news_id = $news->id;
+        $viewer->user_id = Auth::user()->id ?? null;
+        $viewer->save();
 
         $data = [
             'title' => 'Berita',

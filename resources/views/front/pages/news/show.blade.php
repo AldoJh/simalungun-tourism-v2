@@ -90,10 +90,6 @@
         </div>
         <div class="col-auto">
           <div class="d-flex x-gap-30 y-gap-10">
-            {{-- <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal" class="d-flex">
-              <i class="icon-share flex-center text-16 mr-10"></i>
-              Share
-            </a> --}}
             <div class="dropdown -base -price js-dropdown js-form-dd" data-main-value="">
               <div class="d-flex align-content-center h-50 min-w-auto js-button -outline-dark-1">
                 <i class="icon-share text-16 mt-5 mr-10"></i>
@@ -160,7 +156,7 @@
                   </div>
                 </div>
                 <div class="col-auto">
-                  <div class="text-14 text-light-2"> {{ $item->created_at }}</div>
+                  <div class="text-14 text-light-2">{{ Carbon\Carbon::parse($item->created_at)->translatedFormat('j F Y') }}</div>
                 </div>
               </div>
               <p class="mt-10">{{ $item->content }}</p>
@@ -195,7 +191,7 @@
         @else
         <div class="row mt-10">
           <div class="col-12">
-            <a href="{{ route('login') }}" class="text-accent-1">
+            <a href="{{ route('login') }}?route={{ route('berita.show', $news->slug) }}" class="text-accent-1">
               <u>Masuk Dulu
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-in-right" viewBox="0 0 16 16">
                   <path fill-rule="evenodd" d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0z"/>

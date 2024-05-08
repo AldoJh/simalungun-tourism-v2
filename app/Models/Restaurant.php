@@ -8,6 +8,7 @@ use App\Models\RestaurantImage;
 use App\Models\RestaurantReview;
 use App\Models\RestaurantViewer;
 use App\Models\RestaurantVisitor;
+use App\Models\RestaurantFacility;
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -77,5 +78,10 @@ class Restaurant extends Model
     public function restaurantAdmin()
     {
         return $this->hasMany(RestaurantAdmin::class);
+    }
+
+    public function restaurantFacility()
+    {
+        return $this->hasMany(RestaurantFacility::class);
     }
 }

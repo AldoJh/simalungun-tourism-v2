@@ -35,7 +35,15 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
             if ($user->is_active) {
-                return redirect()->route('dashboard');
+                if($user->role == 'user'){
+                    if($request->route){
+                        return redirect($request->route);
+                    }else{
+                        return redirect()->route('home');
+                    }
+                }else{
+                    return redirect()->route('dashboard');
+                }
             } else{
                 Auth::logout();
                 return redirect()->route('login')->with('warning', 'Your account has been deactivated');

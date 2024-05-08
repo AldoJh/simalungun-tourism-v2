@@ -9,7 +9,7 @@
           <h1 class="text-30">Masuk</h1>
           <div class="text-18 fw-500 mt-20 md:mt-15">Masukan email dan password anda untuk masuk</div>
         </div>
-        <form method="POST" action="{{ route('login.submit') }}" class="contactForm border-1 rounded-12 px-60 py-60 md:px-25 md:py-30">
+        <form method="POST" action="{{ route('login.submit') }}?route={{ request('route') }}" class="contactForm border-1 rounded-12 px-60 py-60 md:px-25 md:py-30">
           @csrf
           @if (session()->has('warning'))
           <div class="alert alert-dismissible bg-accent-1-05 d-flex align-items-center flex-column flex-sm-row p-4 rounded mb-4">

@@ -155,33 +155,48 @@
 
     <div class="d-flex justify-center flex-column mt-60">
       <div class="pagination justify-center">
-
-        @if ($news->onFirstPage())
-          <button class="pagination__button button mr-15 -prev" disabled>
-            <i class="icon-arrow-left text-15"></i>
-          </button>
-        @else
-          <a href="{{ $news->previousPageUrl() }}" class="pagination__button button -accent-1 mr-15 -prev">
-            <i class="icon-arrow-left text-15"></i>
-          </a>
-        @endif
-
-        <div class="pagination__count">
-          @foreach ($news->getUrlRange(1, $news->lastPage()) as $page => $url)
-          <a href="{{ $url }}" class="{{ ($page == $news->currentPage()) ? ' is-active' : '' }}">{{ $page }}</a>
-          @endforeach
-        </div>
-
-        @if ($news->hasMorePages())
-          <a href="{{ $news->nextPageUrl() }}" class="pagination__button button -accent-1 ml-15 -next">
-            <i class="icon-arrow-right text-15"></i>
-          </a>
-        @else
-          <button class="pagination__button button ml-15 -next" disabled>
-            <i class="icon-arrow-right text-15"></i>
-          </button>
-        @endif
-
+  
+          @if ($news->onFirstPage())
+              <button class="pagination__button button mr-15 -prev" disabled>
+                  <i class="icon-arrow-left text-15"></i>
+              </button>
+          @else
+              <a href="{{ $news->previousPageUrl() }}" class="pagination__button button -accent-1 mr-15 -prev">
+                  <i class="icon-arrow-left text-15"></i>
+              </a>
+          @endif
+  
+          <div class="pagination__count">
+              @php
+                  $start = max($news->currentPage() - 2, 1);
+                  $end = min($start + 2, $news->lastPage());
+              @endphp
+  
+              @if ($start > 1)
+                  <a href="{{ $news->url(1) }}" class="{{ ($news->currentPage() == 1) ? ' is-active' : '' }}">1</a>
+                  <span>...</span>
+              @endif
+  
+              @foreach ($news->getUrlRange($start, $end) as $page => $url)
+                  <a href="{{ $url }}" class="{{ ($page == $news->currentPage()) ? ' is-active' : '' }}">{{ $page }}</a>
+              @endforeach
+  
+              @if ($end < $news->lastPage())
+                  <span>...</span>
+                  <a href="{{ $news->url($news->lastPage()) }}" class="{{ ($news->currentPage() == $news->lastPage()) ? ' is-active' : '' }}">{{ $news->lastPage() }}</a>
+              @endif
+          </div>
+  
+          @if ($news->hasMorePages())
+              <a href="{{ $news->nextPageUrl() }}" class="pagination__button button -accent-1 ml-15 -next">
+                  <i class="icon-arrow-right text-15"></i>
+              </a>
+          @else
+              <button class="pagination__button button ml-15 -next" disabled>
+                  <i class="icon-arrow-right text-15"></i>
+              </button>
+          @endif
+  
       </div>
       <div class="text-14 text-center mt-20">Showing results {{ $news->firstItem() }}-{{ $news->lastItem() }} of {{ $news->total() }}</div>
     </div>

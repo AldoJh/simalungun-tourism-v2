@@ -239,9 +239,14 @@
 
   </main>
 
+
   <!-- JavaScript -->
   <script src="{{ asset('front-assets/js/vendors.js') }}"></script>
   <script src="{{ asset('front-assets/js/main.js') }}"></script>
+
+  <!--begin::Vendors Javascript(used for this page only)-->
+  @yield('script')
+
 </body>
 
 </html>

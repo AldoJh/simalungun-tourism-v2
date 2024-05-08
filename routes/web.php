@@ -23,6 +23,7 @@ Route::get('/hotel', [HotelController::class, 'index'])->name('hotel');
 Route::get('/hotel/{slug}', [HotelController::class, 'show'])->name('hotel.show');
 Route::get('/restoran', [RestaurantController::class, 'index'])->name('restoran');
 Route::get('/restoran/{slug}', [RestaurantController::class, 'show'])->name('restoran.show');
+Route::post('/restoran/{id}/review', [RestaurantController::class, 'store'])->name('restoran.review');
 Route::get('/wisata', [TourismController::class, 'index'])->name('wisata');
 Route::get('/wisata/{slug}', [TourismController::class, 'show'])->name('wisata.show');
 Route::get('/berita', [NewsController::class, 'index'])->name('berita');
