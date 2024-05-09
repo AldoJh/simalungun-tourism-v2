@@ -28,6 +28,7 @@ Route::get('/restoran/{slug}', [RestaurantController::class, 'show'])->name('res
 Route::post('/restoran/{id}/review', [RestaurantController::class, 'store'])->name('restoran.review');
 Route::get('/wisata', [TourismController::class, 'index'])->name('wisata');
 Route::get('/wisata/{slug}', [TourismController::class, 'show'])->name('wisata.show');
+Route::post('/wisata/{id}/review', [TourismController::class, 'store'])->name('wisata.review');
 Route::get('/berita', [NewsController::class, 'index'])->name('berita');
 Route::get('/berita/{slug}', [NewsController::class, 'show'])->name('berita.show');
 Route::post('/berita/{id}/comment', [NewsController::class, 'store'])->name('berita.comment');  

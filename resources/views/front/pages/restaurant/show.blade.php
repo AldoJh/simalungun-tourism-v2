@@ -128,7 +128,11 @@
 
             @foreach ($restaurant->restaurantImage as $item)
               <div class="swiper-slide">
-                <img src="{{ Storage::url($item->image) }}" alt="image" class="img-cover rounded-12">
+                @if(Storage::disk('public')->exists($item->image))
+                  <img src="{{ Storage::url($item->image) }}" alt="image" class="img-cover rounded-12">
+                @else
+                  <img src="{{ asset('front-assets/no-image.png') }}" alt="default image" class="img-cover rounded-12">
+                @endif
               </div>
             @endforeach
 

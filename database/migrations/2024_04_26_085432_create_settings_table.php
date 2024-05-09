@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('site_name');
             $table->string('description');
+            $table->string('playstore');
             $table->string('email');
             $table->string('whatsapp');
             $table->string('instagram');

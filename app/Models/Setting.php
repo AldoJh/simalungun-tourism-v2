@@ -15,6 +15,7 @@ class Setting extends Model
     protected $fillable = [
         'site_name',
         'description',
+        'playstore',
         'email',
         'whatsapp',
         'instagram',

@@ -1,4 +1,45 @@
 @extends('front.app')
+
+@section('seo')
+  <meta
+  name="keywords"
+  content="wisata, simalungun, sumut, toba, sidamanik, tourism, destinasi, hotel, festival, restaurant, resto, berita"
+  />
+  <meta name="author" content="DISPAR Simalungun" />
+  <meta name="description" content="{!! \App\Models\Setting::webBase()->description !!}" />
+
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:url" content="{{ route('hotel') }}" />
+  <meta property="og:title" content="Simalungun | {{$title ?? ''}}" />
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="{{ asset('front-assets/meta/hotel.png') }}" />
+  <meta
+    property="og:description"
+    content="{!! \App\Models\Setting::webBase()->description !!}"
+  />
+  <meta property="og:locale" content="id_ID" />
+
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Simalungun | {{$title ?? ''}}" />
+  <meta
+    name="twitter:description"
+    content="{!! \App\Models\Setting::webBase()->description !!}"
+  />
+  <meta name="twitter:image" content="{{ asset('front-assets/meta/hotel.png') }}" />
+
+  <!-- Additional SEO Meta Tags -->
+  <meta name="distribution" content="global" />
+  <meta name="revisit-after" content="7 days" />
+  <meta name="rating" content="general" />
+  <meta name="language" content="Indonesian" />
+  <meta name="geo.region" content="ID" />
+  <meta name="geo.placename" content="Simalungun" />
+
+  <!-- Canonical Tag -->
+  <link rel="canonical" href="{{ route('hotel') }}" />
+@endsection
+
 @section('content')
 
 <section data-anim="fade" class="pageHeader -type-3">
@@ -32,7 +73,7 @@
             <span class="js-title">Filter</span>
           </div>
 
-          <form  method="GET" {{ route('hotel') }} class="dropdown__menu px-30 py-30 shadow-1 border-1 js-">
+          <form  method="GET" action="{{ route('hotel') }}" class="dropdown__menu px-30 py-30 shadow-1 border-1 js-">
             <h5 class="text-18 fw-500">Cari Hotel</h5>
             <input type="hidden" name="page" value="{{ request('page', 1) }}">
             <div class="pt-20">
@@ -64,8 +105,14 @@
           <a href="{{ route('hotel.show', $item->slug) }}" class="tourCard -type-1 -rounded bg-white shadow-1 overflow-hidden rounded-20 bg-white -hover-shadow">
             <div class="tourCard__header">
               <div class="tourCard__image ratio ratio-28:20">
-                <img src="{{ Storage::url($item->image) }}" alt="image" class="img-ratio">
-                <div class="tourCard__shape"></div>
+                @if(Storage::disk('public')->exists($item->image))
+                      {{-- Tampilkan gambar aslinya --}}
+                      <img src="{{ Storage::url($item->image) }}" alt="image" class="img-ratio">
+                @else
+                      {{-- Tampilkan gambar default --}}
+                      <img src="{{ asset('front-assets/no-image.png') }}" alt="default image" class="img-ratio">
+                @endif
+              <div class="tourCard__shape"></div>
               </div>
             </div>
             <div class="tourCard__content px-20 pb-10 shadow">
