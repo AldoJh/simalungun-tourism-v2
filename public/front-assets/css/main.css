@@ -5712,6 +5712,22 @@ h1, h2, h3, h4, h5, h6 {
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: var(--color-accent-1);
+  color: white;
+  padding-left: 10px;
+  padding-right: 10px;
+  box-shadow: 0px 10px 40px 0px rgba(0, 0, 0, 0.05);
+  z-index: 1;
+  transition: .15s;
+}
+
+.tourCard.-type-1 .tourCard__favorite-1 {
+  position: absolute;
+  bottom: -17px;
+  right: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 35px;
   height: 35px;
   border-radius: 100%;
@@ -5719,11 +5735,6 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: 0px 10px 40px 0px rgba(0, 0, 0, 0.05);
   z-index: 1;
   transition: .15s;
-}
-
-.tourCard.-type-1 .tourCard__favorite:hover {
-  color: white;
-  background-color: var(--color-accent-1);
 }
 
 .tourCard.-type-1.-hover-shadow {
@@ -5761,9 +5772,10 @@ h1, h2, h3, h4, h5, h6 {
   right: 20px;
 }
 
-.tourCard.-type-1.-rounded .tourCard__favorite:hover {
-  color: white;
-  background-color: var(--color-accent-1);
+.tourCard.-type-1.-rounded .tourCard__favorite-1 {
+  top: 20px;
+  bottom: unset;
+  right: 100px;
 }
 
 .tourCard__title span {
@@ -5842,6 +5854,13 @@ h1, h2, h3, h4, h5, h6 {
   position: absolute;
   top: 20px;
   right: 20px;
+  z-index: 1;
+}
+
+.tourCard.-type-2 .tourCard__favorite-1 {
+  position: absolute;
+  top: 20px;
+  right: 10px;
   z-index: 1;
 }
 

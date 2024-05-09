@@ -105,6 +105,17 @@
           <a href="{{ route('restoran.show', $item->slug) }}" class="tourCard -type-1 -rounded bg-white shadow-1 overflow-hidden rounded-20 bg-white -hover-shadow">
             <div class="tourCard__header">
               <div class="tourCard__image ratio ratio-28:20">
+                <div class="badge tourCard__favorite">
+                    @if ($item->is_recomended)
+                      <small>Rekomendasi </small>
+                      <span class="pl-10 pr-10">|</span>
+                    @endif
+                    @if ($item->label)
+                        <small> Halal</small>
+                    @else
+                      <small>Non-Halal</small>
+                    @endif
+                </div>
                 @if(Storage::disk('public')->exists($item->image))
                   <img src="{{ Storage::url($item->image) }}" alt="image" class="img-ratio">
                 @else

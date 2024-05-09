@@ -105,6 +105,11 @@
           <a href="{{ route('wisata.show', $item->slug) }}" class="tourCard -type-1 -rounded bg-white shadow-1 overflow-hidden rounded-20 bg-white -hover-shadow">
             <div class="tourCard__header">
               <div class="tourCard__image ratio ratio-28:20">
+                @if ($item->is_recomended)
+                  <div class="badge tourCard__favorite">
+                    <small>Rekomendasi</small>
+                  </div>
+                @endif
                 @if(Storage::disk('public')->exists($item->image))
                   <img src="{{ Storage::url($item->image) }}" alt="image" class="img-ratio">
                 @else

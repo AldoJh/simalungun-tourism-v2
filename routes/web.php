@@ -33,7 +33,7 @@ Route::get('/berita', [NewsController::class, 'index'])->name('berita');
 Route::get('/berita/{slug}', [NewsController::class, 'show'])->name('berita.show');
 Route::post('/berita/{id}/comment', [NewsController::class, 'store'])->name('berita.comment');  
 Route::get('/festival', [EventController::class, 'index'])->name('festival');
-Route::get('/faestival/{slug}', [EventController::class, 'show'])->name('festival.show');
+Route::get('/festival/{slug}', [EventController::class, 'show'])->name('festival.show');
 
 Route::prefix('/auth')->middleware(['guest'])->group(function () {
     Route::get('/login', [AuthController::class, 'login'])->name('login');

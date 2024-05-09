@@ -72,7 +72,11 @@
       @foreach ($tranding as $item)
       <a href="{{ route('berita.show', $item->slug) }}" data-anim-child="slide-up delay-1" class="featureCard -type-1 overflow-hidden rounded-12 px-30 py-30 -hover-image-scale">
         <div class="featureCard__image -hover-image-scale__image">
-          <img src="{{ Storage::url($item->image) }}" alt="image">
+          @if(Storage::disk('public')->exists($item->image))
+            <img src="{{ Storage::url($item->image) }}" alt="image" class="img-ratio">
+          @else
+            <img src="{{ asset('front-assets/no-image.png') }}" alt="default image" class="img-ratio">
+          @endif
         </div>
         <div class="featureCard__content d-block">
           <h4 class="text-white d-block text-14">

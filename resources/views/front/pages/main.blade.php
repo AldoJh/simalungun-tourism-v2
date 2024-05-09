@@ -106,7 +106,7 @@
   </div>
 </section>
 
-<section class="layout-pt-xl layout-pb-xl bg-accent-1-05">
+<section class="pb-50 bg-accent-1-05">
   <div data-anim-wrap class="container">
     <div class="tabs -pills-4 js-tabs">
       <div data-anim-child="slide-up" class="row y-gap-10 justify-between items-end y-gap-10">
@@ -139,151 +139,57 @@
           <div class="js-section-slider" data-gap="30" data-slider-cols="xl-4 lg-3 md-2 sm-1 base-1" data-nav-prev="js-slider1-prev" data-nav-next="js-slider1-next">
             <div class="swiper-wrapper">
 
+              @foreach ($tourism as $item)
               <div class="swiper-slide">
-                <a href="#" class="tourCard -type-1 -rounded bg-white hover-shadow-1 overflow-hidden rounded-20 bg-white -hover-shadow">
+                <a href="{{ route('wisata.show', $item->slug) }}" class="tourCard -type-1 -rounded bg-white hover-shadow-1 overflow-hidden rounded-20 bg-white -hover-shadow">
                   <div class="tourCard__header">
                     <div class="tourCard__image ratio ratio-28:20">
-                      <img src="{{ asset('front-assets/') }}/img/tourCards/1/1.png" alt="image" class="img-ratio">
+                      @if(Storage::disk('public')->exists($item->image))
+                        <img src="{{ Storage::url($item->image) }}" alt="image" class="img-ratio">
+                      @else
+                        <img src="{{ asset('front-assets/no-image.png') }}" alt="default image" class="img-ratio">
+                      @endif
                       <div class="tourCard__shape"></div>
                     </div>
                   </div>
-                  <div class="tourCard__content px-20 pb-10">
+                  <div class="tourCard__content px-20 pb-10 h-100">
                     <h3 class="tourCard__title text-16 fw-500">
-                      <span>Danau Toba</span>
+                      <span>{{ $item->name }}</span>
                     </h3>
                     <div class="tourCard__rating text-13 mt-5">
-                      <div class="d-flex items-center">
-                        <div class="d-flex x-gap-5 pr-10">
-                          <i class="icon-star text-10 text-yellow-2"></i>
-                          <i class="icon-star text-10 text-yellow-2"></i>
-                          <i class="icon-star text-10 text-yellow-2"></i>
-                          <i class="icon-star text-10 text-yellow-2"></i>
-                          <i class="icon-star text-10 text-yellow-2"></i>
+                      @if (count($item->tourismReview) > 0)
+                          <div class="d-flex items-center">
+                            <div class="d-flex x-gap-5 pr-10">
+                              @for($i = 0; $i < round($item->tourismReview->average('rating'), 0); $i++)
+                                <i class="flex-center icon-star text-yellow-2 text-12"></i>
+                              @endfor
+                            </div>
+                            <span class="text-dark-1 text-13">{{ round($item->tourismReview->average('rating'), 1) }} ({{ count($item->tourismReview) }})</span>
+                          </div>
+                      @else
+                        <div class="d-flex items-center align-items-center">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star text-yellow-2 text-12" viewBox="0 0 16 16">
+                            <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.56.56 0 0 0-.163-.505L1.71 6.745l4.052-.576a.53.53 0 0 0 .393-.288L8 2.223l1.847 3.658a.53.53 0 0 0 .393.288l4.052.575-2.906 2.77a.56.56 0 0 0-.163.506l.694 3.957-3.686-1.894a.5.5 0 0 0-.461 0z"/>
+                          </svg>
+                          <span class="ml-10">Tidak ada rating</span>
                         </div>
-                        <span class="text-dark-1 text-13">4.8 (269)</span>
-                      </div>
+                      @endif
                     </div>
                   </div>
                 </a>
               </div>
+              @endforeach
 
               <div class="swiper-slide">
-                <a href="#" class="tourCard -type-1 -rounded bg-white hover-shadow-1 overflow-hidden rounded-20 bg-white -hover-shadow">
-                  <div class="tourCard__header">
-                    <div class="tourCard__image ratio ratio-28:20">
-                      <img src="{{ asset('front-assets/') }}/img/tourCards/1/1.png" alt="image" class="img-ratio">
-                      <div class="tourCard__shape"></div>
-                    </div>
-                  </div>
-                  <div class="tourCard__content px-20 pb-10">
-                    <h3 class="tourCard__title text-16 fw-500">
-                      <span>Danau Toba</span>
-                    </h3>
-                    <div class="tourCard__rating text-13 mt-5">
-                      <div class="d-flex items-center">
-                        <div class="d-flex x-gap-5 pr-10">
-                          <i class="icon-star text-10 text-yellow-2"></i>
-                          <i class="icon-star text-10 text-yellow-2"></i>
-                          <i class="icon-star text-10 text-yellow-2"></i>
-                          <i class="icon-star text-10 text-yellow-2"></i>
-                          <i class="icon-star text-10 text-yellow-2"></i>
-                        </div>
-                        <span class="text-dark-1 text-13">4.8 (269)</span>
-                      </div>
-                    </div>
-                  </div>
-                </a>
-              </div>
-
-              <div class="swiper-slide">
-                <a href="#" class="tourCard -type-1 -rounded bg-white hover-shadow-1 overflow-hidden rounded-20 bg-white -hover-shadow">
-                  <div class="tourCard__header">
-                    <div class="tourCard__image ratio ratio-28:20">
-                      <img src="{{ asset('front-assets/') }}/img/tourCards/1/1.png" alt="image" class="img-ratio">
-                      <div class="tourCard__shape"></div>
-                    </div>
-                  </div>
-                  <div class="tourCard__content px-20 pb-10">
-                    <h3 class="tourCard__title text-16 fw-500">
-                      <span>Danau Toba</span>
-                    </h3>
-                    <div class="tourCard__rating text-13 mt-5">
-                      <div class="d-flex items-center">
-                        <div class="d-flex x-gap-5 pr-10">
-                          <i class="icon-star text-10 text-yellow-2"></i>
-                          <i class="icon-star text-10 text-yellow-2"></i>
-                          <i class="icon-star text-10 text-yellow-2"></i>
-                          <i class="icon-star text-10 text-yellow-2"></i>
-                          <i class="icon-star text-10 text-yellow-2"></i>
-                        </div>
-                        <span class="text-dark-1 text-13">4.8 (269)</span>
-                      </div>
-                    </div>
-                  </div>
-                </a>
-              </div>
-
-              <div class="swiper-slide">
-                <a href="#" class="tourCard -type-1 -rounded bg-white hover-shadow-1 overflow-hidden rounded-20 bg-white -hover-shadow">
-                  <div class="tourCard__header">
-                    <div class="tourCard__image ratio ratio-28:20">
-                      <img src="{{ asset('front-assets/') }}/img/tourCards/1/1.png" alt="image" class="img-ratio">
-                      <div class="tourCard__shape"></div>
-                    </div>
-                  </div>
-                  <div class="tourCard__content px-20 pb-10">
-                    <h3 class="tourCard__title text-16 fw-500">
-                      <span>Danau Toba</span>
-                    </h3>
-                    <div class="tourCard__rating text-13 mt-5">
-                      <div class="d-flex items-center">
-                        <div class="d-flex x-gap-5 pr-10">
-                          <i class="icon-star text-10 text-yellow-2"></i>
-                          <i class="icon-star text-10 text-yellow-2"></i>
-                          <i class="icon-star text-10 text-yellow-2"></i>
-                          <i class="icon-star text-10 text-yellow-2"></i>
-                          <i class="icon-star text-10 text-yellow-2"></i>
-                        </div>
-                        <span class="text-dark-1 text-13">4.8 (269)</span>
-                      </div>
-                    </div>
-                  </div>
-                </a>
-              </div>
-
-              <div class="swiper-slide">
-                <a href="#" class="tourCard -type-1 -rounded bg-white hover-shadow-1 overflow-hidden rounded-20 bg-white -hover-shadow">
-                  <div class="tourCard__header">
-                    <div class="tourCard__image ratio ratio-28:20">
-                      <img src="{{ asset('front-assets/') }}/img/tourCards/1/1.png" alt="image" class="img-ratio">
-                      <div class="tourCard__shape"></div>
-                    </div>
-                  </div>
-                  <div class="tourCard__content px-20 pb-10">
-                    <h3 class="tourCard__title text-16 fw-500">
-                      <span>Danau Toba</span>
-                    </h3>
-                    <div class="tourCard__rating text-13 mt-5">
-                      <div class="d-flex items-center">
-                        <div class="d-flex x-gap-5 pr-10">
-                          <i class="icon-star text-10 text-yellow-2"></i>
-                          <i class="icon-star text-10 text-yellow-2"></i>
-                          <i class="icon-star text-10 text-yellow-2"></i>
-                          <i class="icon-star text-10 text-yellow-2"></i>
-                          <i class="icon-star text-10 text-yellow-2"></i>
-                        </div>
-                        <span class="text-dark-1 text-13">4.8 (269)</span>
-                      </div>
-                    </div>
-                  </div>
-                </a>
-              </div>
-
-              <div class="swiper-slide">
-                <a href="#" class="tourCard -type-2 -rounded bg-warning hover-shadow-1 overflow-hidden rounded-20 bg-white -hover-shadow">
+                <a href="{{ route('wisata') }}" class="  -rounded bg-warning hover-shadow-1 overflow-hidden rounded-20 bg-white -hover-shadow">
                   <div class="tourCard__content">
-                    <h3 class="tourCard__title text-16 fw-500">
-                      <span>Lihat Lainnya</span>
+                    <h3 class="tourCard__title text-16 fw-500 ">
+                      <span>
+                        Lihat Lainnya
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                          <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"/>
+                        </svg>
+                      </span>
                     </h3>
                   </div>
                 </a>
@@ -307,151 +213,57 @@
           <div class="js-section-slider" data-gap="30" data-slider-cols="xl-4 lg-3 md-2 sm-1 base-1" data-nav-prev="js-slider1-prev" data-nav-next="js-slider1-next">
             <div class="swiper-wrapper">
 
+              @foreach ($hotel as $item)
               <div class="swiper-slide">
-                <a href="#" class="tourCard -type-1 -rounded bg-white hover-shadow-1 overflow-hidden rounded-20 bg-white -hover-shadow">
+                <a href="{{ route('hotel.show', $item->slug) }}" class="tourCard -type-1 -rounded bg-white hover-shadow-1 overflow-hidden rounded-20 bg-white -hover-shadow">
                   <div class="tourCard__header">
                     <div class="tourCard__image ratio ratio-28:20">
-                      <img src="{{ asset('front-assets/') }}/img/tourCards/1/1.png" alt="image" class="img-ratio">
+                      @if(Storage::disk('public')->exists($item->image))
+                        <img src="{{ Storage::url($item->image) }}" alt="image" class="img-ratio">
+                      @else
+                        <img src="{{ asset('front-assets/no-image.png') }}" alt="default image" class="img-ratio">
+                      @endif
                       <div class="tourCard__shape"></div>
                     </div>
                   </div>
-                  <div class="tourCard__content px-20 pb-10">
+                  <div class="tourCard__content px-20 pb-10 h-100">
                     <h3 class="tourCard__title text-16 fw-500">
-                      <span>Danau Toba</span>
+                      <span>{{ $item->name }}</span>
                     </h3>
                     <div class="tourCard__rating text-13 mt-5">
-                      <div class="d-flex items-center">
-                        <div class="d-flex x-gap-5 pr-10">
-                          <i class="icon-star text-10 text-yellow-2"></i>
-                          <i class="icon-star text-10 text-yellow-2"></i>
-                          <i class="icon-star text-10 text-yellow-2"></i>
-                          <i class="icon-star text-10 text-yellow-2"></i>
-                          <i class="icon-star text-10 text-yellow-2"></i>
+                      @if (count($item->hotelReview) > 0)
+                          <div class="d-flex items-center">
+                            <div class="d-flex x-gap-5 pr-10">
+                              @for($i = 0; $i < round($item->hotelReview->average('rating'), 0); $i++)
+                                <i class="flex-center icon-star text-yellow-2 text-12"></i>
+                              @endfor
+                            </div>
+                            <span class="text-dark-1 text-13">{{ round($item->hotelReview->average('rating'), 1) }} ({{ count($item->hotelReview) }})</span>
+                          </div>
+                      @else
+                        <div class="d-flex items-center align-items-center">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star text-yellow-2 text-12" viewBox="0 0 16 16">
+                            <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.56.56 0 0 0-.163-.505L1.71 6.745l4.052-.576a.53.53 0 0 0 .393-.288L8 2.223l1.847 3.658a.53.53 0 0 0 .393.288l4.052.575-2.906 2.77a.56.56 0 0 0-.163.506l.694 3.957-3.686-1.894a.5.5 0 0 0-.461 0z"/>
+                          </svg>
+                          <span class="ml-10">Tidak ada rating</span>
                         </div>
-                        <span class="text-dark-1 text-13">4.8 (269)</span>
-                      </div>
+                      @endif
                     </div>
                   </div>
                 </a>
               </div>
+              @endforeach
 
               <div class="swiper-slide">
-                <a href="#" class="tourCard -type-1 -rounded bg-white hover-shadow-1 overflow-hidden rounded-20 bg-white -hover-shadow">
-                  <div class="tourCard__header">
-                    <div class="tourCard__image ratio ratio-28:20">
-                      <img src="{{ asset('front-assets/') }}/img/tourCards/1/1.png" alt="image" class="img-ratio">
-                      <div class="tourCard__shape"></div>
-                    </div>
-                  </div>
-                  <div class="tourCard__content px-20 pb-10">
-                    <h3 class="tourCard__title text-16 fw-500">
-                      <span>Danau Toba</span>
-                    </h3>
-                    <div class="tourCard__rating text-13 mt-5">
-                      <div class="d-flex items-center">
-                        <div class="d-flex x-gap-5 pr-10">
-                          <i class="icon-star text-10 text-yellow-2"></i>
-                          <i class="icon-star text-10 text-yellow-2"></i>
-                          <i class="icon-star text-10 text-yellow-2"></i>
-                          <i class="icon-star text-10 text-yellow-2"></i>
-                          <i class="icon-star text-10 text-yellow-2"></i>
-                        </div>
-                        <span class="text-dark-1 text-13">4.8 (269)</span>
-                      </div>
-                    </div>
-                  </div>
-                </a>
-              </div>
-
-              <div class="swiper-slide">
-                <a href="#" class="tourCard -type-1 -rounded bg-white hover-shadow-1 overflow-hidden rounded-20 bg-white -hover-shadow">
-                  <div class="tourCard__header">
-                    <div class="tourCard__image ratio ratio-28:20">
-                      <img src="{{ asset('front-assets/') }}/img/tourCards/1/1.png" alt="image" class="img-ratio">
-                      <div class="tourCard__shape"></div>
-                    </div>
-                  </div>
-                  <div class="tourCard__content px-20 pb-10">
-                    <h3 class="tourCard__title text-16 fw-500">
-                      <span>Danau Toba</span>
-                    </h3>
-                    <div class="tourCard__rating text-13 mt-5">
-                      <div class="d-flex items-center">
-                        <div class="d-flex x-gap-5 pr-10">
-                          <i class="icon-star text-10 text-yellow-2"></i>
-                          <i class="icon-star text-10 text-yellow-2"></i>
-                          <i class="icon-star text-10 text-yellow-2"></i>
-                          <i class="icon-star text-10 text-yellow-2"></i>
-                          <i class="icon-star text-10 text-yellow-2"></i>
-                        </div>
-                        <span class="text-dark-1 text-13">4.8 (269)</span>
-                      </div>
-                    </div>
-                  </div>
-                </a>
-              </div>
-
-              <div class="swiper-slide">
-                <a href="#" class="tourCard -type-1 -rounded bg-white hover-shadow-1 overflow-hidden rounded-20 bg-white -hover-shadow">
-                  <div class="tourCard__header">
-                    <div class="tourCard__image ratio ratio-28:20">
-                      <img src="{{ asset('front-assets/') }}/img/tourCards/1/1.png" alt="image" class="img-ratio">
-                      <div class="tourCard__shape"></div>
-                    </div>
-                  </div>
-                  <div class="tourCard__content px-20 pb-10">
-                    <h3 class="tourCard__title text-16 fw-500">
-                      <span>Danau Toba</span>
-                    </h3>
-                    <div class="tourCard__rating text-13 mt-5">
-                      <div class="d-flex items-center">
-                        <div class="d-flex x-gap-5 pr-10">
-                          <i class="icon-star text-10 text-yellow-2"></i>
-                          <i class="icon-star text-10 text-yellow-2"></i>
-                          <i class="icon-star text-10 text-yellow-2"></i>
-                          <i class="icon-star text-10 text-yellow-2"></i>
-                          <i class="icon-star text-10 text-yellow-2"></i>
-                        </div>
-                        <span class="text-dark-1 text-13">4.8 (269)</span>
-                      </div>
-                    </div>
-                  </div>
-                </a>
-              </div>
-
-              <div class="swiper-slide">
-                <a href="#" class="tourCard -type-1 -rounded bg-white hover-shadow-1 overflow-hidden rounded-20 bg-white -hover-shadow">
-                  <div class="tourCard__header">
-                    <div class="tourCard__image ratio ratio-28:20">
-                      <img src="{{ asset('front-assets/') }}/img/tourCards/1/1.png" alt="image" class="img-ratio">
-                      <div class="tourCard__shape"></div>
-                    </div>
-                  </div>
-                  <div class="tourCard__content px-20 pb-10">
-                    <h3 class="tourCard__title text-16 fw-500">
-                      <span>Danau Toba</span>
-                    </h3>
-                    <div class="tourCard__rating text-13 mt-5">
-                      <div class="d-flex items-center">
-                        <div class="d-flex x-gap-5 pr-10">
-                          <i class="icon-star text-10 text-yellow-2"></i>
-                          <i class="icon-star text-10 text-yellow-2"></i>
-                          <i class="icon-star text-10 text-yellow-2"></i>
-                          <i class="icon-star text-10 text-yellow-2"></i>
-                          <i class="icon-star text-10 text-yellow-2"></i>
-                        </div>
-                        <span class="text-dark-1 text-13">4.8 (269)</span>
-                      </div>
-                    </div>
-                  </div>
-                </a>
-              </div>
-
-              <div class="swiper-slide">
-                <a href="#" class="tourCard -type-2 -rounded bg-warning hover-shadow-1 overflow-hidden rounded-20 bg-white -hover-shadow">
+                <a href="{{ route('hotel') }}" class="  -rounded bg-warning hover-shadow-1 overflow-hidden rounded-20 bg-white -hover-shadow">
                   <div class="tourCard__content">
-                    <h3 class="tourCard__title text-16 fw-500">
-                      <span>Lihat Lainnya</span>
+                    <h3 class="tourCard__title text-16 fw-500 ">
+                      <span>
+                        Lihat Lainnya
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                          <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"/>
+                        </svg>
+                      </span>
                     </h3>
                   </div>
                 </a>
@@ -475,151 +287,64 @@
           <div class="js-section-slider" data-gap="30" data-slider-cols="xl-4 lg-3 md-2 sm-1 base-1" data-nav-prev="js-slider1-prev" data-nav-next="js-slider1-next">
             <div class="swiper-wrapper">
 
+              @foreach ($restaurant as $item)
               <div class="swiper-slide">
-                <a href="#" class="tourCard -type-1 -rounded bg-white hover-shadow-1 overflow-hidden rounded-20 bg-white -hover-shadow">
+                <a href="{{ route('restoran.show', $item->slug) }}" class="tourCard -type-1 -rounded bg-white hover-shadow-1 overflow-hidden rounded-20 bg-white -hover-shadow">
                   <div class="tourCard__header">
                     <div class="tourCard__image ratio ratio-28:20">
-                      <img src="{{ asset('front-assets/') }}/img/tourCards/1/1.png" alt="image" class="img-ratio">
+                      <div class="badge tourCard__favorite">
+                        @if ($item->label)
+                            <small> Halal</small>
+                        @else
+                          <small>Non-Halal</small>
+                        @endif
+                    </div>
+                      @if(Storage::disk('public')->exists($item->image))
+                        <img src="{{ Storage::url($item->image) }}" alt="image" class="img-ratio">
+                      @else
+                        <img src="{{ asset('front-assets/no-image.png') }}" alt="default image" class="img-ratio">
+                      @endif
                       <div class="tourCard__shape"></div>
                     </div>
                   </div>
-                  <div class="tourCard__content px-20 pb-10">
+                  <div class="tourCard__content px-20 pb-10 h-100">
                     <h3 class="tourCard__title text-16 fw-500">
-                      <span>Danau Toba</span>
+                      <span>{{ $item->name }}</span>
                     </h3>
                     <div class="tourCard__rating text-13 mt-5">
-                      <div class="d-flex items-center">
-                        <div class="d-flex x-gap-5 pr-10">
-                          <i class="icon-star text-10 text-yellow-2"></i>
-                          <i class="icon-star text-10 text-yellow-2"></i>
-                          <i class="icon-star text-10 text-yellow-2"></i>
-                          <i class="icon-star text-10 text-yellow-2"></i>
-                          <i class="icon-star text-10 text-yellow-2"></i>
+                      @if (count($item->restaurantReview) > 0)
+                          <div class="d-flex items-center">
+                            <div class="d-flex x-gap-5 pr-10">
+                              @for($i = 0; $i < round($item->restaurantReview->average('rating'), 0); $i++)
+                                <i class="flex-center icon-star text-yellow-2 text-12"></i>
+                              @endfor
+                            </div>
+                            <span class="text-dark-1 text-13">{{ round($item->restaurantReview->average('rating'), 1) }} ({{ count($item->restaurantReview) }})</span>
+                          </div>
+                      @else
+                        <div class="d-flex items-center align-items-center">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star text-yellow-2 text-12" viewBox="0 0 16 16">
+                            <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.56.56 0 0 0-.163-.505L1.71 6.745l4.052-.576a.53.53 0 0 0 .393-.288L8 2.223l1.847 3.658a.53.53 0 0 0 .393.288l4.052.575-2.906 2.77a.56.56 0 0 0-.163.506l.694 3.957-3.686-1.894a.5.5 0 0 0-.461 0z"/>
+                          </svg>
+                          <span class="ml-10">Tidak ada rating</span>
                         </div>
-                        <span class="text-dark-1 text-13">4.8 (269)</span>
-                      </div>
+                      @endif
                     </div>
                   </div>
                 </a>
               </div>
+              @endforeach
 
               <div class="swiper-slide">
-                <a href="#" class="tourCard -type-1 -rounded bg-white hover-shadow-1 overflow-hidden rounded-20 bg-white -hover-shadow">
-                  <div class="tourCard__header">
-                    <div class="tourCard__image ratio ratio-28:20">
-                      <img src="{{ asset('front-assets/') }}/img/tourCards/1/1.png" alt="image" class="img-ratio">
-                      <div class="tourCard__shape"></div>
-                    </div>
-                  </div>
-                  <div class="tourCard__content px-20 pb-10">
-                    <h3 class="tourCard__title text-16 fw-500">
-                      <span>Danau Toba</span>
-                    </h3>
-                    <div class="tourCard__rating text-13 mt-5">
-                      <div class="d-flex items-center">
-                        <div class="d-flex x-gap-5 pr-10">
-                          <i class="icon-star text-10 text-yellow-2"></i>
-                          <i class="icon-star text-10 text-yellow-2"></i>
-                          <i class="icon-star text-10 text-yellow-2"></i>
-                          <i class="icon-star text-10 text-yellow-2"></i>
-                          <i class="icon-star text-10 text-yellow-2"></i>
-                        </div>
-                        <span class="text-dark-1 text-13">4.8 (269)</span>
-                      </div>
-                    </div>
-                  </div>
-                </a>
-              </div>
-
-              <div class="swiper-slide">
-                <a href="#" class="tourCard -type-1 -rounded bg-white hover-shadow-1 overflow-hidden rounded-20 bg-white -hover-shadow">
-                  <div class="tourCard__header">
-                    <div class="tourCard__image ratio ratio-28:20">
-                      <img src="{{ asset('front-assets/') }}/img/tourCards/1/1.png" alt="image" class="img-ratio">
-                      <div class="tourCard__shape"></div>
-                    </div>
-                  </div>
-                  <div class="tourCard__content px-20 pb-10">
-                    <h3 class="tourCard__title text-16 fw-500">
-                      <span>Danau Toba</span>
-                    </h3>
-                    <div class="tourCard__rating text-13 mt-5">
-                      <div class="d-flex items-center">
-                        <div class="d-flex x-gap-5 pr-10">
-                          <i class="icon-star text-10 text-yellow-2"></i>
-                          <i class="icon-star text-10 text-yellow-2"></i>
-                          <i class="icon-star text-10 text-yellow-2"></i>
-                          <i class="icon-star text-10 text-yellow-2"></i>
-                          <i class="icon-star text-10 text-yellow-2"></i>
-                        </div>
-                        <span class="text-dark-1 text-13">4.8 (269)</span>
-                      </div>
-                    </div>
-                  </div>
-                </a>
-              </div>
-
-              <div class="swiper-slide">
-                <a href="#" class="tourCard -type-1 -rounded bg-white hover-shadow-1 overflow-hidden rounded-20 bg-white -hover-shadow">
-                  <div class="tourCard__header">
-                    <div class="tourCard__image ratio ratio-28:20">
-                      <img src="{{ asset('front-assets/') }}/img/tourCards/1/1.png" alt="image" class="img-ratio">
-                      <div class="tourCard__shape"></div>
-                    </div>
-                  </div>
-                  <div class="tourCard__content px-20 pb-10">
-                    <h3 class="tourCard__title text-16 fw-500">
-                      <span>Danau Toba</span>
-                    </h3>
-                    <div class="tourCard__rating text-13 mt-5">
-                      <div class="d-flex items-center">
-                        <div class="d-flex x-gap-5 pr-10">
-                          <i class="icon-star text-10 text-yellow-2"></i>
-                          <i class="icon-star text-10 text-yellow-2"></i>
-                          <i class="icon-star text-10 text-yellow-2"></i>
-                          <i class="icon-star text-10 text-yellow-2"></i>
-                          <i class="icon-star text-10 text-yellow-2"></i>
-                        </div>
-                        <span class="text-dark-1 text-13">4.8 (269)</span>
-                      </div>
-                    </div>
-                  </div>
-                </a>
-              </div>
-
-              <div class="swiper-slide">
-                <a href="#" class="tourCard -type-1 -rounded bg-white hover-shadow-1 overflow-hidden rounded-20 bg-white -hover-shadow">
-                  <div class="tourCard__header">
-                    <div class="tourCard__image ratio ratio-28:20">
-                      <img src="{{ asset('front-assets/') }}/img/tourCards/1/1.png" alt="image" class="img-ratio">
-                      <div class="tourCard__shape"></div>
-                    </div>
-                  </div>
-                  <div class="tourCard__content px-20 pb-10">
-                    <h3 class="tourCard__title text-16 fw-500">
-                      <span>Danau Toba</span>
-                    </h3>
-                    <div class="tourCard__rating text-13 mt-5">
-                      <div class="d-flex items-center">
-                        <div class="d-flex x-gap-5 pr-10">
-                          <i class="icon-star text-10 text-yellow-2"></i>
-                          <i class="icon-star text-10 text-yellow-2"></i>
-                          <i class="icon-star text-10 text-yellow-2"></i>
-                          <i class="icon-star text-10 text-yellow-2"></i>
-                          <i class="icon-star text-10 text-yellow-2"></i>
-                        </div>
-                        <span class="text-dark-1 text-13">4.8 (269)</span>
-                      </div>
-                    </div>
-                  </div>
-                </a>
-              </div>
-
-              <div class="swiper-slide">
-                <a href="#" class="tourCard -type-2 -rounded bg-warning hover-shadow-1 overflow-hidden rounded-20 bg-white -hover-shadow">
+                <a href="{{ route('restoran') }}" class="  -rounded bg-warning hover-shadow-1 overflow-hidden rounded-20 bg-white -hover-shadow">
                   <div class="tourCard__content">
-                    <h3 class="tourCard__title text-16 fw-500">
-                      <span>Lihat Lainnya</span>
+                    <h3 class="tourCard__title text-16 fw-500 ">
+                      <span>
+                        Lihat Lainnya
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                          <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"/>
+                        </svg>
+                      </span>
                     </h3>
                   </div>
                 </a>
@@ -662,110 +387,40 @@
     </div>
 
     <div data-anim-child="slide-up delay-2" class="row y-gap-30 justify-between pt-40 sm:pt-20 mobile-css-slider -w-300">
-      <div class="col-lg-3 col-md-6">
-        <a href="#" class="tourCard -type-1 -rounded bg-white hover-shadow-1 overflow-hidden rounded-20 shadow-1 -hover-shadow">
-          <div class="tourCard__header">
-            <div class="tourCard__image ratio ratio-28:20">
-              <img src="{{ asset('front-assets/') }}/img/tourCards/1/1.png" alt="image" class="img-ratio">
-              <div class="tourCard__shape"></div>
-            </div>
-          </div>
-          <div class="tourCard__content px-20 pb-10 pt-2">
-            <h3 class="tourCard__title text-16 fw-500">
-              <span>PAGELARAN SENI DAN BUDAYA SIMALUNGUN</span>
-            </h3>
-            <div class="tourCard__location d-flex text-13 text-light-2 mt-5">
-              <i class="icon-pin d-flex text-16 text-light-2 mr-5 mt-1"></i>
-              Pantai Bebas Parapat, Danau Toba, Danau Toba, Jalan Sisingamangaraja, Tiga Raja, Kabupaten Simalungun, Sumatera Utara, Indonesia
-            </div>
-            <div class="d-flex justify-between items-center border-1-top text-13 text-dark-1 pt-10 mt-10">
-              <div class="d-flex items-center">
-                <i class="icon-clock text-16 mr-5"></i>
-                20 April 2024
+      @foreach ($event as $item)
+        <div class="col-lg-3 col-md-6">
+          <a href="{{ route('festival.show', $item->slug) }}" class="tourCard -type-1 -rounded bg-white hover-shadow-1 overflow-hidden rounded-20 shadow-1 -hover-shadow">
+            <div class="tourCard__header">
+              <div class="tourCard__image ratio ratio-28:20">
+                <img src="{{ Storage::url($item->image) }}" alt="image" class="img-ratio">
+                <div class="tourCard__shape"></div>
               </div>
-              <div><span class="text-16 fw-500">Gratis</span></div>
             </div>
-          </div>
-        </a>
-      </div>
-      <div class="col-lg-3 col-md-6">
-        <a href="#" class="tourCard -type-1 -rounded bg-white hover-shadow-1 overflow-hidden rounded-20 shadow-1 -hover-shadow">
-          <div class="tourCard__header">
-            <div class="tourCard__image ratio ratio-28:20">
-              <img src="{{ asset('front-assets/') }}/img/tourCards/1/1.png" alt="image" class="img-ratio">
-              <div class="tourCard__shape"></div>
-            </div>
-          </div>
-          <div class="tourCard__content px-20 pb-10 pt-2">
-            <h3 class="tourCard__title text-16 fw-500">
-              <span>PAGELARAN SENI DAN BUDAYA SIMALUNGUN</span>
-            </h3>
-            <div class="tourCard__location d-flex text-13 text-light-2 mt-5">
-              <i class="icon-pin d-flex text-16 text-light-2 mr-5 mt-1"></i>
-              Pantai Bebas Parapat, Danau Toba, Danau Toba, Jalan Sisingamangaraja, Tiga Raja, Kabupaten Simalungun, Sumatera Utara, Indonesia
-            </div>
-            <div class="d-flex justify-between items-center border-1-top text-13 text-dark-1 pt-10 mt-10">
-              <div class="d-flex items-center">
-                <i class="icon-clock text-16 mr-5"></i>
-                20 April 2024
+            <div class="tourCard__content px-20 pb-10 pt-2">
+              <h3 class="tourCard__title text-16 fw-500">
+                <span>{{ $item->name }}</span>
+              </h3>
+              <div class="tourCard__location d-flex text-13 text-light-2 mt-5">
+                <i class="icon-pin d-flex text-16 text-light-2 mr-5 mt-1"></i>
+                {{ $item->address }}
               </div>
-              <div><span class="text-16 fw-500">Gratis</span></div>
-            </div>
-          </div>
-        </a>
-      </div>
-      <div class="col-lg-3 col-md-6">
-        <a href="#" class="tourCard -type-1 -rounded bg-white hover-shadow-1 overflow-hidden rounded-20 shadow-1 -hover-shadow">
-          <div class="tourCard__header">
-            <div class="tourCard__image ratio ratio-28:20">
-              <img src="{{ asset('front-assets/') }}/img/tourCards/1/1.png" alt="image" class="img-ratio">
-              <div class="tourCard__shape"></div>
-            </div>
-          </div>
-          <div class="tourCard__content px-20 pb-10 pt-2">
-            <h3 class="tourCard__title text-16 fw-500">
-              <span>PAGELARAN SENI DAN BUDAYA SIMALUNGUN</span>
-            </h3>
-            <div class="tourCard__location d-flex text-13 text-light-2 mt-5">
-              <i class="icon-pin d-flex text-16 text-light-2 mr-5 mt-1"></i>
-              Pantai Bebas Parapat, Danau Toba, Danau Toba, Jalan Sisingamangaraja, Tiga Raja, Kabupaten Simalungun, Sumatera Utara, Indonesia
-            </div>
-            <div class="d-flex justify-between items-center border-1-top text-13 text-dark-1 pt-10 mt-10">
-              <div class="d-flex items-center">
-                <i class="icon-clock text-16 mr-5"></i>
-                20 April 2024
+              <div class="d-flex justify-between items-center border-1-top text-13 text-dark-1 pt-10 mt-10">
+                <div class="d-flex items-center">
+                  <i class="icon-clock text-16 mr-5"></i>
+                  {{ Carbon\Carbon::parse($item->date)->translatedFormat('j F Y') }}
+                </div>
+                <div><span class="text-16 fw-500">
+                  @if ($item->price == 0)
+                      Gratis
+                  @else
+                      Rp. {{ number_format($item->price) }}
+                  @endif
+                </span></div>
               </div>
-              <div><span class="text-16 fw-500">Gratis</span></div>
             </div>
-          </div>
-        </a>
-      </div>
-      <div class="col-lg-3 col-md-6">
-        <a href="#" class="tourCard -type-1 -rounded bg-white hover-shadow-1 overflow-hidden rounded-20 shadow-1 -hover-shadow">
-          <div class="tourCard__header">
-            <div class="tourCard__image ratio ratio-28:20">
-              <img src="{{ asset('front-assets/') }}/img/tourCards/1/1.png" alt="image" class="img-ratio">
-              <div class="tourCard__shape"></div>
-            </div>
-          </div>
-          <div class="tourCard__content px-20 pb-10 pt-2">
-            <h3 class="tourCard__title text-16 fw-500">
-              <span>PAGELARAN SENI DAN BUDAYA SIMALUNGUN</span>
-            </h3>
-            <div class="tourCard__location d-flex text-13 text-light-2 mt-5">
-              <i class="icon-pin d-flex text-16 text-light-2 mr-5 mt-1"></i>
-              Pantai Bebas Parapat, Danau Toba, Danau Toba, Jalan Sisingamangaraja, Tiga Raja, Kabupaten Simalungun, Sumatera Utara, Indonesia
-            </div>
-            <div class="d-flex justify-between items-center border-1-top text-13 text-dark-1 pt-10 mt-10">
-              <div class="d-flex items-center">
-                <i class="icon-clock text-16 mr-5"></i>
-                20 April 2024
-              </div>
-              <div><span class="text-16 fw-500">Gratis</span></div>
-            </div>
-          </div>
-        </a>
-      </div>
+          </a>
+        </div>
+      @endforeach
     </div>
   </div>
 </section>
@@ -784,9 +439,9 @@
           </h2>
           <div class="mt-10">
             <div class="singleInput -type-2 row x-gap-10 y-gap-10">
-              <div class="col-md-auto col-12">
+              <a href="{{ \App\Models\Setting::webBase()->playstore }}" class="col-md-auto col-12">
                 <img src="{{ asset('front-assets/img/playstore.png') }}" alt="">
-              </div>
+              </a>
             </div>
           </div>
         </div>
@@ -816,51 +471,23 @@
     </div>
 
     <div data-anim-child="slide-up delay-2" class="row y-gap-30 pt-40 sm:pt-20">
-      <div class="col-lg-4 col-md-6">
-        <a href="#" class="blogCard -type-1">
+      @foreach ($news as $item)     
+      <div class="col-lg-4 col-md-6 mb-15">
+        <a href="{{ route('berita.show', $item->slug) }}" class="blogCard -type-1">
           <div class="blogCard__image ratio ratio-41:30">
-            <img src="{{ asset('front-assets/') }}/img/blogCards/1/1.png" alt="image" class="img-ratio rounded-12">
+            <img src="{{ Storage::url($item->image) }}" alt="image" class="img-ratio rounded-12">
           </div>
           <div class="blogCard__content mt-30">
             <div class="blogCard__info text-14">
-              <div class="lh-13">April 06 2023</div>
+              <div class="lh-13">{{ \Carbon\Carbon::createFromFormat('Y-m-d', $item->date )->format('d F Y') }}</div>
               <div class="blogCard__line"></div>
-              <div class="lh-13">By Ali Tufan</div>
+              <div class="lh-13">{{ $item->user->name }}</div>
             </div>
-            <h3 class="blogCard__title text-18 fw-500 mt-10">Kenya vs Tanzania Safari: The Better African Safari Experience</h3>
+            <h3 class="blogCard__title text-18 fw-500 mt-10">{{ $item->title }}</h3>
           </div>
         </a>
       </div>
-      <div class="col-lg-4 col-md-6">
-        <a href="#" class="blogCard -type-1">
-          <div class="blogCard__image ratio ratio-41:30">
-            <img src="{{ asset('front-assets/') }}/img/blogCards/1/1.png" alt="image" class="img-ratio rounded-12">
-          </div>
-          <div class="blogCard__content mt-30">
-            <div class="blogCard__info text-14">
-              <div class="lh-13">April 06 2023</div>
-              <div class="blogCard__line"></div>
-              <div class="lh-13">By Ali Tufan</div>
-            </div>
-            <h3 class="blogCard__title text-18 fw-500 mt-10">Kenya vs Tanzania Safari: The Better African Safari Experience</h3>
-          </div>
-        </a>
-      </div>
-      <div class="col-lg-4 col-md-6">
-        <a href="#" class="blogCard -type-1">
-          <div class="blogCard__image ratio ratio-41:30">
-            <img src="{{ asset('front-assets/') }}/img/blogCards/1/1.png" alt="image" class="img-ratio rounded-12">
-          </div>
-          <div class="blogCard__content mt-30">
-            <div class="blogCard__info text-14">
-              <div class="lh-13">April 06 2023</div>
-              <div class="blogCard__line"></div>
-              <div class="lh-13">By Ali Tufan</div>
-            </div>
-            <h3 class="blogCard__title text-18 fw-500 mt-10">Kenya vs Tanzania Safari: The Better African Safari Experience</h3>
-          </div>
-        </a>
-      </div>
+      @endforeach
     </div>
   </div>
 </section>

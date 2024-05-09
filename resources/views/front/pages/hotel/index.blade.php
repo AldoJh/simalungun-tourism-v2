@@ -105,6 +105,11 @@
           <a href="{{ route('hotel.show', $item->slug) }}" class="tourCard -type-1 -rounded bg-white shadow-1 overflow-hidden rounded-20 bg-white -hover-shadow">
             <div class="tourCard__header">
               <div class="tourCard__image ratio ratio-28:20">
+                @if ($item->is_verified)
+                  <div class="badge tourCard__favorite">
+                    <small>Terverifikasi</small>
+                  </div>
+                @endif
                 @if(Storage::disk('public')->exists($item->image))
                       {{-- Tampilkan gambar aslinya --}}
                       <img src="{{ Storage::url($item->image) }}" alt="image" class="img-ratio">
