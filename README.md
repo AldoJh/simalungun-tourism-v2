@@ -64,7 +64,7 @@ After ensuring the system requirements are met, follow these steps to set up the
 
     ```bash
    php artisan import:restaurant
-    ```   
+    ```
 
 10. Import data for the hotel:  
 
