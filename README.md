@@ -54,7 +54,7 @@ After ensuring the system requirements are met, follow these steps to set up the
    php artisan import:news
     ```
 
-8. Import data for the events:
+8. Import data for the events:  
 
     ```bash
    php artisan import:event
@@ -66,14 +66,14 @@ After ensuring the system requirements are met, follow these steps to set up the
    php artisan import:restaurant
     ```   
 
-10. Import data for the hotel:
+10. Import data for the hotel:  
 
     ```bash
    php artisan import:hotel
-    ```  
+    ```
 
-11. Import data for the tourism place:
+11. Import data for the tourism place:  
 
     ```bash
    php artisan import:tourism
-    ```  
+    ```
