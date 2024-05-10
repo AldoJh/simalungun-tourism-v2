@@ -133,6 +133,30 @@
         <div class="mt-20">
           {!! $event->description !!}
         </div>
+
+        <div class="line mt-60 mb-60"></div>
+
+        <div class="row">
+          <div class="col-md mb-20">
+            <h2 class="text-24">Statistik <br> Pengunjung</h2>
+          </div>
+          <div class="col-md mb-20">
+            <div class="row contactForm">
+                <form method="GET" class="d-flex flex-row flex-lg-row-auto form-input">
+                  <select name="tahun" class=" @error('tahun') is-invalid @enderror" required>
+                    <option  disabled>Pilih Tahun</option>
+                    @foreach ($tahun as $item)
+                        <option @if ( request('tahun') == $item ) selected  @endif value="{{ $item }}">{{ $item }}</option>
+                    @endforeach
+                  </select>
+                  <button type="submit" class="button px-20 py-15 lh-12 -accent-1 text-accent-1 bg-accent-1-05 border-accent-1 ml-20">
+                    <i class="icon-arrow-top-right text-16"></i>
+                  </button>
+                </form>
+            </div>
+          </div>
+        </div>
+        <canvas id="lineChart" width="400" height="150"></canvas>
       </div>
 
       <div class="col-lg-4">
@@ -194,4 +218,31 @@
   </div>
 </section>
 
+@endsection
+@section('script')
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  var data = <?php echo json_encode($visitor); ?>; 
+  var ctx = document.getElementById('lineChart').getContext('2d');
+  var myChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+          labels: ['Januari', 'Februari', 'Maret', 'April', 'Mei' , 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'], // Membuat label dari panjang data
+          datasets: [{
+              label: 'Total Pengunjung',
+              data: data, 
+              backgroundColor: 'rgba(235, 102, 43, 1)',
+              borderColor: 'rgba(235, 102, 43, 1)',
+              borderWidth: 1
+          }]
+      },
+      options: {
+          scales: {
+              y: {
+                  beginAtZero: true
+              }
+          }
+      }
+  });
+</script>
 @endsection
