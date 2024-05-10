@@ -6,10 +6,10 @@
     <div data-anim="slide-up" class="row justify-center">
       <div class="col-xl-6 col-lg-7 col-md-9">
         <div class="text-center mb-60 md:mb-30">
-          <h1 class="text-30">Masuk</h1>
-          <div class="text-18 fw-500 mt-20 md:mt-15">Masukan email dan password anda untuk masuk</div>
+          <h1 class="text-30">Daftar</h1>
+          <div class="text-18 fw-500 mt-20 md:mt-15">Daftarkan akun baru anda</div>
         </div>
-        <form method="POST" action="{{ route('login.submit') }}?route={{ request('route') }}" class="contactForm border-1 rounded-12 px-60 py-60 md:px-25 md:py-30">
+        <form method="POST" action="{{ route('register.submit') }}" class="contactForm border-1 rounded-12 px-60 py-60 md:px-25 md:py-30">
           @csrf
           @if (session()->has('warning'))
           <div class="alert alert-dismissible bg-accent-1-05 d-flex align-items-center flex-column flex-sm-row p-4 rounded mb-4">
@@ -50,7 +50,23 @@
             </div>
           @endif
           <div class="form-input ">
-            <input type="email" name="email" class="@error('email') is-invalid @enderror" value="{{ old('email') }}" placeholder="Almat Email" required>
+            <input type="text" name="name" class="@error('name') is-invalid @enderror" value="{{ old('name') }}" placeholder="Nama Lengkap" required>
+          </div>
+          @error('name')
+            <div class="invalid-feedback text-red-1">
+              {{ $message }}
+            </div>
+          @enderror
+          <div class="form-input mt-30">
+            <input type="text" name="phone" class="@error('phone') is-invalid @enderror" value="{{ old('phone') }}" placeholder="No. Telp" required>
+          </div>
+          @error('phone')
+            <div class="invalid-feedback text-red-1">
+              {{ $message }}
+            </div>
+          @enderror
+          <div class="form-input mt-30">
+            <input type="email" name="email" class="@error('email') is-invalid @enderror" value="{{ old('email') }}" placeholder="Alamat Email" required>
           </div>
           @error('email')
             <div class="invalid-feedback text-red-1">
@@ -65,11 +81,12 @@
               {{ $message }}
             </div>
           @enderror
+
           <div class="row y-ga-10 justify-between items-center pt-30">
             <div class="col-auto">
               <div class="d-flex items-center">
                 <div class="form-checkbox ">
-                  <input type="checkbox" name="name">
+                  <input type="checkbox" name="reg" required>
                   <div class="form-checkbox__mark">
                     <div class="form-checkbox__icon">
                       <svg width="10" height="8" viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -78,24 +95,20 @@
                     </div>
                   </div>
                 </div>
-                <div class="lh-11 ml-10">Remember me</div>
+                <div class="lh-11 ml-10">Saya menyetujui seluruh regulasi dan kebijakan privasi</div>
               </div>
-            </div>
-
-            <div class="col-auto">
-              <a href="{{ route('forget') }}">Lupa password?</a>
             </div>
           </div>
 
           <button type="submit" class="button -md -dark-1 bg-accent-1 text-white col-12 mt-30">
-            Log In
+            Register
             <i class="icon-arrow-top-right ml-10"></i>
           </button>
           <div class="text-center py-20">
             <span >- atau -</span>
           </div>
-          <a href="{{ route('register') }}" type="submit" class="button -md -accent-1 text-accent-1 bg-accent-1-05 border-accent-1 col-12">
-            Register
+          <a href="{{ route('login') }}" type="submit" class="button -md -accent-1 text-accent-1 bg-accent-1-05 border-accent-1 col-12">
+            Log In
           </a>
           </form>
         </div>

@@ -53,6 +53,41 @@ class AuthController extends Controller
         }
     }
 
+    public function register(){
+        $data = [
+            'title' => 'Register',
+            'subTitle' => null,
+            'page_id' => null
+        ];
+        return view('front.auth.register',  $data);
+    }
+
+    public function registerSubmit(Request $request){
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8',
+            'phone' => 'required|numeric|min:10|unique:users',
+        ]);
+        if ($validator->fails()) {
+            return redirect()->route('register')->withInput()->withErrors($validator);
+        }
+        $user = new User();
+        $user->name  = $request->name;
+        $user->email  = $request->email;
+        $user->password  = Hash::make($request->password);
+        $user->phone = $request->phone;
+        $user->is_active = true;
+        $user->save();
+
+        Mail::send('email.RegisterMail', ['email' => $request->email], function ($message) use ($request) {
+            $message->to($request->email);
+            $message->subject('Registrasi Berhasil');
+        });
+
+        return redirect()->route('login')->with('success', 'Your account registered successfully');
+    }
+
     public function forget(){
         $data = [
             'title' => 'Forget Password',

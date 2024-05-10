@@ -15,17 +15,8 @@
 							<strong>Hello!, {{ $email }}</strong>
 						</div>
 						<div style="padding-bottom: 30px">
-							Apakah anda mengalami masalah pada login?
-							Kami mengirim email ini karena kami mendapatkan informasi bahwasannya anda mengalami masalah pada otorisasi, tekan tombol dibawah ini untuk melakukan reset password:
-						</div>
-						<div style="padding-bottom: 40px; text-align:center;">
-							<a href="{{ route('reset', $token) }}" rel="noopener" style="text-decoration:none;display:inline-block;text-align:center;padding:0.75575rem 1.3rem;font-size:0.925rem;line-height:1.5;border-radius:0.35rem;color:#ffffff;background-color:#EB662B;border:0px;margin-right:0.75rem!important;font-weight:600!important;outline:none!important;vertical-align:middle" target="_blank">Reset Password</a>
-						</div>
-						<div style="padding-bottom: 10px">Tautan pengaturan ulang kata sandi ini akan kedaluwarsa dalam 60 menit</div>
-						<div style="border-bottom: 1px solid #eeeeee; margin: 15px 0"></div>
-						<div style="padding-bottom: 10px; word-wrap: break-all;">
-							<p style="margin-bottom: 10px;">atau salin URL ini ke browser Anda:</p>
-							<a href="{{ route('reset', $token) }}" rel="noopener" target="_blank" style="text-decoration:none;color: #EB662B">{{ route('reset', $token) }}</a>
+							Terima kasih telah menjadi bagian dari kami <br>
+							Nikmati liburan anda, explore keindahan simalungun 
 						</div>
 						<!--end:Email content-->
 						<div style="padding-bottom: 10px">Salam hangat
