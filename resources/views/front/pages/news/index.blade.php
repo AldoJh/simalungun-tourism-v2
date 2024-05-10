@@ -141,13 +141,17 @@
         <div class="col-lg-4 col-md-6 mb-15">
           <a href="{{ route('berita.show', $item->slug) }}" class="blogCard -type-1">
             <div class="blogCard__image ratio ratio-41:30">
-              <img src="{{ Storage::url($item->image) }}" alt="image" class="img-ratio rounded-12">
+              @if(Storage::disk('public')->exists($item->image))
+                <img src="{{ Storage::url($item->image) }}" alt="image" class="img-ratio rounded-12">
+              @else
+                <img src="{{ asset('front-assets/no-image.png') }}" alt="default image" class="img-ratio rounded-12">
+              @endif
             </div>
             <div class="blogCard__content mt-30">
               <div class="blogCard__info text-14">
                 <div class="lh-13">{{ \Carbon\Carbon::createFromFormat('Y-m-d', $item->date )->format('d F Y') }}</div>
                 <div class="blogCard__line"></div>
-                <div class="lh-13">{{ $item->user->name }}</div>
+                <div class="lh-13">{{ $item->user->name ?? '-' }}</div>
               </div>
               <h3 class="blogCard__title text-18 fw-500 mt-10">{{ $item->title }}</h3>
             </div>

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Web\Auth\AuthController;
 use App\Http\Controllers\Web\Admin\BoatController;
 use App\Http\Controllers\Web\Admin\EventController as AdminEventController;
-use App\Http\Controllers\Web\Admin\FeedbackController;
+use App\Http\Controllers\Web\Admin\FeedbackController as AdminFeedbackController;
 use App\Http\Controllers\Web\Front\MainController;
 use App\Http\Controllers\Web\Front\NewsController;
 use App\Http\Controllers\Web\Front\EventController;
@@ -17,6 +17,7 @@ use App\Http\Controllers\Web\Front\RestaurantController;
 use App\Http\Controllers\Web\Admin\NewsController as AdminNewsController;
 use App\Http\Controllers\Web\Admin\RestaurantController as AdminRestaurantController;
 use App\Http\Controllers\Web\Admin\UserController;
+use App\Http\Controllers\Web\Front\FeedbackController;
 
 Route::get('/', [MainController::class, 'index'])->name('home');
 Route::get('/hotel', [HotelController::class, 'index'])->name('hotel');
@@ -34,6 +35,8 @@ Route::get('/berita/{slug}', [NewsController::class, 'show'])->name('berita.show
 Route::post('/berita/{id}/comment', [NewsController::class, 'store'])->name('berita.comment');  
 Route::get('/festival', [EventController::class, 'index'])->name('festival');
 Route::get('/festival/{slug}', [EventController::class, 'show'])->name('festival.show');
+Route::get('/kuisioner', [FeedbackController::class, 'index'])->name('kuisioner');
+Route::post('/kuisioner', [FeedbackController::class, 'store'])->name('kuisioner.store');
 
 Route::prefix('/auth')->middleware(['guest'])->group(function () {
     Route::get('/register', [AuthController::class, 'register'])->name('register');
@@ -134,8 +137,8 @@ Route::prefix('/menu')->middleware(['auth'])->group(function () {
         Route::post('/', [SettingController::class, 'settingUpdate'])->name('admin.pengaturan.update');
     });
     Route::prefix('/kuisioner')->group(function () {
-        Route::get('/', [FeedbackController::class, 'feedback'])->name('admin.kuisioner');
-        Route::get('/{id}/destroy', [FeedbackController::class, 'feedbackDestroy'])->name('admin.kuisioner.destroy');
+        Route::get('/', [AdminFeedbackController::class, 'feedback'])->name('admin.kuisioner');
+        Route::get('/{id}/destroy', [AdminFeedbackController::class, 'feedbackDestroy'])->name('admin.kuisioner.destroy');
     });
     Route::prefix('/pengguna')->group(function () {
         Route::get('/', [UserController::class, 'user'])->name('admin.pengguna');

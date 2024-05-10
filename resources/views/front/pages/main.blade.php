@@ -481,7 +481,7 @@
             <div class="blogCard__info text-14">
               <div class="lh-13">{{ \Carbon\Carbon::createFromFormat('Y-m-d', $item->date )->format('d F Y') }}</div>
               <div class="blogCard__line"></div>
-              <div class="lh-13">{{ $item->user->name }}</div>
+              <div class="lh-13">{{ $item->user->name ?? '-' }}</div>
             </div>
             <h3 class="blogCard__title text-18 fw-500 mt-10">{{ $item->title }}</h3>
           </div>

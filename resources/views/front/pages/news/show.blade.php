@@ -5,7 +5,7 @@
   name="keywords"
   content="wisata, simalungun, sumut, toba, sidamanik, tourism, destinasi, hotel, festival, restaurant, resto, berita"
   />
-  <meta name="author" content="{{ $news->user->name }}" />
+  <meta name="author" content="{{ $news->user->name?? '' }}" />
   <meta name="description" content="{{ $news->description }}" />
 
   <!-- Open Graph Meta Tags -->
@@ -55,8 +55,8 @@
     <div data-anim-child="slide-up delay-2" class="tourSingleGrid -type-1">
       <div class="tourSingleGrid__grid mobile-css-slider-2">
         @foreach ($news->newsImage->take(4) as $item)
-        <img src="{{ Storage::url($item->image) }}" alt="image">
-      @endforeach
+          <img src="{{ Storage::url($item->image) }}" alt="image">
+        @endforeach
       </div>
       <div class="tourSingleGrid__button">
         <a href="{{ Storage::url($news->newsImage[0]->image) }}" class="js-gallery" data-gallery="gallery1">
@@ -85,7 +85,7 @@
       <div class="row d-flex justify-content-between x-gap-20 y-gap-20 items-center">
         <div class="col-auto">
           <div class="d-flex items-center">
-            {{ \Carbon\Carbon::createFromFormat('Y-m-d', $news->date )->format('d F Y') }} by {{ $news->user->name }}
+            {{ \Carbon\Carbon::createFromFormat('Y-m-d', $news->date )->format('d F Y') }} by {{ $news->user->name ?? '-' }}
           </div>
         </div>
         <div class="col-auto">
