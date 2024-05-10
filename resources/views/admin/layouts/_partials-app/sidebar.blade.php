@@ -36,322 +36,347 @@
             <span class="menu-title">Dashboard</span>
           </a>
         </div>
-        
-        <div class="menu-item pt-5">
-          <div class="menu-content">
-            <span class="menu-heading fw-bold text-uppercase fs-7">Menu </span>
-          </div>
-        </div>
-        
-        <div data-kt-menu-trigger="click" class="menu-item menu-accordion  @if ($title == 'Data Master') here show @endif">
-          <span class="menu-link">
-            <span class="menu-icon">
-              <i class="ki-duotone ki-external-drive fs-2">
-                <span class="path1"></span>
-                <span class="path2"></span>
-                <span class="path3"></span>
-                <span class="path4"></span>
-                <span class="path5"></span>
-              </i>
-            </span>
-            <span class="menu-title">Data Master</span>
-            <span class="menu-arrow"></span>
-          </span>
-          <div class="menu-sub menu-sub-accordion">
-            <div class="menu-item @if ($subTitle == 'Fasilitas') here @endif">
-              <a class="menu-link" href="{{ route('admin.data-master.fasilitas') }}">
-                <span class="menu-bullet">
-                  <span class="bullet bullet-dot"></span>
-                </span>
-                <span class="menu-title">Fasilitas</span>
-              </a>
-            </div>
-            <div class="menu-item  @if ($subTitle == 'Kategori Wisata') here @endif">
-              <a class="menu-link" href="{{ route('admin.data-master.kategori-wisata') }}">
-                <span class="menu-bullet">
-                  <span class="bullet bullet-dot"></span>
-                </span>
-                <span class="menu-title">Kategori Wisata</span>
-              </a>
-            </div>
-            <div class="menu-item @if ($subTitle == 'Kategori Hotel') here @endif">
-              <a class="menu-link" href="{{ route('admin.data-master.kategori-hotel') }}">
-                <span class="menu-bullet">
-                  <span class="bullet bullet-dot"></span>
-                </span>
-                <span class="menu-title">Kategori Hotel</span>
-              </a>
-            </div>
-          </div>
-        </div>
 
-        <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
-          <span class="menu-link">
+        <div class="menu-item @if ($title == 'Dashboard') here @endif">
+          <a class="menu-link" href="{{ route('dashboard') }}">
             <span class="menu-icon">
-              <i class="ki-duotone ki-map fs-2">
-                <span class="path1"></span>
-                <span class="path2"></span>
-                <span class="path3"></span>
-              </i>
+              <i class="ki-duotone ki-star fs-2"></i>
             </span>
-            <span class="menu-title">Wisata</span>
-            <span class="menu-arrow"></span>
-          </span>
-          <div class="menu-sub menu-sub-accordion">
-            <div class="menu-item">
-              <a class="menu-link" href="#">
-                <span class="menu-bullet">
-                  <span class="bullet bullet-dot"></span>
-                </span>
-                <span class="menu-title">Data Wisata</span>
-              </a>
-            </div>
-            <div class="menu-item">
-              <a class="menu-link" href="#">
-                <span class="menu-bullet">
-                  <span class="bullet bullet-dot"></span>
-                </span>
-                <span class="menu-title">Review</span>
-              </a>
-            </div>
-            <div class="menu-item">
-              <a class="menu-link" href="#">
-                <span class="menu-bullet">
-                  <span class="bullet bullet-dot"></span>
-                </span>
-                <span class="menu-title">Pengunjung</span>
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
-          <span class="menu-link">
-            <span class="menu-icon">
-              <i class="ki-duotone ki-bank fs-2">
-                <span class="path1"></span>
-                <span class="path2"></span>
-              </i>
-            </span>
-            <span class="menu-title">Hotel</span>
-            <span class="menu-arrow"></span>
-          </span>
-          <div class="menu-sub menu-sub-accordion">
-            <div class="menu-item">
-              <a class="menu-link" href="">
-                <span class="menu-bullet">
-                  <span class="bullet bullet-dot"></span>
-                </span>
-                <span class="menu-title">Data Hotel</span>
-              </a>
-            </div>
-            <div class="menu-item">
-              <a class="menu-link" href="">
-                <span class="menu-bullet">
-                  <span class="bullet bullet-dot"></span>
-                </span>
-                <span class="menu-title">Review</span>
-              </a>
-            </div>
-            <div class="menu-item">
-              <a class="menu-link" href="#">
-                <span class="menu-bullet">
-                  <span class="bullet bullet-dot"></span>
-                </span>
-                <span class="menu-title">Pengunjung</span>
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <div data-kt-menu-trigger="click" class="menu-item menu-accordion @if ($title == 'Restoran') here show @endif">
-          <span class="menu-link">
-            <span class="menu-icon">
-              <i class="ki-duotone ki-coffee fs-2">
-                <span class="path1"></span>
-                <span class="path2"></span>
-                <span class="path3"></span>
-                <span class="path4"></span>
-                <span class="path5"></span>
-                <span class="path6"></span>
-              </i>
-            </span>
-            <span class="menu-title">Restoran</span>
-            <span class="menu-arrow"></span>
-          </span>
-          <div class="menu-sub menu-sub-accordion menu-active-bg">
-            <div class="menu-item @if ($subTitle == 'Data Restoran') here @endif">
-              <a class="menu-link" href="{{ route('admin.restoran.restoran') }}">
-                <span class="menu-bullet">
-                  <span class="bullet bullet-dot"></span>
-                </span>
-                <span class="menu-title">Data Restoran</span>
-              </a>
-            </div>
-            <div class="menu-item">
-              <a class="menu-link" href="#">
-                <span class="menu-bullet">
-                  <span class="bullet bullet-dot"></span>
-                </span>
-                <span class="menu-title">Review</span>
-              </a>
-            </div>
-            <div class="menu-item">
-              <a class="menu-link" href="#">
-                <span class="menu-bullet">
-                  <span class="bullet bullet-dot"></span>
-                </span>
-                <span class="menu-title">Pengunjung</span>
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <div data-kt-menu-trigger="click" class="menu-item menu-accordion @if ($title == 'Festival') here show @endif">
-          <span class="menu-link">
-            <span class="menu-icon">
-              <i class="ki-duotone ki-flag fs-2">
-                <span class="path1"></span>
-                <span class="path2"></span>
-              </i>
-            </span>
-            <span class="menu-title">Festival</span>
-            <span class="menu-arrow"></span>
-          </span>
-          <div class="menu-sub menu-sub-accordion menu-active-bg">
-            <div class="menu-item @if ($subTitle == 'Data Festival') here @endif">
-              <a class="menu-link" href="{{ route('admin.festival.festival') }}">
-                <span class="menu-bullet">
-                  <span class="bullet bullet-dot"></span>
-                </span>
-                <span class="menu-title">Data Festival</span>
-              </a>
-            </div>
-            <div class="menu-item @if ($subTitle == 'Pengunjung') here @endif">
-              <a class="menu-link" href="{{ route('admin.festival.pengunjung') }}">
-                <span class="menu-bullet">
-                  <span class="bullet bullet-dot"></span>
-                </span>
-                <span class="menu-title">Pengunjung</span>
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <div data-kt-menu-trigger="click" class="menu-item menu-accordion @if ($title == 'Berita') here show @endif">
-          <span class="menu-link">
-            <span class="menu-icon">
-              <i class="ki-duotone ki-note-2 fs-2">
-                <span class="path1"></span>
-                <span class="path2"></span>
-                <span class="path3"></span>
-                <span class="path4"></span>
-              </i>
-            </span>
-            <span class="menu-title">Berita</span>
-            <span class="menu-arrow"></span>
-          </span>
-          <div class="menu-sub menu-sub-accordion menu-active-bg">
-            <div class="menu-item @if ($subTitle == 'Data Berita') here @endif">
-              <a class="menu-link" href="{{ route('admin.berita.berita') }}">
-                <span class="menu-bullet">
-                  <span class="bullet bullet-dot"></span>
-                </span>
-                <span class="menu-title">Data Berita</span>
-              </a>
-            </div>
-            <div class="menu-item @if ($subTitle == 'Komentar') here @endif">
-              <a class="menu-link" href="{{ route('admin.berita.komentar') }}">
-                <span class="menu-bullet">
-                  <span class="bullet bullet-dot"></span>
-                </span>
-                <span class="menu-title">Komentar</span>
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <div class="menu-item @if ($title == 'Kapal') here @endif">
-          <a class="menu-link" href="{{ route('admin.kapal') }}">
-            <span class="menu-icon">
-              <i class="ki-duotone ki-ship fs-2">
-              <span class="path1"></span>
-              <span class="path2"></span>
-              <span class="path3"></span>
-            </i>
-            </span>
-            <span class="menu-title">Kapal</span>
+            <span class="menu-title">Review Saya</span>
           </a>
         </div>
 
-        <div class="menu-item @if ($title == 'Kuisioner') here @endif">
-          <a class="menu-link" href="{{ route('admin.kuisioner') }}">
-            <span class="menu-icon">
-              <i class="ki-duotone ki-message-text fs-2">
-              <span class="path1"></span>
-              <span class="path2"></span>
-              <span class="path3"></span>
-            </i>
-            </span>
-            <span class="menu-title">Kuisioner</span>
-          </a>
-        </div>
+        @if (Auth::user()->role == 'admin')
+          <div class="menu-item @if ($title == 'Dashboard') here @endif">
+            <a class="menu-link" href="{{ route('dashboard') }}">
+              <span class="menu-icon">
+                <i class="ki-duotone ki-geolocation fs-2">
+                  <span class="path1"></span>
+                  <span class="path2"></span>
+                </i>
+              </span>
+              <span class="menu-title">Admin Destinasi</span>
+            </a>
+          </div>
+        @endif
 
-        <div class="menu-item @if ($title == 'Pengguna') here @endif">
-          <a class="menu-link" href="{{ route('admin.pengguna') }}">
-            <span class="menu-icon">
-              <i class="ki-duotone ki-address-book fs-2">
+        @if (Auth::user()->role == 'superadmin')
+          <div class="menu-item pt-5">
+            <div class="menu-content">
+              <span class="menu-heading fw-bold text-uppercase fs-7">Menu </span>
+            </div>
+          </div>
+          
+          <div data-kt-menu-trigger="click" class="menu-item menu-accordion  @if ($title == 'Data Master') here show @endif">
+            <span class="menu-link">
+              <span class="menu-icon">
+                <i class="ki-duotone ki-external-drive fs-2">
+                  <span class="path1"></span>
+                  <span class="path2"></span>
+                  <span class="path3"></span>
+                  <span class="path4"></span>
+                  <span class="path5"></span>
+                </i>
+              </span>
+              <span class="menu-title">Data Master</span>
+              <span class="menu-arrow"></span>
+            </span>
+            <div class="menu-sub menu-sub-accordion">
+              <div class="menu-item @if ($subTitle == 'Fasilitas') here @endif">
+                <a class="menu-link" href="{{ route('admin.data-master.fasilitas') }}">
+                  <span class="menu-bullet">
+                    <span class="bullet bullet-dot"></span>
+                  </span>
+                  <span class="menu-title">Fasilitas</span>
+                </a>
+              </div>
+              <div class="menu-item  @if ($subTitle == 'Kategori Wisata') here @endif">
+                <a class="menu-link" href="{{ route('admin.data-master.kategori-wisata') }}">
+                  <span class="menu-bullet">
+                    <span class="bullet bullet-dot"></span>
+                  </span>
+                  <span class="menu-title">Kategori Wisata</span>
+                </a>
+              </div>
+              <div class="menu-item @if ($subTitle == 'Kategori Hotel') here @endif">
+                <a class="menu-link" href="{{ route('admin.data-master.kategori-hotel') }}">
+                  <span class="menu-bullet">
+                    <span class="bullet bullet-dot"></span>
+                  </span>
+                  <span class="menu-title">Kategori Hotel</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+            <span class="menu-link">
+              <span class="menu-icon">
+                <i class="ki-duotone ki-map fs-2">
+                  <span class="path1"></span>
+                  <span class="path2"></span>
+                  <span class="path3"></span>
+                </i>
+              </span>
+              <span class="menu-title">Wisata</span>
+              <span class="menu-arrow"></span>
+            </span>
+            <div class="menu-sub menu-sub-accordion">
+              <div class="menu-item">
+                <a class="menu-link" href="#">
+                  <span class="menu-bullet">
+                    <span class="bullet bullet-dot"></span>
+                  </span>
+                  <span class="menu-title">Data Wisata</span>
+                </a>
+              </div>
+              <div class="menu-item">
+                <a class="menu-link" href="#">
+                  <span class="menu-bullet">
+                    <span class="bullet bullet-dot"></span>
+                  </span>
+                  <span class="menu-title">Review</span>
+                </a>
+              </div>
+              <div class="menu-item">
+                <a class="menu-link" href="#">
+                  <span class="menu-bullet">
+                    <span class="bullet bullet-dot"></span>
+                  </span>
+                  <span class="menu-title">Pengunjung</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+            <span class="menu-link">
+              <span class="menu-icon">
+                <i class="ki-duotone ki-bank fs-2">
+                  <span class="path1"></span>
+                  <span class="path2"></span>
+                </i>
+              </span>
+              <span class="menu-title">Hotel</span>
+              <span class="menu-arrow"></span>
+            </span>
+            <div class="menu-sub menu-sub-accordion">
+              <div class="menu-item">
+                <a class="menu-link" href="">
+                  <span class="menu-bullet">
+                    <span class="bullet bullet-dot"></span>
+                  </span>
+                  <span class="menu-title">Data Hotel</span>
+                </a>
+              </div>
+              <div class="menu-item">
+                <a class="menu-link" href="">
+                  <span class="menu-bullet">
+                    <span class="bullet bullet-dot"></span>
+                  </span>
+                  <span class="menu-title">Review</span>
+                </a>
+              </div>
+              <div class="menu-item">
+                <a class="menu-link" href="#">
+                  <span class="menu-bullet">
+                    <span class="bullet bullet-dot"></span>
+                  </span>
+                  <span class="menu-title">Pengunjung</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div data-kt-menu-trigger="click" class="menu-item menu-accordion @if ($title == 'Restoran') here show @endif">
+            <span class="menu-link">
+              <span class="menu-icon">
+                <i class="ki-duotone ki-coffee fs-2">
+                  <span class="path1"></span>
+                  <span class="path2"></span>
+                  <span class="path3"></span>
+                  <span class="path4"></span>
+                  <span class="path5"></span>
+                  <span class="path6"></span>
+                </i>
+              </span>
+              <span class="menu-title">Restoran</span>
+              <span class="menu-arrow"></span>
+            </span>
+            <div class="menu-sub menu-sub-accordion menu-active-bg">
+              <div class="menu-item @if ($subTitle == 'Data Restoran') here @endif">
+                <a class="menu-link" href="{{ route('admin.restoran.restoran') }}">
+                  <span class="menu-bullet">
+                    <span class="bullet bullet-dot"></span>
+                  </span>
+                  <span class="menu-title">Data Restoran</span>
+                </a>
+              </div>
+              <div class="menu-item">
+                <a class="menu-link" href="#">
+                  <span class="menu-bullet">
+                    <span class="bullet bullet-dot"></span>
+                  </span>
+                  <span class="menu-title">Review</span>
+                </a>
+              </div>
+              <div class="menu-item">
+                <a class="menu-link" href="#">
+                  <span class="menu-bullet">
+                    <span class="bullet bullet-dot"></span>
+                  </span>
+                  <span class="menu-title">Pengunjung</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div data-kt-menu-trigger="click" class="menu-item menu-accordion @if ($title == 'Festival') here show @endif">
+            <span class="menu-link">
+              <span class="menu-icon">
+                <i class="ki-duotone ki-flag fs-2">
+                  <span class="path1"></span>
+                  <span class="path2"></span>
+                </i>
+              </span>
+              <span class="menu-title">Festival</span>
+              <span class="menu-arrow"></span>
+            </span>
+            <div class="menu-sub menu-sub-accordion menu-active-bg">
+              <div class="menu-item @if ($subTitle == 'Data Festival') here @endif">
+                <a class="menu-link" href="{{ route('admin.festival.festival') }}">
+                  <span class="menu-bullet">
+                    <span class="bullet bullet-dot"></span>
+                  </span>
+                  <span class="menu-title">Data Festival</span>
+                </a>
+              </div>
+              <div class="menu-item @if ($subTitle == 'Pengunjung') here @endif">
+                <a class="menu-link" href="{{ route('admin.festival.pengunjung') }}">
+                  <span class="menu-bullet">
+                    <span class="bullet bullet-dot"></span>
+                  </span>
+                  <span class="menu-title">Pengunjung</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div data-kt-menu-trigger="click" class="menu-item menu-accordion @if ($title == 'Berita') here show @endif">
+            <span class="menu-link">
+              <span class="menu-icon">
+                <i class="ki-duotone ki-note-2 fs-2">
+                  <span class="path1"></span>
+                  <span class="path2"></span>
+                  <span class="path3"></span>
+                  <span class="path4"></span>
+                </i>
+              </span>
+              <span class="menu-title">Berita</span>
+              <span class="menu-arrow"></span>
+            </span>
+            <div class="menu-sub menu-sub-accordion menu-active-bg">
+              <div class="menu-item @if ($subTitle == 'Data Berita') here @endif">
+                <a class="menu-link" href="{{ route('admin.berita.berita') }}">
+                  <span class="menu-bullet">
+                    <span class="bullet bullet-dot"></span>
+                  </span>
+                  <span class="menu-title">Data Berita</span>
+                </a>
+              </div>
+              <div class="menu-item @if ($subTitle == 'Komentar') here @endif">
+                <a class="menu-link" href="{{ route('admin.berita.komentar') }}">
+                  <span class="menu-bullet">
+                    <span class="bullet bullet-dot"></span>
+                  </span>
+                  <span class="menu-title">Komentar</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="menu-item @if ($title == 'Kapal') here @endif">
+            <a class="menu-link" href="{{ route('admin.kapal') }}">
+              <span class="menu-icon">
+                <i class="ki-duotone ki-ship fs-2">
                 <span class="path1"></span>
                 <span class="path2"></span>
                 <span class="path3"></span>
               </i>
-            </span>
-            <span class="menu-title">Pengguna</span>
-          </a>
-        </div>
-
-        <div class="menu-item @if ($title == 'Pengaturan') here @endif">
-          <a class="menu-link" href="{{ route('admin.pengaturan') }}">
-            <span class="menu-icon">
-              <i class="ki-duotone ki-setting-2 text-muted fs-1">
-                <span class="path1"></span>
-                <span class="path2"></span>
-              </i>
-            </span>
-            <span class="menu-title">Pengaturan</span>
-          </a>
-        </div>
-
-        <div class="menu-item pt-5">
-          <div class="menu-content">
-            <span class="menu-heading fw-bold text-uppercase fs-7">Account</span>
+              </span>
+              <span class="menu-title">Kapal</span>
+            </a>
           </div>
-        </div>
 
-        <div class="menu-item @if ($title == 'Profil') here @endif">
-          <a class="menu-link" href="{{ route('admin.profil') }}">
-            <span class="menu-icon">
-              <i class="ki-duotone ki-profile-circle fs-2">
+          <div class="menu-item @if ($title == 'Kuisioner') here @endif">
+            <a class="menu-link" href="{{ route('admin.kuisioner') }}">
+              <span class="menu-icon">
+                <i class="ki-duotone ki-message-text fs-2">
                 <span class="path1"></span>
                 <span class="path2"></span>
                 <span class="path3"></span>
               </i>
-            </span>
-            <span class="menu-title">Profil</span>
-          </a>
-        </div>
-        
-        <div class="menu-item">
-          <a class="menu-link" href="{{ route('logout') }}">
-            <span class="menu-icon">
-              <i class="ki-duotone ki-entrance-right fs-2">
-                <span class="path1"></span>
-                <span class="path2"></span>
-              </i>
-            </span>
-            <span class="menu-title">Logout</span>
-          </a>
-        </div>
+              </span>
+              <span class="menu-title">Kuisioner</span>
+            </a>
+          </div>
+
+          <div class="menu-item @if ($title == 'Pengguna') here @endif">
+            <a class="menu-link" href="{{ route('admin.pengguna') }}">
+              <span class="menu-icon">
+                <i class="ki-duotone ki-address-book fs-2">
+                  <span class="path1"></span>
+                  <span class="path2"></span>
+                  <span class="path3"></span>
+                </i>
+              </span>
+              <span class="menu-title">Pengguna</span>
+            </a>
+          </div>
+
+          <div class="menu-item @if ($title == 'Pengaturan') here @endif">
+            <a class="menu-link" href="{{ route('admin.pengaturan') }}">
+              <span class="menu-icon">
+                <i class="ki-duotone ki-setting-2 text-muted fs-1">
+                  <span class="path1"></span>
+                  <span class="path2"></span>
+                </i>
+              </span>
+              <span class="menu-title">Pengaturan</span>
+            </a>
+          </div>
+        @endif
+
+          <div class="menu-item pt-5">
+            <div class="menu-content">
+              <span class="menu-heading fw-bold text-uppercase fs-7">Account</span>
+            </div>
+          </div>
+
+          <div class="menu-item @if ($title == 'Profil') here @endif">
+            <a class="menu-link" href="{{ route('admin.profil') }}">
+              <span class="menu-icon">
+                <i class="ki-duotone ki-profile-circle fs-2">
+                  <span class="path1"></span>
+                  <span class="path2"></span>
+                  <span class="path3"></span>
+                </i>
+              </span>
+              <span class="menu-title">Profil</span>
+            </a>
+          </div>
+          
+          <div class="menu-item">
+            <a class="menu-link" href="{{ route('logout') }}">
+              <span class="menu-icon">
+                <i class="ki-duotone ki-entrance-right fs-2">
+                  <span class="path1"></span>
+                  <span class="path2"></span>
+                </i>
+              </span>
+              <span class="menu-title">Logout</span>
+            </a>
+          </div>
       </div>
     </div>
   </div>

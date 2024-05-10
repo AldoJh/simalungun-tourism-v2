@@ -24,6 +24,7 @@ class SettingController extends Controller
             'siteName' => 'required',
             'description' => 'required',
             'email' => 'required',
+            'playstore' => 'required',
             'whatsapp' => 'required',
             'instagram' => 'required',
             'facebook' => 'required',
@@ -36,6 +37,7 @@ class SettingController extends Controller
         $setting->site_name = $request->input('siteName');
         $setting->description = $request->input('description');
         $setting->email = $request->input('email');
+        $setting->playstore = $request->input('playstore');
         $setting->whatsapp = $request->input('whatsapp');
         $setting->instagram = $request->input('instagram');
         $setting->facebook = $request->input('facebook');

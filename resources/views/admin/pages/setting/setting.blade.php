@@ -48,6 +48,17 @@
               </div>
             </div>
             <div class="row mb-6">
+              <label class="col-lg-4 col-form-label required fw-bold fs-6">Playstore URL</label>
+              <div class="col-lg-8 fv-row">
+                <input type="text" class="form-control form-control-lg form-control-solid @error('playstore') is-invalid @enderror" name="playstore" placeholder="playstore" value="{{ $setting->playstore }}" />
+                @error('playstore')
+                <div class="invalid-feedback">
+                  {{ $message }}
+                </div>
+              @enderror
+              </div>
+            </div>
+            <div class="row mb-6">
               <label class="col-lg-4 col-form-label required fw-bold fs-6">Whatsapp</label>
               <div class="col-lg-8 fv-row">
                 <input type="text" class="form-control form-control-lg form-control-solid @error('whatsapp') is-invalid @enderror" name="whatsapp" placeholder="Whatsapp" value="{{ $setting->whatsapp }}" />
