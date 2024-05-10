@@ -188,7 +188,7 @@
         <div class="row y-gap-30">
 
           @foreach ($event as $item)
-            <div class="col-12">
+            <div class="col-12 col-md-6 col-lg-12">
               <div class="tourCard -type-2">
                 <div class="tourCard__image">
                   <img src="{{ Storage::url($item->image) }}" alt="image">
@@ -218,7 +218,7 @@
                     <i class="icon-pin"></i>
                     {{ $item->address }}
                   </div>
-                  <a href="{{ route('festival.show', $item->slug) }}" class="button -outline-accent-1 text-accent-1 px-20 py-10 mt-30">
+                  <a href="{{ route('festival.show', $item->slug) }}" class="button -outline-accent-1 text-accent-1 px-20 py-10 mt-30 col-md-12 col-lg-4">
                     Lihat Details
                     <i class="icon-arrow-top-right ml-10"></i>
                   </a>

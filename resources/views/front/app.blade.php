@@ -10,18 +10,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com/">
   <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&amp;display=swap" rel="stylesheet">
-
+  <link rel="shortcut icon" type="image/x-icon" href="{{ asset('front-assets/img/logo_sipar.png') }}">
   <!-- Stylesheets -->
   <link rel="stylesheet" href="{{ asset('front-assets/css/vendors.css') }}">
   <link rel="stylesheet" href="{{ asset('front-assets/css/main.css') }}">
-
-  <style>
-    @media (max-width: 768px) {
-        .feedback {
-            margin-bottom: 560px !important;
-        }
-    }
-  </style>
 
   <title>Simalungun | {{$title ?? ''}}</title>
 </head>
@@ -168,7 +160,7 @@
     @yield('content')
 
 
-    <div style="position: relative;">
+    <div style="position: relative;" class="mt-50 pt-50">
       <div class="row justify-content-center  d-flex z-10">
           <div class="col-lg-5 col-11 col-md-10 feedback" style="margin-bottom: 420px">
               <div class="hero__filter">
