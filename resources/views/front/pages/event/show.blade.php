@@ -134,9 +134,7 @@
           {!! $event->description !!}
         </div>
 
-        <div class="line mt-60 mb-60"></div>
-
-        <div class="row">
+        <div class="row mt-40">
           <div class="col-md mb-20">
             <h2 class="text-24">Statistik <br> Pengunjung</h2>
           </div>
@@ -157,6 +155,10 @@
           </div>
         </div>
         <canvas id="lineChart" width="400" height="150"></canvas>
+
+        <div class="line mt-60 mb-60"></div>
+
+
       </div>
 
       <div class="col-lg-4">

@@ -17,6 +17,7 @@ use App\Http\Controllers\Web\Admin\MasterDataController;
 use App\Http\Controllers\Web\Front\RestaurantController;
 use App\Http\Controllers\Web\Admin\NewsController as AdminNewsController;
 use App\Http\Controllers\Web\Admin\RestaurantController as AdminRestaurantController;
+use App\Http\Controllers\web\admin\ReviewController;
 use App\Http\Controllers\Web\Admin\TourismController as AdminTourismController;
 use App\Http\Controllers\Web\Admin\UserController;
 use App\Http\Controllers\Web\Front\FeedbackController;
@@ -59,6 +60,17 @@ Route::get('/dashboard', function () {
         'page_id' => 1
         ]);
 })->name('dashboard'); 
+
+
+Route::prefix('/my-review')->group(function () {
+    Route::get('/wisata', [ReviewController::class, 'tourism'])->name('my-review.wisata');
+    Route::get('/wisata/{id}/destroy', [ReviewController::class, 'tourismDestroy'])->name('my-review.wisata.destroy');
+    Route::get('/hotel', [ReviewController::class, 'hotel'])->name('my-review.hotel');
+    Route::get('/hotel/{id}/destroy', [ReviewController::class, 'hotelDestroy'])->name('my-review.hotel.destroy');
+    Route::get('/restoran', [ReviewController::class, 'restaurant'])->name('my-review.restoran');
+    Route::get('/restoran/{id}/destroy', [ReviewController::class, 'restaurantDestroy'])->name('my-review.restoran.destroy');
+});
+
 
 Route::prefix('/menu')->middleware(['auth', 'role:superadmin'])->group(function () {
     Route::prefix('/data-master')->group(function () {

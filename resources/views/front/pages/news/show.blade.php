@@ -55,7 +55,11 @@
     <div data-anim-child="slide-up delay-2" class="tourSingleGrid -type-1">
       <div class="tourSingleGrid__grid mobile-css-slider-2">
         @foreach ($news->newsImage->take(4) as $item)
-          <img src="{{ Storage::url($item->image) }}" alt="image">
+          @if(Storage::disk('public')->exists($item->image))
+            <img src="{{ Storage::url($item->image) }}" alt="image">
+          @else
+            <img src="{{ asset('front-assets/no-image.png') }}" alt="default image">
+          @endif
         @endforeach
       </div>
       <div class="tourSingleGrid__button">
@@ -64,7 +68,11 @@
         </a>
         @foreach ($news->newsImage as $item)
         @if ($loop->iteration > 1)
-          <a href="{{ Storage::url($item->image) }}" class="js-gallery" data-gallery="gallery1"></a>
+          @if(Storage::disk('public')->exists($item->image))
+            <a href="{{ Storage::url($item->image) }}" class="js-gallery" data-gallery="gallery1"></a>
+          @else
+            <a href="{{ asset('front-assets/no-image.png') }}" class="js-gallery" data-gallery="gallery1"></a>
+          @endif
         @endif
       @endforeach
       </div>
@@ -216,7 +224,11 @@
                   <div class="col-12 mt-20">
                     <a href="{{ route('berita.show', $item->slug) }}" class="d-flex items-center -hover-image-scale">
                       <div class="size-100 relative rounded-12 -hover-image-scale__image">
-                        <img src="{{ Storage::url($item->image) }}" alt="image" class="img-ratio rounded-12">
+                        @if(Storage::disk('public')->exists($item->image))
+                          <img src="{{ Storage::url($item->image) }}" alt="image" class="img-ratio rounded-12">
+                        @else
+                          <img src="{{ asset('front-assets/no-image.png') }}" alt="default image" class="img-ratio rounded-12">
+                        @endif
                       </div>
         
                       <div class="ml-10">

@@ -13,7 +13,7 @@
 		<meta property="og:url" content="" />
 		<meta property="og:site_name" content="" />
 		<link rel="canonical" href="" />
-    <link rel="shortcut icon" href="{{ asset('admin-assets/media/logos/favicon.ico') }}" />
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('front-assets/img/logo_sipar.png') }}">
 
     @include('admin.layouts._partials-app.head')
 

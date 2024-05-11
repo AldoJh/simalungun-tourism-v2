@@ -6,3 +6,6 @@ INSERT INTO events(id,name,slug,date,price,address,latitude,longitude,descriptio
 INSERT INTO events(id,name,slug,date,price,address,latitude,longitude,description,image,created_at,updated_at) VALUES (230713001,'MALAM PESONA SIMALUNGUN DI PRSU KE 49 2023','malam-pesona-simalungun-di-prsu-ke-49-2023','2023-07-12',50,'Pekan Raya Sumatera Utara, Jl. Jenderal Gatot Subroto, Sei Sikambing C. II, Kota Medan, Sumatera Utara, Indonesia',35918668,986318137,'Malam pesona, seni dan kebudayaan di pekan raya sumatera utara ke 49&nbsp;','event/1689234053-malam-pesona-simalungun-di-prsu-ke-49-2023-event.png','2023-07-13','2023-07-13');
 
 INSERT INTO event_images(id,event_id,image,created_at,updated_at) VALUES (1,230619001,'event/collection/1687145332-event.png','2023-06-19','2023-06-19');
+INSERT INTO event_images(id,event_id,image,created_at,updated_at) VALUES (2,221105001,'event/1667558353-pagelaran-seni-dan-budaya-simalungun-event.png','2022-11-05','2023-03-09');
+INSERT INTO event_images(id,event_id,image,created_at,updated_at) VALUES (3,221128001,'event/1687143667-simalungun-e-sport-fest-event.png','2023-06-19','2023-06-19');
+INSERT INTO event_images(id,event_id,image,created_at,updated_at) VALUES (4,230713001,'event/1689234053-malam-pesona-simalungun-di-prsu-ke-49-2023-event.png','2023-07-13','2023-07-13');

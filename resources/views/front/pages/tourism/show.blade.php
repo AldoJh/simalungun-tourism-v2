@@ -200,26 +200,8 @@
         <div class="mt-20">
           {!! $tourism->description !!}
         </div>
-
-        <div class="line mt-60 mb-60"></div>
-
-        <h2 class="text-30">Fasilitas</h2>
-        <div class="row x-gap-130 y-gap-20 pt-20">
-          <div class="col-lg-6">
-            <div class="y-gap-15">
-              @foreach ($tourism->tourismFacility as $item)
-              @endforeach
-              <div class="d-flex">
-                <i class="icon-check flex-center text-10 size-24 rounded-full text-green-2 bg-green-1 mr-15"></i>
-                {{ $item->facility->name }}
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="line mt-60 mb-60"></div>
-
-        <div class="row">
+        
+        <div class="row mt-40">
           <div class="col-md mb-20">
             <h2 class="text-24">Statistik <br> Pengunjung</h2>
           </div>
@@ -240,6 +222,22 @@
           </div>
         </div>
         <canvas id="lineChart" width="400" height="150"></canvas>
+        
+        <div class="line mt-60 mb-60"></div>
+
+        <h2 class="text-30">Fasilitas</h2>
+        <div class="row x-gap-130 y-gap-20 pt-20">
+          <div class="col-lg-6">
+            <div class="y-gap-15">
+              @foreach ($tourism->tourismFacility as $item)
+              @endforeach
+              <div class="d-flex">
+                <i class="icon-check flex-center text-10 size-24 rounded-full text-green-2 bg-green-1 mr-15"></i>
+                {{ $item->facility->name }}
+              </div>
+            </div>
+          </div>
+        </div>
 
         <div class="line mt-60 mb-60"></div>
 

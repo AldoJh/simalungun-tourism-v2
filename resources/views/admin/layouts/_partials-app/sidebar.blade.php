@@ -37,8 +37,8 @@
           </a>
         </div>
 
-        <div class="menu-item @if ($title == 'Dashboard') here @endif">
-          <a class="menu-link" href="{{ route('dashboard') }}">
+        <div class="menu-item @if ($title == 'Review') here @endif">
+          <a class="menu-link" href="{{ route('my-review.wisata') }}">
             <span class="menu-icon">
               <i class="ki-duotone ki-star fs-2"></i>
             </span>
