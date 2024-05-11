@@ -73,7 +73,7 @@ class Tourism extends Model
         return $this->hasMany(TourismViewer::class);
     }
 
-    public function tourismtVisitor()
+    public function tourismVisitor()
     {
         return $this->hasMany(TourismVisitor::class);
     }

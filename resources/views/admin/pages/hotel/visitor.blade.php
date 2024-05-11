@@ -9,7 +9,7 @@
           <div class="card-title">
             <h3 class="card-title align-items-start flex-column">
               <span class="card-label fw-bold fs-3 mb-1">Pengunjung</span>
-              <span class="text-muted fw-semibold fs-7">Pengunjung Festival</span>
+              <span class="text-muted fw-semibold fs-7">Pengunjung hotel</span>
             </h3>
           </div>
         </div>
@@ -18,7 +18,7 @@
             <table class="table table-row-dashed fs-6 gy-5">
               <thead>
                 <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
-                  <th class="min-w-200px">Festival</th>
+                  <th class="min-w-200px">Hotel</th>
                   <th class="min-w-125px">Tanggal</th>
                   <th>Jumlah Pengunjung</th>
                   <th>Lampiran</th>
@@ -36,8 +36,8 @@
                     <tr>
                       <td>
                         <div>
-                          <div class="fs-6 fw-bold">{{ $item->event->name }}</div>
-                          <span class="text-muted text-10">{{ $item->event->slug }}</span>
+                          <div class="fs-6 fw-bold">{{ $item->hotel->name }}</div>
+                          <span class="text-muted text-10">{{ $item->hotel->slug }}</span>
                         </div>
                       </td>
                       <td>

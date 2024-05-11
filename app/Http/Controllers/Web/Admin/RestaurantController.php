@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\District;
 use App\Models\Facility;
 use App\Models\Restaurant;
+use App\Models\RestaurantReview;
+use App\Models\RestaurantVisitor;
 use Illuminate\Http\Request;
 
 class RestaurantController extends Controller
@@ -38,6 +40,32 @@ class RestaurantController extends Controller
         return redirect()->back()->withInput();
         // dd($request->all());
 
+    }
+
+    public function review(){
+        $data = [
+            'title' => 'Restoran',
+            'subTitle' => 'Review',
+            'page_id' => 5,
+            'review' => RestaurantReview::paginate(10)
+        ];
+        return view('admin.pages.restaurant.review',  $data);
+    }
+
+    public function reviewDestroy($id){
+        $review = RestaurantReview::findOrFail($id);
+        $review->delete();
+        return redirect()->route('admin.restoran.review')->with('success','Berhasil menghapus review');
+    }
+
+    public function visitor(){
+        $data = [
+            'title' => 'Restoran',
+            'subTitle' => 'Pengunjung',
+            'page_id' => 5,
+            'visitor' => RestaurantVisitor::paginate(10)
+        ];
+        return view('admin.pages.restaurant.visitor',  $data);
     }
 }
 

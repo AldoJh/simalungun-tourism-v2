@@ -5,6 +5,7 @@ use App\Http\Controllers\Web\Auth\AuthController;
 use App\Http\Controllers\Web\Admin\BoatController;
 use App\Http\Controllers\Web\Admin\EventController as AdminEventController;
 use App\Http\Controllers\Web\Admin\FeedbackController as AdminFeedbackController;
+use App\Http\Controllers\Web\Admin\HotelController as AdminHotelController;
 use App\Http\Controllers\Web\Front\MainController;
 use App\Http\Controllers\Web\Front\NewsController;
 use App\Http\Controllers\Web\Front\EventController;
@@ -16,6 +17,7 @@ use App\Http\Controllers\Web\Admin\MasterDataController;
 use App\Http\Controllers\Web\Front\RestaurantController;
 use App\Http\Controllers\Web\Admin\NewsController as AdminNewsController;
 use App\Http\Controllers\Web\Admin\RestaurantController as AdminRestaurantController;
+use App\Http\Controllers\Web\Admin\TourismController as AdminTourismController;
 use App\Http\Controllers\Web\Admin\UserController;
 use App\Http\Controllers\Web\Front\FeedbackController;
 
@@ -58,7 +60,7 @@ Route::get('/dashboard', function () {
         ]);
 })->name('dashboard'); 
 
-Route::prefix('/menu')->middleware(['auth'])->group(function () {
+Route::prefix('/menu')->middleware(['auth', 'role:superadmin'])->group(function () {
     Route::prefix('/data-master')->group(function () {
         Route::prefix('/fasilitas')->group(function () {
             Route::get('/', [MasterDataController::class, 'facility'])->name('admin.data-master.fasilitas');
@@ -129,9 +131,37 @@ Route::prefix('/menu')->middleware(['auth'])->group(function () {
         Route::post('/{id}/edit', [AdminRestaurantController::class, 'restaurantUpdate'])->name('admin.restoran.restoran.update');
         Route::get('/{id}/destroy', [AdminRestaurantController::class, 'restaurantDestroy'])->name('admin.restoran.restoran.destroy');
         Route::get('/{id}/pengunjung', [AdminRestaurantController::class, 'restaurantVisitor'])->name('admin.restoran.restoran.pengunjung');
-
+        Route::get('/review', [AdminRestaurantController::class, 'review'])->name('admin.restoran.review');
+        Route::get('/review/{id}/destroy', [AdminRestaurantController::class, 'reviewDestroy'])->name('admin.restoran.review.destroy');
+        Route::get('/pengunjung', [AdminRestaurantController::class, 'visitor'])->name('admin.restoran.pengunjung');
     });
     
+    Route::prefix('/hotel')->group(function () {
+        Route::get('/', [AdminHotelController::class, 'hotel'])->name('admin.hotel.hotel');
+        Route::get('/add', [AdminHotelController::class, 'hotelAdd'])->name('admin.hotel.hotel.add');
+        Route::post('/add', [AdminHotelController::class, 'hotelStore'])->name('admin.hotel.hotel.store');
+        Route::get('/{id}/edit', [AdminHotelController::class, 'hotelEdit'])->name('admin.hotel.hotel.edit');
+        Route::post('/{id}/edit', [AdminHotelController::class, 'hotelUpdate'])->name('admin.hotel.hotel.update');
+        Route::get('/{id}/destroy', [AdminHotelController::class, 'hotelDestroy'])->name('admin.hotel.hotel.destroy');
+        Route::get('/{id}/pengunjung', [AdminHotelController::class, 'hotelVisitor'])->name('admin.hotel.hotel.pengunjung');
+        Route::get('/review', [AdminHotelController::class, 'review'])->name('admin.hotel.review');
+        Route::get('/review/{id}/destroy', [AdminHotelController::class, 'reviewDestroy'])->name('admin.hotel.review.destroy');
+        Route::get('/pengunjung', [AdminHotelController::class, 'visitor'])->name('admin.hotel.pengunjung');
+    });
+    
+    Route::prefix('/wisata')->group(function () {
+        Route::get('/', [AdminTourismController::class, 'tourism'])->name('admin.wisata.wisata');
+        Route::get('/add', [AdminTourismController::class, 'tourismAdd'])->name('admin.wisata.wisata.add');
+        Route::post('/add', [AdminTourismController::class, 'tourismStore'])->name('admin.wisata.wisata.store');
+        Route::get('/{id}/edit', [AdminTourismController::class, 'tourismEdit'])->name('admin.wisata.wisata.edit');
+        Route::post('/{id}/edit', [AdminTourismController::class, 'tourismUpdate'])->name('admin.wisata.wisata.update');
+        Route::get('/{id}/destroy', [AdminTourismController::class, 'tourismDestroy'])->name('admin.wisata.wisata.destroy');
+        Route::get('/{id}/pengunjung', [AdminTourismController::class, 'tourismVisitor'])->name('admin.wisata.wisata.pengunjung');
+        Route::get('/review', [AdminTourismController::class, 'review'])->name('admin.wisata.review');
+        Route::get('/review/{id}/destroy', [AdminTourismController::class, 'reviewDestroy'])->name('admin.wisata.review.destroy');
+        Route::get('/pengunjung', [AdminTourismController::class, 'visitor'])->name('admin.wisata.pengunjung');
+    });
+
     Route::prefix('/pengaturan')->group(function () {
         Route::get('/', [SettingController::class, 'setting'])->name('admin.pengaturan');
         Route::post('/', [SettingController::class, 'settingUpdate'])->name('admin.pengaturan.update');

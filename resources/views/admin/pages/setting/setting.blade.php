@@ -102,21 +102,3 @@
 </div>
 
 @endsection
-
-@section('script')
-<script>
-  var quill = new Quill('#kt_docs_quill_basic', {
-    modules: {
-        toolbar: [
-            [{
-                header: [1, 2, false]
-            }],
-            ['bold', 'italic', 'underline'],
-            // ['image', 'code-block']
-        ]
-    },
-    placeholder: 'Type your text here...',
-    theme: 'snow' // or 'bubble'
-});
-</script>
-@endsection

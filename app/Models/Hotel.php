@@ -70,7 +70,7 @@ class Hotel extends Model
         return $this->hasMany(HotelViewer::class);
     }
 
-    public function hoteltVisitor()
+    public function hotelVisitor()
     {
         return $this->hasMany(HotelVisitor::class);
     }

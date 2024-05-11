@@ -109,7 +109,7 @@
             </div>
           </div>
 
-          <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+          <div data-kt-menu-trigger="click" class="menu-item menu-accordion @if ($title == 'Wisata') here show @endif">
             <span class="menu-link">
               <span class="menu-icon">
                 <i class="ki-duotone ki-map fs-2">
@@ -122,24 +122,24 @@
               <span class="menu-arrow"></span>
             </span>
             <div class="menu-sub menu-sub-accordion">
-              <div class="menu-item">
-                <a class="menu-link" href="#">
+              <div class="menu-item @if ($subTitle == 'Data Wisata') here @endif">
+                <a class="menu-link" href="{{ route('admin.wisata.wisata') }}">
                   <span class="menu-bullet">
                     <span class="bullet bullet-dot"></span>
                   </span>
                   <span class="menu-title">Data Wisata</span>
                 </a>
               </div>
-              <div class="menu-item">
-                <a class="menu-link" href="#">
+              <div class="menu-item @if ( ($title == 'Wisata') AND ($subTitle == 'Review')) here @endif">
+                <a class="menu-link" href="{{ route('admin.wisata.review') }}">
                   <span class="menu-bullet">
                     <span class="bullet bullet-dot"></span>
                   </span>
                   <span class="menu-title">Review</span>
                 </a>
               </div>
-              <div class="menu-item">
-                <a class="menu-link" href="#">
+              <div class="menu-item @if (($title == 'Wisata') AND ($subTitle == 'Pengunjung')) here @endif">
+                <a class="menu-link" href="{{ route('admin.wisata.pengunjung') }}">
                   <span class="menu-bullet">
                     <span class="bullet bullet-dot"></span>
                   </span>
@@ -149,7 +149,7 @@
             </div>
           </div>
 
-          <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+          <div data-kt-menu-trigger="click" class="menu-item menu-accordion @if ($title == 'Hotel') here show @endif">
             <span class="menu-link">
               <span class="menu-icon">
                 <i class="ki-duotone ki-bank fs-2">
@@ -161,24 +161,24 @@
               <span class="menu-arrow"></span>
             </span>
             <div class="menu-sub menu-sub-accordion">
-              <div class="menu-item">
-                <a class="menu-link" href="">
+              <div class="menu-item @if ($subTitle == 'Data Hotel') here @endif">
+                <a class="menu-link" href="{{ route('admin.hotel.hotel') }}">
                   <span class="menu-bullet">
                     <span class="bullet bullet-dot"></span>
                   </span>
                   <span class="menu-title">Data Hotel</span>
                 </a>
               </div>
-              <div class="menu-item">
-                <a class="menu-link" href="">
+              <div class="menu-item @if (($title == 'Hotel') AND ($subTitle == 'Review')) here @endif">
+                <a class="menu-link" href="{{ route('admin.hotel.review') }}">
                   <span class="menu-bullet">
                     <span class="bullet bullet-dot"></span>
                   </span>
                   <span class="menu-title">Review</span>
                 </a>
               </div>
-              <div class="menu-item">
-                <a class="menu-link" href="#">
+              <div class="menu-item @if (($title == 'Hotel') AND ($subTitle == 'Pengunjung')) here @endif">
+                <a class="menu-link" href="{{ route('admin.hotel.pengunjung') }}">
                   <span class="menu-bullet">
                     <span class="bullet bullet-dot"></span>
                   </span>
@@ -212,16 +212,16 @@
                   <span class="menu-title">Data Restoran</span>
                 </a>
               </div>
-              <div class="menu-item">
-                <a class="menu-link" href="#">
+              <div class="menu-item @if (($title == 'Restoran') AND ($subTitle == 'Review')) here @endif">
+                <a class="menu-link" href="{{ route('admin.restoran.review') }}">
                   <span class="menu-bullet">
                     <span class="bullet bullet-dot"></span>
                   </span>
                   <span class="menu-title">Review</span>
                 </a>
               </div>
-              <div class="menu-item">
-                <a class="menu-link" href="#">
+              <div class="menu-item @if (($title == 'Restoran') AND ($subTitle == 'Pengunjung')) here @endif">
+                <a class="menu-link" href="{{ route('admin.restoran.pengunjung') }}">
                   <span class="menu-bullet">
                     <span class="bullet bullet-dot"></span>
                   </span>
@@ -251,7 +251,7 @@
                   <span class="menu-title">Data Festival</span>
                 </a>
               </div>
-              <div class="menu-item @if ($subTitle == 'Pengunjung') here @endif">
+              <div class="menu-item @if (($title == 'Festival') AND ($subTitle == 'Pengunjung')) here @endif">
                 <a class="menu-link" href="{{ route('admin.festival.pengunjung') }}">
                   <span class="menu-bullet">
                     <span class="bullet bullet-dot"></span>
