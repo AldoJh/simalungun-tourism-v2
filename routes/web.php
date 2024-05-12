@@ -187,6 +187,8 @@ Route::prefix('/menu')->middleware(['auth'])->group(function () {
         Route::post('/', [UserController::class, 'userStore'])->name('admin.pengguna.store');
         Route::post('/{id}/update', [UserController::class, 'userUpdate'])->name('admin.pengguna.update');
         Route::get('/{id}/destroy', [UserController::class, 'userDestroy'])->name('admin.pengguna.destroy');
+        Route::get('/{id}/akses', [UserController::class, 'permission'])->name('admin.pengguna.akses');
+        Route::post('/{id}/akses', [UserController::class, 'permissionUpdate'])->name('admin.pengguna.akses.update');
     });
     Route::prefix('/admin-destinasi')->middleware(['role:admin'])->group(function () {
         Route::get('/wisata', [DestinationController::class, 'tourism'])->name('admin.admin-destinasi.wisata');

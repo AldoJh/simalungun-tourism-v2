@@ -3,6 +3,10 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\EventAdmin;
+use App\Models\HotelAdmin;
+use App\Models\TourismAdmin;
+use App\Models\RestaurantAdmin;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -47,5 +51,25 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function tourism()
+    {
+        return $this->hasMany(TourismAdmin::class);
+    }
+
+    public function hotel()
+    {
+        return $this->hasMany(HotelAdmin::class);
+    }
+
+    public function restaurant()
+    {
+        return $this->hasMany(RestaurantAdmin::class);
+    }
+
+    public function event()
+    {
+        return $this->hasMany(EventAdmin::class);
     }
 }

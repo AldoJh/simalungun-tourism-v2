@@ -1,7 +1,7 @@
 @extends('admin.layouts.app')
 
 @section('content')
-
+{{-- 
   <div class="row g-5 g-xl-8">
     <div class="col-xl-12 mb-8">
       <div class="d-md-flex flex-row-fluid justify-content-end gap-5">
@@ -160,7 +160,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> --}}
 
 @endsection
 

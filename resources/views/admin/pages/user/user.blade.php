@@ -141,10 +141,10 @@
                         <div class="d-flex">
                           <div class="fs-7">
                             <ul>
-                              <li>Wisata: 0</li>
-                              <li>Hotel: 1</li>  
-                              <li>Resto: 0</li>
-                              <li>festival: 2</li>
+                              <li>Wisata: {{ count($item->tourism) }} </li>
+                              <li>Hotel: {{ count($item->hotel) }}</li>  
+                              <li>Resto: {{ count($item->restaurant) }}</li>
+                              <li>festival: {{ count($item->event) }}</li>
                             </ul>  
                           </div>
                         </div>
@@ -165,7 +165,7 @@
                         <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4" data-kt-menu="true">
                           @if ($item->role == "admin")
                             <div class="menu-item px-3">
-                              <a href="#" data-bs-toggle="modal" data-bs-target="#edit{{$item->id}}" class="menu-link px-3">Akses</a>
+                              <a href="{{ route('admin.pengguna.akses', $item->id) }}"  class="menu-link px-3">Akses</a>
                             </div>
                           @endif
                           <div class="menu-item px-3">

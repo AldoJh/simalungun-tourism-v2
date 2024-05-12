@@ -86,12 +86,6 @@
                 <h1 class="hero__title text-white pb-30">
                   Kebun Teh Sidamanik
                 </h1>
-                {{-- <div>
-                  <a href="{{ route('kuisioner') }}"
-                  class="pt-10 mt-50 pb-10 pl-15 rounded-20 pr-15 -dark-1 bg-accent-1 rounded text-white col-4">
-                  DISBUDPAREKRAF Simalungun
-                  </a>
-                </div> --}}
               </div>
             </div>
           </div>
