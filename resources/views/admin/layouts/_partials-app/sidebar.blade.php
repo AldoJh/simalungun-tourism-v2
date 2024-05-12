@@ -37,29 +37,6 @@
           </a>
         </div>
 
-        <div class="menu-item @if ($title == 'Review') here @endif">
-          <a class="menu-link" href="{{ route('my-review.wisata') }}">
-            <span class="menu-icon">
-              <i class="ki-duotone ki-star fs-2"></i>
-            </span>
-            <span class="menu-title">Review Saya</span>
-          </a>
-        </div>
-
-        @if (Auth::user()->role == 'admin')
-          <div class="menu-item @if ($title == 'Dashboard') here @endif">
-            <a class="menu-link" href="{{ route('dashboard') }}">
-              <span class="menu-icon">
-                <i class="ki-duotone ki-geolocation fs-2">
-                  <span class="path1"></span>
-                  <span class="path2"></span>
-                </i>
-              </span>
-              <span class="menu-title">Admin Destinasi</span>
-            </a>
-          </div>
-        @endif
-
         @if (Auth::user()->role == 'superadmin')
           <div class="menu-item pt-5">
             <div class="menu-content">
@@ -347,10 +324,33 @@
           </div>
         @endif
 
+        @if (Auth::user()->role == 'admin') 
+          <div class="menu-item @if ($title == 'Admin Destinasi') here @endif">
+            <a class="menu-link" href="{{ route('admin.admin-destinasi.wisata') }}">
+              <span class="menu-icon">
+                <i class="ki-duotone ki-geolocation fs-2">
+                  <span class="path1"></span>
+                  <span class="path2"></span>
+                </i>
+              </span>
+              <span class="menu-title">Admin Destinasi</span>
+            </a>
+          </div>
+        @endif
+
           <div class="menu-item pt-5">
             <div class="menu-content">
               <span class="menu-heading fw-bold text-uppercase fs-7">Account</span>
             </div>
+          </div>
+
+          <div class="menu-item @if ($title == 'Review') here @endif">
+            <a class="menu-link" href="{{ route('my-review.wisata') }}">
+              <span class="menu-icon">
+                <i class="ki-duotone ki-star fs-2"></i>
+              </span>
+              <span class="menu-title">Review Saya</span>
+            </a>
           </div>
 
           <div class="menu-item @if ($title == 'Profil') here @endif">

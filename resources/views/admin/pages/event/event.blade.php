@@ -62,7 +62,7 @@
                           </a>
                           <div class="ms-5">
                             <a href="{{ route('festival.show', $item->slug) }}" target="_blank" class="text-gray-800 text-hover-primary fs-5 fw-bold mb-1">{{ $item->name }}</a>
-                            <div class="text-muted fs-7 fw-bold">{{ $item->slug }}</div>                    
+                            <div class="text-muted fs-7 fw-bold">{{ $item->address }}</div>                    
                           </div>
                         </div>
                       </td>
