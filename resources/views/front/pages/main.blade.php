@@ -5,7 +5,7 @@
   name="keywords"
   content="wisata, simalungun, sumut, toba, sidamanik, tourism, destinasi, hotel, festival, restaurant, resto, berita"
   />
-  <meta name="author" content="DISPAR Simalungun" />
+  <meta name="author" content="DISBUDPAREKRAF Simalungun" />
   <meta name="description" content="{!! \App\Models\Setting::webBase()->description !!}" />
 
   <!-- Open Graph Meta Tags -->
@@ -89,7 +89,7 @@
                 {{-- <div>
                   <a href="{{ route('kuisioner') }}"
                   class="pt-10 mt-50 pb-10 pl-15 rounded-20 pr-15 -dark-1 bg-accent-1 rounded text-white col-4">
-                  Dispar Simalungun
+                  DISBUDPAREKRAF Simalungun
                   </a>
                 </div> --}}
               </div>

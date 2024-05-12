@@ -238,7 +238,7 @@
               <div class="footer__bottom">
                   <div class="row y-gap-5">
                       <div class="col-12 text-center">
-                          <div>© Copyright DISPAR Simalungun 2024</div>
+                          <div>© Copyright DISBUDPAREKRAF Simalungun 2024</div>
                       </div>
                   </div>
               </div>

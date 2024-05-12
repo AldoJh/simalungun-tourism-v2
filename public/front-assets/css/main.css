@@ -13438,7 +13438,6 @@ table.table-4.-border-bottom tbody > tr {
 
 .overallRating__list {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
   gap: 4px;
 }
 
@@ -13448,15 +13447,6 @@ table.table-4.-border-bottom tbody > tr {
   }
 }
 
-.overallRating__list > *:nth-child(1) {
-  grid-column: 2 span;
-}
-
-@media (max-width: 767px) {
-  .overallRating__list > *:nth-child(1) {
-    grid-column: 1 span;
-  }
-}
 
 .overallRating__item {
   display: flex;
@@ -13464,10 +13454,6 @@ table.table-4.-border-bottom tbody > tr {
   align-items: center;
   background-color: rgba(235, 102, 43, 0.04);
   padding: 16px 30px;
-}
-
-.overallRating__item:nth-child(1) {
-  background-color: rgba(235, 102, 43, 0.1);
 }
 
 .overallRating__content {

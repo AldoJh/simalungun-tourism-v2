@@ -5,7 +5,7 @@
   name="keywords"
   content="wisata, simalungun, sumut, toba, sidamanik, tourism, destinasi, hotel, festival, hotel, resto, berita"
   />
-  <meta name="author" content="Dispar" />
+  <meta name="author" content="DISBUDPAREKRAF" />
   <meta name="description" content="{{ $event->excerpt }}" />
 
   <!-- Open Graph Meta Tags -->
@@ -157,6 +157,43 @@
         <canvas id="lineChart" width="400" height="150"></canvas>
 
         <div class="line mt-60 mb-60"></div>
+
+        <h2 class="text-30">Atribut Festival</h2>
+
+        <div class="overallRating mt-30">
+          <div class="overallRating__list">
+            @if ($event->eventAttribute->isEmpty() )
+            <div class="text-center">
+              <span class="text-center">~ Tidak ada atribut khusus ~</span>
+            </div>
+            @else
+            @foreach ($event->eventAttribute as $item)
+              <div class="overallRating__item">
+                <div class="overallRating__content">
+                  <div class="overallRating__icon size-50 relative rounded-12 -hover-image-scale__image">
+                    @if(Storage::disk('public')->exists($item->image))
+                      <img src="{{ Storage::url($item->image) }}" alt="image" class="img-ratio rounded-12">
+                    @else
+                      <img src="{{ asset('front-assets/no-image.png') }}" alt="default image" class="img-ratio rounded-12">
+                    @endif
+                  </div>
+
+                  <div class="overallRating__info">
+                    <h5 class="text-16 fw-500">{{ $item->name }}</h5>
+                    <div class="lh-15">{{ $item->description }}</div>
+                  </div>
+                </div>
+
+                <div class="overallRating__rating d-flex items-center">
+                  <i class="icon-star text-yellow-2 text-16"></i>
+                  {{ $item->value }}
+                </div>
+              </div>
+            @endforeach
+            @endif
+
+          </div>
+        </div>
 
 
       </div>

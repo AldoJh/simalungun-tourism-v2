@@ -25,7 +25,7 @@
 							<td align="center" valign="center" style="font-size: 13px; text-align:center;padding: 20px; color: #6d6e7c;">
 								<p>Gg. Sumbayak, Bahapal Raya, Kec. Raya, <br> Kabupaten Simalungun
 								<p>Copyright ©
-								<a href="https://dispar.simalungunkab.go.id/" rel="noopener" target="_blank">DISPAR Simalungun</a>.</p>
+								<a href="https://DISBUDPAREKRAF.simalungunkab.go.id/" rel="noopener" target="_blank">DISBUDPAREKRAF Simalungun</a>.</p>
 							</td>
 						</tr></br></div>
 					</div>

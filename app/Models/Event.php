@@ -56,7 +56,7 @@ class Event extends Model
         return $this->hasMany(EventVisitor::class);
     }
 
-    public function eventAttributes()
+    public function eventAttribute()
     {
         return $this->hasMany(EventAttribute::class);
     }

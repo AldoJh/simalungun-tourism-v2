@@ -6,7 +6,7 @@
   name="keywords"
   content="wisata, simalungun, sumut, toba, sidamanik, tourism, destinasi, hotel, festival, restaurant, resto, berita"
   />
-  <meta name="author" content="Dispar" />
+  <meta name="author" content="DISBUDPAREKRAF" />
   <meta name="description" content="{{ $restaurant->excerpt }}" />
 
   <!-- Open Graph Meta Tags -->
