@@ -11,7 +11,7 @@
                   <img src="@if($user->photo) {{  Storage::url(Auth::user()->photo) }} @else https://ui-avatars.com/api/?background=E79024&color=fff&name={{ $user->name }} @endif" alt="image">
               </div>
               <span class="fs-3 text-gray-800 text-hover-primary fw-bold mb-1">
-                  Max Smith            
+                  {{ $user->name }}            
               </span>
           </div>
           <div class="separator separator-dashed my-3"></div>  

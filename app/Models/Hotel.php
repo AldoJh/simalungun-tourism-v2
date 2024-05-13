@@ -26,7 +26,6 @@ class Hotel extends Model
         'address',
         'excerpt',
         'slug',
-        'logo',
         'image',
         'phone',
         'room',

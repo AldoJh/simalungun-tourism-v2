@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Village;
+use App\Models\District;
 use App\Models\RestaurantMenu;
 use App\Models\RestaurantAdmin;
 use App\Models\RestaurantImage;
@@ -11,6 +13,7 @@ use App\Models\RestaurantVisitor;
 use App\Models\RestaurantFacility;
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Restaurant extends Model
@@ -27,7 +30,6 @@ class Restaurant extends Model
         'address',
         'excerpt',
         'slug',
-        'logo',
         'image',
         'phone',
         'latitude',
@@ -49,6 +51,15 @@ class Restaurant extends Model
         ];
     }
 
+    public function village(): BelongsTo
+    {
+        return $this->belongsTo(Village::class, 'village_id', 'id');
+    }
+
+    public function district(): BelongsTo
+    {
+        return $this->belongsTo(District::class, 'district_id', 'id');
+    }
 
     public function restaurantImage()
     {

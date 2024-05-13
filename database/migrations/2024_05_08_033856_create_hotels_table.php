@@ -18,7 +18,6 @@ return new class extends Migration
             $table->text('description');
             $table->text('excerpt');            
             $table->string('slug')->unique();
-            $table->string('logo')->nullable(true);
             $table->string('image')->nullable(true);
             $table->string('phone');
             $table->string('room');

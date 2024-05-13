@@ -5,39 +5,6 @@
   <form action="{{ route('admin.restoran.restoran.store') }}" enctype="multipart/form-data" method="post" class="row g-5 g-xl-8">
     @csrf
     <div class="col-xl-3 mb-8">
-      <div class="row">
-        <div class="card card-flush">
-          <div class="card-header align-items-center py-5 gap-2 gap-md-5">
-            <div class="card-title">
-              <h3 class="card-title align-items-start flex-column">
-                <span class="card-label fw-bold fs-3">Logo</span>
-              </h3>
-            </div>
-          </div>
-          <div class="card-body text-center pt-0">
-            <div class="image-input image-input-empty" data-kt-image-input="true">
-              <div class="image-input-wrapper w-200px h-150px" style="background-image: url('{{ asset('admin-assets/media/svg/files/blank-image.svg') }}')"></div>
-              <label class="btn btn-icon btn-circle btn-color-muted btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" data-bs-dismiss="click" title="Change logo">
-                  <i class="ki-duotone ki-pencil fs-6"><span class="path1"></span><span class="path2"></span></i>
-                  <input type="file" name="logo" accept=".png, .jpg, .jpeg" required />
-                  <input type="hidden" name="avatar_remove" />
-              </label>
-              <span class="btn btn-icon btn-circle btn-color-muted btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" data-bs-dismiss="click" title="Cancel logo">
-                  <i class="ki-outline ki-cross fs-3"></i>
-              </span>
-              <span class="btn btn-icon btn-circle btn-color-muted btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="remove" data-bs-toggle="tooltip" data-bs-dismiss="click" title="Remove logo">
-                  <i class="ki-outline ki-cross fs-3"></i>
-              </span>
-            </div>
-              @error('logo')
-                <div class="invalid-feedback">
-                  {{ $message }}
-                </div>
-              @enderror
-            <div class="text-muted fs-7 pt-3">File yang diizinkan: *.png, *.jpg, *.jpeg <br>Maksimal 2mb</div>
-          </div>
-        </div>
-      </div>
       <div class="row mt-5">
         <div class="card card-flush">
           <div class="card-header align-items-center py-5 gap-2 gap-md-5">
@@ -95,7 +62,7 @@
             <div>
               <label for="exampleFormControlInput1" class="col-form-label required fw-bold fs-6">Rekomendasi</label>
               <div class="form-check form-switch form-check-custom form-check-solid">
-                <input class="form-check-input" type="checkbox" name="recommended" @if (old('recommended')) checked @endif id="flexSwitchDefault"/>
+                <input class="form-check-input" type="checkbox" name="recommended" @if (old('recomended')) checked @endif id="flexSwitchDefault"/>
               </div>
             </div>
           </div>
@@ -103,7 +70,7 @@
       </div>
       <div class="row mt-5">
         <div class="card card-flush py-5 d-flex">
-          <a href="{{ route('admin.festival.festival') }}" class="btn btn-light-primary">Batal</a>
+          <a href="{{ route('admin.restoran.restoran') }}" class="btn btn-light-primary">Batal</a>
           <button type="submit" class="btn btn-primary mt-4">Publish</button>
         </div>
       </div>

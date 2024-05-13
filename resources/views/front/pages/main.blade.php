@@ -26,7 +26,7 @@
     name="twitter:description"
     content="{!! \App\Models\Setting::webBase()->description !!}"
   />
-  <meta name="twitter:image" content="{{ asset('front-assets/meta/berita.png') }}" />
+  <meta name="twitter:image" content="{{ asset('front-assets/meta/meta.png') }}" />
 
   <!-- Additional SEO Meta Tags -->
   <meta name="distribution" content="global" />
