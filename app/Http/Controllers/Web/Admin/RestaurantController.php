@@ -29,6 +29,74 @@ class RestaurantController extends Controller
         return view('admin.pages.restaurant.restaurant',  $data);
     }
 
+    public function restaurantVisitor($id){
+        $restaurant = Restaurant::findOrFail($id);
+        $data = [
+            'title' => 'Restoran',
+            'subTitle' => $restaurant->slug,
+            'page_id' => 5,
+            'restaurant' => $restaurant,
+            'visitor' => RestaurantVisitor::where('restaurant_id', $id)->paginate(10),
+        ];
+        return view('admin.pages.restaurant.restaurant_visitor',  $data);
+    }
+
+    public function restaurantVisitorStore($id, Request $request){
+        $validator = Validator::make($request->all(), [
+            'attachment' => 'required|image|mimes:jpeg,bmp,png,jpg,svg|max:2000',
+            'date' => 'required',
+            'visitor' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return redirect()->route('admin.restoran.restoran.pengunjung', $id)->with('error', 'Gagal menambahkan data pengunjung')->withInput()->withErrors($validator);
+        }
+        $restaurant = New RestaurantVisitor();
+        $restaurant->restaurant_id = $id;
+        $restaurant->date = $request->input('date');
+        $restaurant->visitor = $request->input('visitor');
+        $restaurant->attachment =  $request->file('attachment')->store('pengunjung-resto', 'public');
+        $restaurant->save();
+        return redirect()->route('admin.restoran.restoran.pengunjung', $id)->with('success', 'Berhasil menambahkan data pengunjung');
+    }
+
+    public function restaurantVisitorUpdate($id, $idVisitor, Request $request){
+        $validator = Validator::make($request->all(), [
+            'attachment' => 'nullable|sometimes|image|mimes:jpeg,bmp,png,jpg,svg|max:2000',
+            'date' => 'required',
+            'visitor' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return redirect()->route('admin.restoran.restoran.pengunjung', $id)->with('error', 'Gagal mengubah data pengunjung')->withInput()->withErrors($validator);
+        }
+        $restaurant = RestaurantVisitor::findOrFail($idVisitor);
+        $restaurant->restaurant_id = $id;
+        $restaurant->date = $request->input('date');
+        $restaurant->visitor = $request->input('visitor');
+        if($request->has('attachment')){
+            $restaurant->attachment =  $request->file('attachment')->store('pengunjung-resto', 'public');
+        }
+        $restaurant->save();
+        return redirect()->route('admin.restoran.restoran.pengunjung', $id)->with('success', 'Berhasil mengubah data pengunjung');
+    }
+
+    public function restaurantVisitorDestroy($id, $idVisitor){
+        $visitor = RestaurantVisitor::findOrFail($idVisitor);
+        $visitor->delete();
+        return redirect()->route('admin.restoran.restoran.pengunjung', $id)->with('success','Berhasil menghapus data  pengunjung');
+    }
+
+    public function restaurantReview($id){
+        $restaurant = Restaurant::findOrFail($id);
+        $data = [
+            'title' => 'Restoran',
+            'subTitle' => $restaurant->slug,
+            'page_id' => 5,
+            'restaurant' => $restaurant,
+            'review' => restaurantReview::where('restaurant_id', $id)->paginate(10),
+        ];
+        return view('admin.pages.restaurant.restaurant_review',  $data);
+    }
+
     public function restaurantAdd(){
         $data = [
             'title' => 'Restoran',
@@ -58,7 +126,7 @@ class RestaurantController extends Controller
             'description' => 'required',
         ]);
         if ($validator->fails()) {
-            return redirect()->route('admin.restaurant.restaurant.add')->with('error', 'Gagal menambahkan festival baru')->withInput()->withErrors($validator);
+            return redirect()->route('admin.restoran.restoran.add')->with('error', 'Gagal menambahkan restoran baru')->withInput()->withErrors($validator);
         }
         $id = UniqueIdGenerator::generate(['table' => 'restaurants', 'length' => 9, 'prefix' => date('ymd')]);
         $imagePath = $request->file('thumbnail')->store('resto', 'public');
@@ -134,7 +202,7 @@ class RestaurantController extends Controller
             'description' => 'required',
         ]);
         if ($validator->fails()) {
-            return redirect()->route('admin.restaurant.restaurant.edit', $id)->with('error', 'Gagal validasi error')->withInput()->withErrors($validator);
+            return redirect()->route('admin.restoran.restoran.edit', $id)->with('error', 'Gagal validasi error')->withInput()->withErrors($validator);
         }
 
         $restaurant = Restaurant::findOrFail($id);

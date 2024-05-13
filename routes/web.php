@@ -141,7 +141,14 @@ Route::prefix('/menu')->middleware(['auth'])->group(function () {
             Route::get('/review/{id}/destroy', [AdminRestaurantController::class, 'reviewDestroy'])->name('admin.restoran.review.destroy');
             Route::get('/pengunjung', [AdminRestaurantController::class, 'visitor'])->name('admin.restoran.pengunjung');
         });
-
+            Route::get('/{id}/pengunjung', [AdminRestaurantController::class, 'restaurantVisitor'])->name('admin.restoran.restoran.pengunjung');
+            Route::post('/{id}/pengunjung', [AdminRestaurantController::class, 'restaurantVisitorStore'])->name('admin.restoran.restoran.pengunjung.store');
+            Route::post('/{id}/pengunjung/{idVisitor}/update', [AdminRestaurantController::class, 'restaurantVisitorUpdate'])->name('admin.restoran.restoran.pengunjung.update');
+            Route::get('/{id}/pengunjung/{idVisitor}/destroy', [AdminRestaurantController::class, 'restaurantVisitorDestroy'])->name('admin.restoran.restoran.pengunjung.destroy');
+            Route::get('/{id}/galeri', [AdminRestaurantController::class, 'restaurantGallery'])->name('admin.restoran.restoran.galeri');
+            Route::get('/{id}/review', [AdminRestaurantController::class, 'restaurantReview'])->name('admin.restoran.restoran.review');
+            Route::get('/{id}/menu', [AdminRestaurantController::class, 'restaurantMenu'])->name('admin.restoran.restoran.menu');
+            Route::get('/{id}/admin', [AdminRestaurantController::class, 'restaurantAdmin'])->name('admin.restoran.restoran.admin');
     });
     
     Route::prefix('/hotel')->group(function () {
