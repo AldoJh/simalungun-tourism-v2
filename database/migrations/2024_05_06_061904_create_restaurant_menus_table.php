@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('restaurant_id');
             $table->string('name');
-            $table->enum('type', ['makanan', 'minuman']);
+            $table->enum('type', ['Makanan', 'Minuman']);
             $table->string('price');
             $table->string('image');
             $table->text('description');

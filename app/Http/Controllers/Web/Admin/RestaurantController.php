@@ -9,8 +9,10 @@ use Illuminate\Http\Request;
 use App\Models\RestaurantReview;
 use App\Models\RestaurantVisitor;
 use App\Http\Controllers\Controller;
+use App\Models\RestaurantAdmin;
 use App\Models\RestaurantFacility;
 use App\Models\RestaurantImage;
+use App\Models\RestaurantMenu;
 use Illuminate\Support\Facades\Validator;
 use sirajcse\UniqueIdGenerator\UniqueIdGenerator;
 
@@ -95,6 +97,114 @@ class RestaurantController extends Controller
             'review' => restaurantReview::where('restaurant_id', $id)->paginate(10),
         ];
         return view('admin.pages.restaurant.restaurant_review',  $data);
+    }
+
+    public function restaurantGallery($id){
+        $restaurant = Restaurant::findOrFail($id);
+        $data = [
+            'title' => 'Restoran',
+            'subTitle' => $restaurant->slug,
+            'page_id' => 5,
+            'restaurant' => $restaurant,
+            'gallery' => RestaurantImage::where('restaurant_id', $id)->paginate(10),
+        ];
+        return view('admin.pages.restaurant.restaurant_gallery',  $data);
+    }
+
+    public function restaurantGalleryStore($id, Request $request){
+        $validator = Validator::make($request->all(), [
+            'image' => 'required|image|mimes:jpeg,bmp,png,jpg,svg|max:5000',
+        ]);
+        if ($validator->fails()) {
+            return redirect()->route('admin.restoran.restoran.galeri', $id)->with('error', 'Gagal menambahkan gambar')->withInput()->withErrors($validator);
+        }
+        $image = New restaurantImage();
+        $image->restaurant_id = $id;
+        $image->image = $request->file('image')->store('resto/collection', 'public');
+        $image->save();
+        return redirect()->route('admin.restoran.restoran.galeri', $id)->with('success', 'Berhasil menambahkan gambar');
+    }
+
+    public function restaurantGalleryDestroy($id, $idGallery){
+        $image = restaurantImage::findOrFail($idGallery);
+        $image->delete();
+        return redirect()->route('admin.restoran.restoran.galeri', $id)->with('success','Berhasil menghapus gambar');
+    }
+
+    public function restaurantMenu($id){
+        $restaurant = Restaurant::findOrFail($id);
+        $data = [
+            'title' => 'Restoran',
+            'subTitle' => $restaurant->slug,
+            'page_id' => 5,
+            'restaurant' => $restaurant,
+            'menu' => RestaurantMenu::where('restaurant_id', $id)->paginate(10)
+        ];
+        return view('admin.pages.restaurant.restaurant_menu',  $data);
+    }
+
+    public function restaurantMenuStore($id, Request $request){
+        $validator = Validator::make($request->all(), [
+            'image' => 'required|image|mimes:jpeg,bmp,png,jpg,svg|max:2000',
+            'name' => 'required',
+            'type' => 'required',
+            'description' => 'required',
+            'price' => 'required'
+        ]);
+        if ($validator->fails()) {
+            return redirect()->route('admin.restoran.restoran.menu', $id)->with('error', 'Gagal mengubah data menu')->withInput()->withErrors($validator);
+        }
+        $menu = new RestaurantMenu();
+        $menu->restaurant_id = $id;
+        $menu->name = $request->input('name');
+        $menu->price = $request->input('price');
+        $menu->description = $request->input('description');
+        $menu->type = $request->input('type');
+        $menu->image =  $request->file('image')->store('menu-resto', 'public');
+        $menu->save();
+        return redirect()->route('admin.restoran.restoran.menu', $id)->with('success', 'Berhasil mengubah data menu');
+    }
+
+    public function restaurantMenuUpdate($id, $idMenu, Request $request){
+        $validator = Validator::make($request->all(), [
+            'image' => 'nullable|sometimes|image|mimes:jpeg,bmp,png,jpg,svg|max:2000',
+            'name' => 'required',
+            'type' => 'required',
+            'description' => 'required',
+            'price' => 'required'
+        ]);
+        if ($validator->fails()) {
+            return redirect()->route('admin.restoran.restoran.menu', $id)->with('error', 'Gagal mengubah data menu')->withInput()->withErrors($validator);
+        }
+        $menu = RestaurantMenu::findOrFail($idMenu);
+        $menu->restaurant_id = $id;
+        $menu->name = $request->input('name');
+        $menu->price = $request->input('price');
+        $menu->type = $request->input('type');
+        $menu->description = $request->input('description');
+        if($request->has('image')){
+            $menu->image =  $request->file('image')->store('menu-resto', 'public');
+        }
+        $menu->save();
+        return redirect()->route('admin.restoran.restoran.menu', $id)->with('success', 'Berhasil mengubah data menu');
+    }
+
+    public function restaurantMenuDestroy($id, $idMenu){
+        $menu = RestaurantMenu::findOrFail($idMenu);
+        $menu->delete();
+        return redirect()->route('admin.restoran.restoran.menu', $id)->with('success','Berhasil menghapus menu');
+    }
+
+    public function restaurantAdmin($id){
+        $restaurant = Restaurant::findOrFail($id);
+        $data = [
+            'title' => 'Restoran',
+            'subTitle' => $restaurant->slug,
+            'page_id' => 5,
+            'restaurant' => $restaurant,
+            'admin' => RestaurantAdmin::where('restaurant_id', $id)->get()
+        ];
+        return view('admin.pages.restaurant.restaurant_admin',  $data);
     }
 
     public function restaurantAdd(){
