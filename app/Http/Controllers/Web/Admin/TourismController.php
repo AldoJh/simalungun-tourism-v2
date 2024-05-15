@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Web\Admin;
 
-use App\Http\Controllers\Controller;
 use App\Models\Tourism;
+use Illuminate\Http\Request;
 use App\Models\TourismReview;
 use App\Models\TourismVisitor;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 
 class TourismController extends Controller
 {
@@ -33,10 +34,66 @@ class TourismController extends Controller
         return view('admin.pages.tourism.review',  $data);
     }
 
-    public function reviewDestroy($id){
-        $review = TourismReview::findOrFail($id);
+    public function tourismVisitor($id){
+        $tourism = Tourism::findOrFail($id);
+        $data = [
+            'title' => 'Wisata',
+            'subTitle' => $tourism->slug,
+            'page_id' => 4,
+            'tourism' => $tourism,
+            'visitor' => TourismVisitor::where('tourism_id', $id)->paginate(10),
+        ];
+        return view('admin.pages.tourism.tourism_visitor',  $data);
+    }
+
+    public function tourismVisitorStore($id, Request $request){
+        $validator = Validator::make($request->all(), [
+            'attachment' => 'required|image|mimes:jpeg,bmp,png,jpg,svg|max:2000',
+            'date' => 'required',
+            'visitor' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return redirect()->route('admin.wisata.wisata.pengunjung', $id)->with('error', 'Gagal menambahkan data pengunjung')->withInput()->withErrors($validator);
+        }
+        $visitor = New TourismVisitor();
+        $visitor->tourism_id = $id;
+        $visitor->date = $request->input('date');
+        $visitor->visitor = $request->input('visitor');
+        $visitor->attachment =  $request->file('attachment')->store('pengunjung-wisata', 'public');
+        $visitor->save();
+        return redirect()->route('admin.wisata.wisata.pengunjung', $id)->with('success', 'Berhasil menambahkan data pengunjung');
+    }
+
+    public function tourismVisitorUpdate($id, $idVisitor, Request $request){
+        $validator = Validator::make($request->all(), [
+            'attachment' => 'nullable|sometimes|mimes:jpeg,bmp,png,jpg,svg|max:2000',
+            'date' => 'required',
+            'visitor' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return redirect()->route('admin.wisata.wisata.pengunjung', $id)->with('error', 'Gagal menambahkan data pengunjung')->withInput()->withErrors($validator);
+        }
+        $visitor = TourismVisitor::findOrFail($idVisitor);
+        $visitor->tourism_id = $id;
+        $visitor->date = $request->input('date');
+        $visitor->visitor = $request->input('visitor');
+        if($request->has('attachment')){
+            $visitor->attachment =  $request->file('attachment')->store('pengunjung-wisata', 'public');
+        }
+        $visitor->save();
+        return redirect()->route('admin.wisata.wisata.pengunjung', $id)->with('success', 'Berhasil menambahkan data pengunjung');
+    }
+
+    public function tourismVisitorDestroy($id, $idVisitor){
+        $visitor = TourismVisitor::findOrFail($idVisitor);
+        $visitor->delete();
+        return redirect()->route('admin.wisata.wisata.pengunjung', $id)->with('success','Berhasil menghapus review');
+    }
+
+    public function reviewDestroy($id, $idVisitor){
+        $review = TourismReview::findOrFail($idVisitor);
         $review->delete();
-        return redirect()->route('admin.wisata.review')->with('success','Berhasil menghapus review');
+        return redirect()->route('admin.wisata.wisata.pengunjung', $id)->with('success','Berhasil menghapus review');
     }
 
     public function visitor(){

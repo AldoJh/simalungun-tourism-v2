@@ -193,6 +193,16 @@ Route::prefix('/menu')->middleware(['auth'])->group(function () {
             Route::get('/review/{id}/destroy', [AdminTourismController::class, 'reviewDestroy'])->name('admin.wisata.review.destroy');
             Route::get('/pengunjung', [AdminTourismController::class, 'visitor'])->name('admin.wisata.pengunjung');
         });
+
+        Route::get('/{id}/pengunjung', [AdminTourismController::class, 'tourismVisitor'])->name('admin.wisata.wisata.pengunjung');
+        Route::post('/{id}/pengunjung', [AdminTourismController::class, 'tourismVisitorStore'])->name('admin.wisata.wisata.pengunjung.store');
+        Route::post('/{id}/pengunjung/{idVisitor}/update', [AdminTourismController::class, 'tourismVisitorUpdate'])->name('admin.wisata.wisata.pengunjung.update');
+        Route::get('/{id}/pengunjung/{idVisitor}/destroy', [AdminTourismController::class, 'tourismVisitorDestroy'])->name('admin.wisata.wisata.pengunjung.destroy');
+        Route::get('/{id}/review', [AdminTourismController::class, 'tourismReview'])->name('admin.wisata.wisata.review');
+        Route::get('/{id}/galeri', [AdminTourismController::class, 'tourismGallery'])->name('admin.wisata.wisata.galeri');
+        Route::post('/{id}/galeri', [AdminTourismController::class, 'tourismGalleryStore'])->name('admin.wisata.wisata.galeri.store');
+        Route::get('/{id}/galeri{idGallery}/destroy', [AdminTourismController::class, 'tourismGalleryDestroy'])->name('admin.wisata.wisata.galeri.destroy');
+        Route::get('/{id}/admin', [AdminTourismController::class, 'tourismAdmin'])->name('admin.wisata.wisata.admin');
     });
 
     Route::prefix('/pengaturan')->middleware(['role:superadmin'])->group(function () {
