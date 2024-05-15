@@ -168,6 +168,16 @@ Route::prefix('/menu')->middleware(['auth'])->group(function () {
             Route::get('/review', [AdminHotelController::class, 'review'])->name('admin.hotel.review');
             Route::get('/review/{id}/destroy', [AdminHotelController::class, 'reviewDestroy'])->name('admin.hotel.review.destroy');
             Route::get('/pengunjung', [AdminHotelController::class, 'visitor'])->name('admin.hotel.pengunjung');
+
+            Route::get('/{id}/pengunjung', [AdminHotelController::class, 'hotelVisitor'])->name('admin.hotel.hotel.pengunjung');
+            Route::post('/{id}/pengunjung', [AdminHotelController::class, 'hotelVisitorStore'])->name('admin.hotel.hotel.pengunjung.store');
+            Route::post('/{id}/pengunjung/{idVisitor}/update', [AdminHotelController::class, 'hotelVisitorUpdate'])->name('admin.hotel.hotel.pengunjung.update');
+            Route::get('/{id}/pengunjung/{idVisitor}/destroy', [AdminHotelController::class, 'hotelVisitorDestroy'])->name('admin.hotel.hotel.pengunjung.destroy');
+
+            Route::get('/{id}/review', [AdminHotelController::class, 'hotelReview'])->name('admin.hotel.hotel.review');
+            Route::get('/{id}/galeri', [AdminHotelController::class, 'hotelGallery'])->name('admin.hotel.hotel.galeri');
+            Route::get('/{id}/admin', [AdminHotelController::class, 'hotelAdmin'])->name('admin.hotel.hotel.admin');
+
         });
     });
     
