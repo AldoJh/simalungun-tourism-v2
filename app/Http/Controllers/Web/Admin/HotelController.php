@@ -7,6 +7,7 @@ use App\Models\HotelReview;
 use App\Models\HotelVisitor;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\HotelAdmin;
 use App\Models\HotelImage;
 use Illuminate\Support\Facades\Validator;
 
@@ -127,6 +128,18 @@ class HotelController extends Controller
         $image = HotelImage::findOrFail($idGallery);
         $image->delete();
         return redirect()->route('admin.hotel.hotel.galeri', $id)->with('success','Berhasil menghapus gambar');
+    }
+
+    public function hotelAdmin($id){
+        $hotel = Hotel::findOrFail($id);
+        $data = [
+            'title' => 'Hotel',
+            'subTitle' => $hotel->slug,
+            'page_id' => 5,
+            'hotel' => $hotel,
+            'admin' => HotelAdmin::where('hotel_id', $id)->get(),
+        ];
+        return view('admin.pages.hotel.hotel_admin',  $data);
     }
 
     public function review(){
