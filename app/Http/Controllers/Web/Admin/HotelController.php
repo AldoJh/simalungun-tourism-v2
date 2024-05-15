@@ -7,6 +7,7 @@ use App\Models\HotelReview;
 use App\Models\HotelVisitor;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\HotelImage;
 use Illuminate\Support\Facades\Validator;
 
 class HotelController extends Controller
@@ -94,6 +95,38 @@ class HotelController extends Controller
             'review' => hotelReview::where('hotel_id', $id)->paginate(10),
         ];
         return view('admin.pages.hotel.hotel_review',  $data);
+    }
+
+    public function hotelGallery($id){
+        $hotel = Hotel::findOrFail($id);
+        $data = [
+            'title' => 'Hotel',
+            'subTitle' => $hotel->slug,
+            'page_id' => 5,
+            'hotel' => $hotel,
+            'gallery' => HotelImage::where('hotel_id', $id)->get(),
+        ];
+        return view('admin.pages.hotel.hotel_gallery',  $data);
+    }
+
+    public function hotelGalleryStore($id, Request $request){
+        $validator = Validator::make($request->all(), [
+            'image' => 'required|image|mimes:jpeg,bmp,png,jpg,svg|max:5000',
+        ]);
+        if ($validator->fails()) {
+            return redirect()->route('admin.hotel.hotel.galeri', $id)->with('error', 'Gagal menambahkan gambar')->withInput()->withErrors($validator);
+        }
+        $image = New hotelImage();
+        $image->hotel_id = $id;
+        $image->image = $request->file('image')->store('hotel/collection', 'public');
+        $image->save();
+        return redirect()->route('admin.hotel.hotel.galeri', $id)->with('success', 'Berhasil menambahkan gambar');
+    }
+
+    public function hotelGalleryDestroy($id, $idGallery){
+        $image = HotelImage::findOrFail($idGallery);
+        $image->delete();
+        return redirect()->route('admin.hotel.hotel.galeri', $id)->with('success','Berhasil menghapus gambar');
     }
 
     public function review(){

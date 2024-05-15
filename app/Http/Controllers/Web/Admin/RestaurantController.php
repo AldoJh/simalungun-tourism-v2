@@ -106,7 +106,7 @@ class RestaurantController extends Controller
             'subTitle' => $restaurant->slug,
             'page_id' => 5,
             'restaurant' => $restaurant,
-            'gallery' => RestaurantImage::where('restaurant_id', $id)->paginate(10),
+            'gallery' => RestaurantImage::where('restaurant_id', $id)->get(),
         ];
         return view('admin.pages.restaurant.restaurant_gallery',  $data);
     }
