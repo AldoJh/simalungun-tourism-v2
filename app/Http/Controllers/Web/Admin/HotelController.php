@@ -84,6 +84,18 @@ class HotelController extends Controller
         return redirect()->route('admin.hotel.hotel.pengunjung', $id)->with('success','Berhasil menghapus menu');
     }
 
+    public function hotelReview($id){
+        $hotel = Hotel::findOrFail($id);
+        $data = [
+            'title' => 'Hotel',
+            'subTitle' => $hotel->slug,
+            'page_id' => 5,
+            'hotel' => $hotel,
+            'review' => hotelReview::where('hotel_id', $id)->paginate(10),
+        ];
+        return view('admin.pages.hotel.hotel_review',  $data);
+    }
+
     public function review(){
         $data = [
             'title' => 'Hotel',
