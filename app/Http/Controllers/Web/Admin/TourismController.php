@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\TourismReview;
 use App\Models\TourismVisitor;
 use App\Http\Controllers\Controller;
+use App\Models\TourismAdmin;
+use App\Models\TourismImage;
 use Illuminate\Support\Facades\Validator;
 
 class TourismController extends Controller
@@ -88,6 +90,62 @@ class TourismController extends Controller
         $visitor = TourismVisitor::findOrFail($idVisitor);
         $visitor->delete();
         return redirect()->route('admin.wisata.wisata.pengunjung', $id)->with('success','Berhasil menghapus review');
+    }
+
+    public function tourismReview($id){
+        $tourism = Tourism::findOrFail($id);
+        $data = [
+            'title' => 'Wisata',
+            'subTitle' => $tourism->slug,
+            'page_id' => 4,
+            'tourism' => $tourism,
+            'review' => TourismReview::where('tourism_id', $id)->paginate(10),
+        ];
+        return view('admin.pages.tourism.tourism_review',  $data);
+    }
+
+    public function tourismGallery($id){
+        $tourism = Tourism::findOrFail($id);
+        $data = [
+            'title' => 'Wisata',
+            'subTitle' => $tourism->slug,
+            'page_id' => 4,
+            'tourism' => $tourism,
+            'gallery' => TourismImage::where('tourism_id', $id)->get(),
+        ];
+        return view('admin.pages.tourism.tourism_gallery',  $data);
+    }
+
+    public function tourismGalleryStore($id, Request $request){
+        $validator = Validator::make($request->all(), [
+            'image' => 'required|image|mimes:jpeg,bmp,png,jpg,svg|max:5000',
+        ]);
+        if ($validator->fails()) {
+            return redirect()->route('admin.wisata.wisata.galeri', $id)->with('error', 'Gagal menambahkan gambar')->withInput()->withErrors($validator);
+        }
+        $image = New tourismImage();
+        $image->tourism_id = $id;
+        $image->image = $request->file('image')->store('wisata/collection', 'public');
+        $image->save();
+        return redirect()->route('admin.wisata.wisata.galeri', $id)->with('success', 'Berhasil menambahkan gambar');
+    }
+
+    public function tourismAdmin($id){
+        $tourism = Tourism::findOrFail($id);
+        $data = [
+            'title' => 'Wisata',
+            'subTitle' => $tourism->slug,
+            'page_id' => 4,
+            'tourism' => $tourism,
+            'admin' => TourismAdmin::where('tourism_id', $id)->get(),
+        ];
+        return view('admin.pages.tourism.tourism_admin',  $data);
+    }
+
+    public function tourismGalleryDestroy($id, $idGallery){
+        $image = tourismImage::findOrFail($idGallery);
+        $image->delete();
+        return redirect()->route('admin.wisata.wisata.galeri', $id)->with('success','Berhasil menghapus gambar');
     }
 
     public function reviewDestroy($id, $idVisitor){
