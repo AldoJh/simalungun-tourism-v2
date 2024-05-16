@@ -20,7 +20,6 @@ return new class extends Migration
             $table->date('birthdate');
             $table->string('country');
             $table->string('religion');
-            $table->string('status');
             $table->string('phone');
             $table->timestamps();
 

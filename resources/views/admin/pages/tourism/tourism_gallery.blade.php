@@ -79,6 +79,9 @@
             <a href="{{ route('admin.wisata.wisata.review', $tourism->id) }}" class="nav-link text-active-primary me-6">Review</a>
           </li>
           <li class="nav-item">
+            <a href="{{ route('admin.wisata.wisata.pemandu', $tourism->id) }}" class="nav-link text-active-primary me-6">Pemandu</a>
+          </li>
+          <li class="nav-item">
             <a href="{{ route('admin.wisata.wisata.galeri', $tourism->id) }}" class="nav-link text-active-primary me-6 active">Galeri</a>
           </li>
           <li class="nav-item">

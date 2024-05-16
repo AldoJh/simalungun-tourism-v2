@@ -126,6 +126,9 @@
                             <a href="{{ route('admin.wisata.wisata.review', $item->id) }}" class="menu-link px-3">Review</a>
                           </div>
                           <div class="menu-item px-3">
+                            <a href="{{ route('admin.wisata.wisata.pemandu', $item->id) }}" class="menu-link px-3">Pemandu</a>
+                          </div>
+                          <div class="menu-item px-3">
                             <a href="{{ route('admin.wisata.wisata.galeri', $item->id) }}" class="menu-link px-3">Galeri</a>
                           </div>
                           <div class="menu-item px-3">

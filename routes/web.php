@@ -4,9 +4,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Web\Auth\AuthController;
 use App\Http\Controllers\Web\Admin\BoatController;
 use App\Http\Controllers\web\admin\DestinationController;
-use App\Http\Controllers\Web\Admin\EventController as AdminEventController;
-use App\Http\Controllers\Web\Admin\FeedbackController as AdminFeedbackController;
-use App\Http\Controllers\Web\Admin\HotelController as AdminHotelController;
 use App\Http\Controllers\Web\Front\MainController;
 use App\Http\Controllers\Web\Front\NewsController;
 use App\Http\Controllers\Web\Front\EventController;
@@ -16,12 +13,15 @@ use App\Http\Controllers\Web\Admin\SettingController;
 use App\Http\Controllers\Web\Front\TourismController;
 use App\Http\Controllers\Web\Admin\MasterDataController;
 use App\Http\Controllers\Web\Front\RestaurantController;
-use App\Http\Controllers\Web\Admin\NewsController as AdminNewsController;
-use App\Http\Controllers\Web\Admin\RestaurantController as AdminRestaurantController;
 use App\Http\Controllers\web\admin\ReviewController;
-use App\Http\Controllers\Web\Admin\TourismController as AdminTourismController;
 use App\Http\Controllers\Web\Admin\UserController;
 use App\Http\Controllers\Web\Front\FeedbackController;
+use App\Http\Controllers\Web\Admin\EventController as AdminEventController;
+use App\Http\Controllers\Web\Admin\FeedbackController as AdminFeedbackController;
+use App\Http\Controllers\Web\Admin\HotelController as AdminHotelController;
+use App\Http\Controllers\Web\Admin\NewsController as AdminNewsController;
+use App\Http\Controllers\Web\Admin\RestaurantController as AdminRestaurantController;
+use App\Http\Controllers\Web\Admin\TourismController as AdminTourismController;
 
 Route::get('/', [MainController::class, 'index'])->name('home');
 Route::get('/hotel', [HotelController::class, 'index'])->name('hotel');
@@ -113,7 +113,6 @@ Route::prefix('/menu')->middleware(['auth'])->group(function () {
             Route::post('/{id}/edit', [AdminEventController::class, 'eventUpdate'])->name('admin.festival.festival.update');
             Route::get('/{id}/destroy', [AdminEventController::class, 'eventDestroy'])->name('admin.festival.festival.destroy');
             Route::get('/pengunjung', [AdminEventController::class, 'visitor'])->name('admin.festival.pengunjung');
-    
         });
             Route::get('/{id}/pengunjung', [AdminEventController::class, 'eventVisitor'])->name('admin.festival.festival.pengunjung');
             Route::post('/{id}/pengunjung', [AdminEventController::class, 'eventVisitorStore'])->name('admin.festival.festival.pengunjung.store');
@@ -193,11 +192,14 @@ Route::prefix('/menu')->middleware(['auth'])->group(function () {
             Route::get('/review/{id}/destroy', [AdminTourismController::class, 'reviewDestroy'])->name('admin.wisata.review.destroy');
             Route::get('/pengunjung', [AdminTourismController::class, 'visitor'])->name('admin.wisata.pengunjung');
         });
-
         Route::get('/{id}/pengunjung', [AdminTourismController::class, 'tourismVisitor'])->name('admin.wisata.wisata.pengunjung');
         Route::post('/{id}/pengunjung', [AdminTourismController::class, 'tourismVisitorStore'])->name('admin.wisata.wisata.pengunjung.store');
         Route::post('/{id}/pengunjung/{idVisitor}/update', [AdminTourismController::class, 'tourismVisitorUpdate'])->name('admin.wisata.wisata.pengunjung.update');
         Route::get('/{id}/pengunjung/{idVisitor}/destroy', [AdminTourismController::class, 'tourismVisitorDestroy'])->name('admin.wisata.wisata.pengunjung.destroy');
+        Route::get('/{id}/pemandu', [AdminTourismController::class, 'tourismGuide'])->name('admin.wisata.wisata.pemandu');
+        Route::post('/{id}/pemandu', [AdminTourismController::class, 'tourismGuideStore'])->name('admin.wisata.wisata.pemandu.store');
+        Route::post('/{id}/pemandu/{idGuide}/update', [AdminTourismController::class, 'tourismGuideUpdate'])->name('admin.wisata.wisata.pemandu.update');
+        Route::get('/{id}/pemandu/{idGuide}/destroy', [AdminTourismController::class, 'tourismGuideDestroy'])->name('admin.wisata.wisata.pemandu.destroy');
         Route::get('/{id}/review', [AdminTourismController::class, 'tourismReview'])->name('admin.wisata.wisata.review');
         Route::get('/{id}/galeri', [AdminTourismController::class, 'tourismGallery'])->name('admin.wisata.wisata.galeri');
         Route::post('/{id}/galeri', [AdminTourismController::class, 'tourismGalleryStore'])->name('admin.wisata.wisata.galeri.store');

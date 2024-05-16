@@ -19,7 +19,7 @@
                   <div class="fw-bold mt-5">Email</div>
                   <div class="text-gray-600">{{ $user->email }}</div>
                   <div class="fw-bold mt-5">No. Telepon</div>
-                  <div class="text-gray-600">{{ $user->email }}</div>
+                  <div class="text-gray-600">{{ $user->phone }}</div>
             </div>
         </div>
       </div>

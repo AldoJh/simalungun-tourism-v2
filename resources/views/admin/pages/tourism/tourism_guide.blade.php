@@ -73,13 +73,13 @@
       <div class="d-flex overflow-auto h-55px">
         <ul class="nav nav-stretch nav-line-tabs nav-line-tabs-2x border-transparent fs-5 fw-bolder flex-nowrap">
           <li class="nav-item">
-            <a href="{{ route('admin.wisata.wisata.pengunjung', $tourism->id) }}" class="nav-link text-active-primary me-6 active ">Pengunjung</a>
+            <a href="{{ route('admin.wisata.wisata.pengunjung', $tourism->id) }}" class="nav-link text-active-primary me-6">Pengunjung</a>
           </li>
           <li class="nav-item">
             <a href="{{ route('admin.wisata.wisata.review', $tourism->id) }}" class="nav-link text-active-primary me-6">Review</a>
           </li>
           <li class="nav-item">
-            <a href="{{ route('admin.wisata.wisata.pemandu', $tourism->id) }}" class="nav-link text-active-primary me-6">Pemandu</a>
+            <a href="{{ route('admin.wisata.wisata.pemandu', $tourism->id) }}" class="nav-link text-active-primary me-6 active">Pemandu</a>
           </li>
           <li class="nav-item">
             <a href="{{ route('admin.wisata.wisata.galeri', $tourism->id) }}" class="nav-link text-active-primary me-6">Galeri</a>
@@ -96,7 +96,7 @@
     <div class="card-header align-items-center py-5 gap-2 gap-md-5">
       <div class="card-title">
         <h3 class="card-title align-items-start flex-column">
-          <span class="card-label fw-bold fs-3 mb-1">Pengunjung</span>
+          <span class="card-label fw-bold fs-3 mb-1">Pemandu Wisata</span>
         </h3>
       </div>
       <div class="card-toolbar">
@@ -105,38 +105,82 @@
         </button>
         <div class="modal fade" tabindex="-1" id="add">
           <div class="modal-dialog">
-              <form method="POST" action="{{ route('admin.wisata.wisata.pengunjung.store', $tourism->id) }}" class="modal-content" enctype="multipart/form-data">
+              <form method="POST" action="{{ route('admin.wisata.wisata.pemandu.store', $tourism->id) }}" class="modal-content" enctype="multipart/form-data">
                 @csrf
                   <div class="modal-header">
-                      <h3 class="modal-title">Tambah Pengunjung</h3>
+                      <h3 class="modal-title">Tambah Pemandu</h3>
                       <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
                           <i class="ki-duotone ki-cross fs-1"><span class="path1"></span><span class="path2"></span></i>
                       </div>
                   </div>
                   <div class="modal-body">
                     <div class="mb-3">
-                      <label for="exampleFormControlInput1" class="required form-label">Tanggal</label>
-                      <input type="date" name="date" class="form-control form-control-solid @error('date') is-invalid @enderror"  value="{{ old('date') }}" required/>
-                      @error('date')
+                      <label for="exampleFormControlInput1" class="required form-label">Nama</label>
+                      <input type="text" name="name" class="form-control form-control-solid @error('name') is-invalid @enderror"  value="{{ old('name') }}" placeholder="Nama" required/>
+                      @error('name')
                         <div class="invalid-feedback">
                           {{ $message }}
                         </div>
                       @enderror
                     </div>
                     <div class="mb-3">
-                      <label for="exampleFormControlInput1" class="required form-label">Jumlah pengunjung</label>
-                      <input type="number" name="visitor" class="form-control form-control-solid @error('visitor') is-invalid @enderror"  value="{{ old('visitor') }}" placeholder="Jumlah Pengunjung" required/>
-                      @error('visitor')
+                      <label for="exampleFormControlInput1" class="required form-label">Jenis Kelamin</label>
+                      <select name="gender" class="form-control form-control-solid @error('gender') is-invalid @enderror" required>
+                        <option @if (old('gender') == 'Laki-Laki') selected  @endif value="Laki-Laki">Laki-Laki</option>
+                        <option @if (old('gender') == 'Perempuan') selected  @endif value="Perempuan">Perempuan</option>
+                      </select>
+                      @error('gender')
                         <div class="invalid-feedback">
                           {{ $message }}
                         </div>
                       @enderror
                     </div>
                     <div class="mb-3">
-                      <label for="exampleFormControlInput1" class="required form-label">Lampiran</label>
-                      <input type="file" accept=".png, .jpg, .jpeg" name="attachment" class="form-control form-control-solid @error('attachment') is-invalid @enderror"  value="{{ old('attachment') }}" required/>
+                      <label for="exampleFormControlInput1" class="required form-label">Tanggal Lahir</label>
+                      <input type="date" name="birthdate" class="form-control form-control-solid @error('birthdate') is-invalid @enderror"  value="{{ old('birthdate') }}" placeholder="Tanggal Lahir" required/>
+                      @error('birthdate')
+                        <div class="invalid-feedback">
+                          {{ $message }}
+                        </div>
+                      @enderror
+                    </div>
+                    <div class="mb-3">
+                      <label for="exampleFormControlInput1" class="required form-label">Kewarganegaraan</label>
+                      <input type="text" name="country" class="form-control form-control-solid @error('country') is-invalid @enderror"  value="{{ old('country') }}" placeholder="Kewarganegaraan" required/>
+                      @error('country')
+                        <div class="invalid-feedback">
+                          {{ $message }}
+                        </div>
+                      @enderror
+                    </div>
+                    <div class="mb-3">
+                      <label for="exampleFormControlInput1" class="required form-label">Agama</label>
+                      <select name="religion" class="form-control form-control-solid @error('religion') is-invalid @enderror" required>
+                        <option @if (old('religion') == 'Islam') selected  @endif value="Islam">Islam</option>
+                        <option @if (old('religion') == 'Kristen') selected  @endif value="Kristen">Kristen</option>
+                        <option @if (old('religion') == 'Hindu') selected  @endif value="Hindu">Hindu</option>
+                        <option @if (old('religion') == 'Budha') selected  @endif value="Budha">Budha</option>
+                      </select>
+                      @error('religion')
+                        <div class="invalid-feedback">
+                          {{ $message }}
+                        </div>
+                      @enderror
+                    </div>
+                    <div class="mb-3">
+                      <label for="exampleFormControlInput1" class="required form-label">No. HP</label>
+                      <input type="number" name="phone" class="form-control form-control-solid @error('phone') is-invalid @enderror"  value="{{ old('phone') }}" placeholder="No. HP" required/>
+                      @error('phone')
+                        <div class="invalid-feedback">
+                          {{ $message }}
+                        </div>
+                      @enderror
+                    </div>
+                    <div class="mb-3">
+                      <label for="exampleFormControlInput1" class="required form-label">Foto</label>
+                      <input type="file" accept=".png, .jpg, .jpeg" name="image" class="form-control form-control-solid @error('image') is-invalid @enderror"  value="{{ old('image') }}" required/>
                       <small class="text-muted ms-2 pt-2">File yang diizinkan: *.png, *.jpg, *.jpeg. Maksimal 2mb</small>
-                      @error('attachment')
+                      @error('image')
                         <div class="invalid-feedback">
                           {{ $message }}
                         </div>
@@ -157,36 +201,49 @@
         <table class="table table-row-dashed fs-6 gy-5">
           <thead>
             <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
-              <th>Tanggal</th>
-              <th>Jumlah Pengunjung</th>
-              <th>Lampiran</th>
+              <th>Pemandu</th>
+              <th>Jenis Kelamin</th>
+              <th>tanggal Lahir</th>
+              <th>Kewarganegaraan</th>
+              <th>Agama</th>
+              <th>No. HP</th>
               <th class="text-end">Aksi</th>
             </tr>
           </thead>
           <tbody>
-            @if ($visitor->total() == 0)
+            @if ($guide->total() == 0)
               <tr class="max-w-10px">
-                <td colspan="4" class="text-center">
+                <td colspan="7" class="text-center">
                   No data available in table
                 </td>
               </tr>
             @else
-              @foreach ($visitor as $item)     
+              @foreach ($guide as $item)     
                 <tr>
                   <td>
                     <div class="d-flex">
-                      <div class="fs-6 fw-bold">{{ $item->date }}</div>
+                      <a href="#" class="symbol symbol-50px">
+                        <span class="symbol-label" style="background-image:url('{{ Storage::url($item->image) }}');"></span>
+                      </a>
+                      <div class="ms-5">
+                        <span class="text-gray-800 text-hover-primary fs-5 fw-bold mb-1">{{ $item->name }}</span>
+                      </div>
                     </div>
                   </td>
                   <td>
-                    <div class="d-flex">
-                      <div class="fs-6 fw-bold">{{ $item->visitor }}</div>
-                    </div>
+                      <div class="fs-6 fw-bold">{{ $item->gender }}</div>
                   </td>
                   <td>
-                    <div class="d-flex">
-                      <a class="fs-6 fw-bold" href="{{ Storage::url($item->attachment) }}" target="_blank"><u>Lihat</u></a>
-                    </div>
+                    <div class="fs-6 fw-bold">{{ $item->birthdate }}</div>
+                  </td>
+                  <td>
+                    <div class="fs-6 fw-bold">{{ $item->country }}</div>
+                  </td>
+                  <td>
+                    <div class="fs-6 fw-bold">{{ $item->religion }}</div>
+                  </td>
+                  <td>
+                    <div class="fs-6 fw-bold">{{ $item->phone }}</div>
                   </td>
                   <td class="text-end">
                     <a href="#" class="btn btn-sm btn-light btn-active-light-primary btn-flex btn-center" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
@@ -205,7 +262,7 @@
                         <a href="#" data-bs-toggle="modal" data-bs-target="#edit{{$item->id}}" class="menu-link px-3">Edit</a>
                       </div>
                       <div class="menu-item px-3">
-                        <a id="{{ route('admin.wisata.wisata.pengunjung.destroy', ['id' => $tourism->id, 'idVisitor' => $item->id]) }}" class="menu-link px-3 btn-del">Hapus</a>
+                        <a id="{{ route('admin.wisata.wisata.pemandu.destroy', ['id' => $tourism->id, 'idGuide' => $item->id]) }}" class="menu-link px-3 btn-del">Hapus</a>
                       </div>
                     </div>
                   </td>
@@ -217,23 +274,23 @@
       </div>
       <div class="d-flex flex-stack flex-wrap my-3">
         <div class="fs-6 fw-semibold text-gray-700">
-            Showing {{ $visitor->firstItem() }} to {{ $visitor->lastItem() }} of {{ $visitor->total() }}  records
+            Showing {{ $guide->firstItem() }} to {{ $guide->lastItem() }} of {{ $guide->total() }}  records
         </div>
         <ul class="pagination">
-            @if ($visitor->onFirstPage())
+            @if ($guide->onFirstPage())
                 <li class="page-item previous">
                     <a href="#" class="page-link"><i class="previous"></i></a>
                 </li>
             @else
                 <li class="page-item previous">
-                    <a href="{{ $visitor->previousPageUrl() }}" class="page-link bg-light"><i class="previous"></i></a>
+                    <a href="{{ $guide->previousPageUrl() }}" class="page-link bg-light"><i class="previous"></i></a>
                 </li>
             @endif
     
             @php
                 // Menghitung halaman pertama dan terakhir yang akan ditampilkan
-                $start = max($visitor->currentPage() - 2, 1);
-                $end = min($start + 4, $visitor->lastPage());
+                $start = max($guide->currentPage() - 2, 1);
+                $end = min($start + 4, $guide->lastPage());
             @endphp
     
             @if ($start > 1)
@@ -243,22 +300,22 @@
                 </li>
             @endif
     
-            @foreach ($visitor->getUrlRange($start, $end) as $page => $url)
-                <li class="page-item{{ ($page == $visitor->currentPage()) ? ' active' : '' }}">
+            @foreach ($guide->getUrlRange($start, $end) as $page => $url)
+                <li class="page-item{{ ($page == $guide->currentPage()) ? ' active' : '' }}">
                     <a class="page-link" href="{{ $url }}">{{ $page }}</a>
                 </li>
             @endforeach
     
-            @if ($end < $visitor->lastPage())
+            @if ($end < $guide->lastPage())
                 <!-- Menampilkan tanda elipsis jika halaman terakhir tidak termasuk dalam tampilan -->
                 <li class="page-item disabled">
                     <span class="page-link">...</span>
                 </li>
             @endif
     
-            @if ($visitor->hasMorePages())
+            @if ($guide->hasMorePages())
                 <li class="page-item next">
-                    <a href="{{ $visitor->nextPageUrl() }}" class="page-link bg-light"><i class="next"></i></a>
+                    <a href="{{ $guide->nextPageUrl() }}" class="page-link bg-light"><i class="next"></i></a>
                 </li>
             @else
                 <li class="page-item next">
@@ -269,43 +326,90 @@
       </div>
     </div>
   </div>
+ 
 </div>
 
-@foreach ($visitor as $item)     
+@endsection
+
+@foreach ($guide as $item)     
   <div class="modal fade" tabindex="-1" id="edit{{ $item->id }}">
     <div class="modal-dialog">
-        <form method="POST" action="{{ route('admin.wisata.wisata.pengunjung.update', ['id' => $tourism->id, 'idVisitor' => $item->id]) }}" class="modal-content" enctype="multipart/form-data">
+        <form method="POST" action="{{ route('admin.wisata.wisata.pemandu.update', ['id' => $tourism->id, 'idGuide' => $item->id]) }}" class="modal-content" enctype="multipart/form-data">
           @csrf
             <div class="modal-header">
-                <h3 class="modal-title">Edit data pengunjung</h3>
+                <h3 class="modal-title">Edit data pemandu</h3>
                 <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
                     <i class="ki-duotone ki-cross fs-1"><span class="path1"></span><span class="path2"></span></i>
                 </div>
             </div>
             <div class="modal-body">
               <div class="mb-3">
-                <label for="exampleFormControlInput1" class="required form-label">Tanggal</label>
-                <input type="date" name="date" class="form-control form-control-solid @error('date') is-invalid @enderror"  value="{{ old('date') ?? $item->date }}" required/>
-                @error('date')
+                <label for="exampleFormControlInput1" class="required form-label">Nama</label>
+                <input type="text" name="name" class="form-control form-control-solid @error('name') is-invalid @enderror"  value="{{ old('name') ?? $item->name }}" placeholder="Nama" required/>
+                @error('name')
                   <div class="invalid-feedback">
                     {{ $message }}
                   </div>
                 @enderror
               </div>
               <div class="mb-3">
-                <label for="exampleFormControlInput1" class="required form-label">Jumlah pengunjung</label>
-                <input type="number" name="visitor" class="form-control form-control-solid @error('visitor') is-invalid @enderror"  value="{{ old('visitor') ?? $item->visitor }}" placeholder="Jumlah Pengunjung" required/>
-                @error('visitor')
+                <label for="exampleFormControlInput1" class="required form-label">Jenis Kelamin</label>
+                <select name="gender" class="form-control form-control-solid @error('gender') is-invalid @enderror" required>
+                  <option @if ($item->gender == 'Laki-Laki') selected  @endif value="Laki-Laki">Laki-Laki</option>
+                  <option @if ($item->gender == 'Perempuan') selected  @endif value="Perempuan">Perempuan</option>
+                </select>
+                @error('gender')
                   <div class="invalid-feedback">
                     {{ $message }}
                   </div>
                 @enderror
               </div>
               <div class="mb-3">
-                <label for="exampleFormControlInput1" class="form-label">Lampiran</label>
-                <input type="file" accept=".png, .jpg, .jpeg" name="attachment" class="form-control form-control-solid @error('attachment') is-invalid @enderror"  value="{{ old('attachment') }}"/>
+                <label for="exampleFormControlInput1" class="required form-label">Tanggal Lahir</label>
+                <input type="text" name="birthdate" class="form-control form-control-solid @error('birthdate') is-invalid @enderror"  value="{{ old('birthdate') ?? $item->birthdate }}" placeholder="Tanggal Lahir" required/>
+                @error('birthdate')
+                  <div class="invalid-feedback">
+                    {{ $message }}
+                  </div>
+                @enderror
+              </div>
+              <div class="mb-3">
+                <label for="exampleFormControlInput1" class="required form-label">Kewarganegaraan</label>
+                <input type="text" name="country" class="form-control form-control-solid @error('country') is-invalid @enderror"  value="{{ old('country') ?? $item->country }}" placeholder="Kewarganegaraan" required/>
+                @error('country')
+                  <div class="invalid-feedback">
+                    {{ $message }}
+                  </div>
+                @enderror
+              </div>
+              <div class="mb-3">
+                <label for="exampleFormControlInput1" class="required form-label">Agama</label>
+                <select name="religion" class="form-control form-control-solid @error('religion') is-invalid @enderror" required>
+                  <option @if ($item->religion == 'Islam') selected  @endif value="Islam">Islam</option>
+                  <option @if ($item->religion == 'Kristen') selected  @endif value="Kristen">Kristen</option>
+                  <option @if ($item->religion == 'Hindu') selected  @endif value="Hindu">Hindu</option>
+                  <option @if ($item->religion == 'Budha') selected  @endif value="Budha">Budha</option>
+                </select>
+                @error('religion')
+                  <div class="invalid-feedback">
+                    {{ $message }}
+                  </div>
+                @enderror
+              </div>
+              <div class="mb-3">
+                <label for="exampleFormControlInput1" class="required form-label">No. HP</label>
+                <input type="number" name="phone" class="form-control form-control-solid @error('phone') is-invalid @enderror"  value="{{ old('phone') ?? $item->phone }}" placeholder="Harga" required/>
+                @error('phone')
+                  <div class="invalid-feedback">
+                    {{ $message }}
+                  </div>
+                @enderror
+              </div>
+              <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Gambar</label>
+                <input type="file" accept=".png, .jpg, .jpeg" name="image" class="form-control form-control-solid @error('image') is-invalid @enderror"  value="{{ old('image') }}"/>
                 <small class="text-muted ms-2 pt-2">File yang diizinkan: *.png, *.jpg, *.jpeg. Maksimal 2mb</small>
-                @error('attachment')
+                @error('image')
                   <div class="invalid-feedback">
                     {{ $message }}
                   </div>
@@ -320,8 +424,6 @@
     </div>
   </div>
 @endforeach
-
-@endsection
 
 @section('script')
 @endsection

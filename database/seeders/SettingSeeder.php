@@ -18,7 +18,7 @@ class SettingSeeder extends Seeder
             'site_name' => 'Simalungun Tourism',
             'description' => 'Simalungun Tourism adalah website promosi pariwisata Simalungun <br> dikelola oleh Dinas kebudayaan, pariwisata dan ekonomi kreatif Kabupaten Simalungun',
             'playstore' => '#',
-            'email' => 'DISBUDPAREKRAFbudsimalungun24@gmail.com',
+            'email' => 'disparbudsimalungun24@gmail.com',
             'whatsapp' => '081263144637',
             'instagram' => 'https://www.instagram.com/DISBUDPAREKRAFbud_simalungun/',
             'facebook' => '#'

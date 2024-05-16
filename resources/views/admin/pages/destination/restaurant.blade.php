@@ -161,7 +161,19 @@
                             </a>
                             <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4" data-kt-menu="true">
                               <div class="menu-item px-3">
-                                <a href="{{ route('admin.restoran.restoran.pengunjung', $item->restaurant->id) }}" class="menu-link px-3">Detail</a>
+                                <a href="{{ route('admin.restoran.restoran.pengunjung', $item->restaurant->id) }}" class="menu-link px-3">Pengunjung</a>
+                              </div>
+                              <div class="menu-item px-3">
+                                <a href="{{ route('admin.restoran.restoran.review', $item->restaurant->id) }}" class="menu-link px-3">Review</a>
+                              </div>
+                              <div class="menu-item px-3">
+                                <a href="{{ route('admin.restoran.restoran.galeri', $item->restaurant->id) }}" class="menu-link px-3">Galeri</a>
+                              </div>
+                              <div class="menu-item px-3">
+                                <a href="{{ route('admin.restoran.restoran.menu', $item->restaurant->id) }}" class="menu-link px-3">Menu</a>
+                              </div>
+                              <div class="menu-item px-3">
+                                <a href="{{ route('admin.restoran.restoran.admin', $item->restaurant->id) }}" class="menu-link px-3">Admin</a>
                               </div>
                             </div>
                           </td>
