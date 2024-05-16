@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Village;
+use App\Models\District;
 use App\Models\TourismAdmin;
 use App\Models\TourismGuide;
 use App\Models\TourismImage;
@@ -46,6 +48,16 @@ class Tourism extends Model
                 'source' => 'name'
             ]
         ];
+    }
+
+    public function village(): BelongsTo
+    {
+        return $this->belongsTo(Village::class, 'village_id', 'id');
+    }
+
+    public function district(): BelongsTo
+    {
+        return $this->belongsTo(District::class, 'district_id', 'id');
     }
 
     public function tourismCategory(): BelongsTo

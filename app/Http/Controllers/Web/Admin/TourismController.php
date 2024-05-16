@@ -61,28 +61,28 @@ class TourismController extends Controller
         if ($validator->fails()) {
             return redirect()->route('admin.wisata.wisata.add')->with('error', 'Gagal menambahkan wisata baru')->withInput()->withErrors($validator);
         }
-        $id = UniqueIdGenerator::generate(['table' => 'restaurants', 'length' => 9, 'prefix' => date('ymd')]);
+        $id = UniqueIdGenerator::generate(['table' => 'tourisms', 'length' => 9, 'prefix' => date('ymd')]);
         $imagePath = $request->file('thumbnail')->store('resto', 'public');
 
-        $restaurant = new Tourism();
-        $restaurant->id = $id;
-        $restaurant->name =$request->input('name');
-        $restaurant->address = $request->input('address');
-        $restaurant->description = $request->input('description');
-        $restaurant->excerpt = $request->input('meta');
-        $restaurant->image = $imagePath;
-        $restaurant->phone = $request->input('phone');
-        $restaurant->latitude = $request->input('lat');
-        $restaurant->longitude = $request->input('long');
-        $restaurant->district_id = $request->input('district');
-        $restaurant->village_id = $request->input('village');
-        $restaurant->category_id = $request->input('category');
+        $tourism = new Tourism();
+        $tourism->id = $id;
+        $tourism->name =$request->input('name');
+        $tourism->address = $request->input('address');
+        $tourism->description = $request->input('description');
+        $tourism->excerpt = $request->input('meta');
+        $tourism->image = $imagePath;
+        $tourism->phone = $request->input('phone');
+        $tourism->latitude = $request->input('lat');
+        $tourism->longitude = $request->input('long');
+        $tourism->district_id = $request->input('district');
+        $tourism->village_id = $request->input('village');
+        $tourism->category_id = $request->input('category');
         if($request->recomended == 'on'){
-            $restaurant->is_recomended = true;
+            $tourism->is_recomended = true;
         }else{
-            $restaurant->is_recomended = false;
+            $tourism->is_recomended = false;
         }
-        $restaurant->save();
+        $tourism->save();
 
         $image = New TourismImage();
         $image->tourism_id = $id;
@@ -97,6 +97,71 @@ class TourismController extends Controller
                     'facility_id' => $data
                 ]);
             }
+        }
+        return redirect()->route('admin.wisata.wisata.pengunjung', $id)->with('success','Berhasil menambahkan wisata');
+    }
+
+    public function tourismEdit($id){
+        $data = [
+            'title' => 'Wisata',
+            'subTitle' => 'Tambah Wisata',
+            'page_id' => 5,
+            'facility' => Facility::all(),
+            'district' => District::all(),
+            'category' => TourismCategory::all(),
+            'tourism' => Tourism::findOrFail($id)
+        ];
+        return view('admin.pages.tourism.edit',  $data);
+    }
+
+    public function tourismUpdate($id, Request $request){
+        $validator = Validator::make($request->all(), [
+            'thumbnail' => 'nullable|sometimes|mimes:jpeg,bmp,png,jpg,svg|max:2000',
+            'meta' => 'required',
+            'name' => 'required',
+            'category' => 'required',
+            'phone' => 'required',
+            'district' => 'required',
+            'village' => 'required',
+            'lat' => 'required',
+            'long' => 'required',
+            'address' => 'required',
+            'description' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return redirect()->route('admin.wisata.wisata.edit', $id)->with('error', 'Gagal menambahkan wisata baru')->withInput()->withErrors($validator);
+        }
+        $tourism = Tourism::findOrFail($id);
+        $tourism->name =$request->input('name');
+        $tourism->address = $request->input('address');
+        $tourism->description = $request->input('description');
+        $tourism->excerpt = $request->input('meta');
+        if($request->has('thumbnail')){
+            $tourism->image = $request->file('thumbnail')->store('resto', 'public');
+        }
+        $tourism->phone = $request->input('phone');
+        $tourism->latitude = $request->input('lat');
+        $tourism->longitude = $request->input('long');
+        $tourism->district_id = $request->input('district');
+        $tourism->village_id = $request->input('village');
+        $tourism->category_id = $request->input('category');
+        if($request->recomended == 'on'){
+            $tourism->is_recomended = true;
+        }else{
+            $tourism->is_recomended = false;
+        }
+        $tourism->save();
+
+        if(is_array($request->facility)){
+            TourismFacility::where('tourism_id', $id)->delete();
+            foreach ($request->facility as  $data) {
+                TourismFacility::updateOrInsert([
+                    'tourism_id' => $id,
+                    'facility_id' => $data
+                ]);
+            }
+        }else{
+            TourismFacility::where('tourism_id', $id)->delete();
         }
         return redirect()->route('admin.wisata.wisata.pengunjung', $id)->with('success','Berhasil menambahkan wisata');
     }
