@@ -20,7 +20,7 @@ class SettingSeeder extends Seeder
             'playstore' => '#',
             'email' => 'disparbudsimalungun24@gmail.com',
             'whatsapp' => '081263144637',
-            'instagram' => 'https://www.instagram.com/DISBUDPAREKRAFbud_simalungun/',
+            'instagram' => 'https://www.instagram.com/disparbud_simalungun/',
             'facebook' => '#'
         ]);
     }

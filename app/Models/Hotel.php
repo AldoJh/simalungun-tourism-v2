@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Village;
+use App\Models\District;
 use App\Models\HotelAdmin;
 use App\Models\HotelImage;
 use App\Models\HotelReview;
@@ -49,6 +51,16 @@ class Hotel extends Model
         ];
     }
 
+    public function village(): BelongsTo
+    {
+        return $this->belongsTo(Village::class, 'village_id', 'id');
+    }
+
+    public function district(): BelongsTo
+    {
+        return $this->belongsTo(District::class, 'district_id', 'id');
+    }
+    
     public function hotelCategory(): BelongsTo
     {
         return $this->belongsTo(HotelCategory::class, 'category_id', 'id');

@@ -3,13 +3,18 @@
 namespace App\Http\Controllers\Web\Admin;
 
 use App\Models\Hotel;
+use App\Models\District;
+use App\Models\Facility;
+use App\Models\HotelAdmin;
+use App\Models\HotelImage;
 use App\Models\HotelReview;
 use App\Models\HotelVisitor;
 use Illuminate\Http\Request;
+use App\Models\HotelCategory;
+use App\Models\HotelFacility;
 use App\Http\Controllers\Controller;
-use App\Models\HotelAdmin;
-use App\Models\HotelImage;
 use Illuminate\Support\Facades\Validator;
+use sirajcse\UniqueIdGenerator\UniqueIdGenerator;
 
 class HotelController extends Controller
 {
@@ -24,6 +29,157 @@ class HotelController extends Controller
             'hotel' => $data
         ];
         return view('admin.pages.hotel.hotel',  $data);
+    }
+
+    public function hotelAdd(){
+        $data = [
+            'title' => 'Hotel',
+            'subTitle' => 'Tambah Hotel',
+            'page_id' => 5,
+            'facility' => Facility::all(),
+            'district' => District::all(),
+            'category' => HotelCategory::all()
+        ];
+        return view('admin.pages.hotel.add',  $data);
+    }
+
+    public function hotelStore(Request $request){
+        $validator = Validator::make($request->all(), [
+            'thumbnail' => 'required|image|mimes:jpeg,bmp,png,jpg,svg|max:2000',
+            'owner' => 'required',
+            'meta' => 'required',
+            'name' => 'required',
+            'category' => 'required',
+            'phone' => 'required',
+            'district' => 'required',
+            'village' => 'required',
+            'lat' => 'required',
+            'long' => 'required',
+            'address' => 'required',
+            'room' => 'required',
+            'min' => 'required',
+            'max' => 'required',
+            'description' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return redirect()->route('admin.hotel.hotel.add')->with('error', 'Gagal menambahkan hotel baru')->withInput()->withErrors($validator);
+        }
+        $id = UniqueIdGenerator::generate(['table' => 'hotels', 'length' => 9, 'prefix' => date('ymd')]);
+        $imagePath = $request->file('thumbnail')->store('hotel', 'public');
+
+        $hotel = new Hotel();
+        $hotel->id = $id;
+        $hotel->name =$request->input('name');
+        $hotel->owner = $request->input('owner');
+        $hotel->address = $request->input('address');
+        $hotel->description = $request->input('description');
+        $hotel->excerpt = $request->input('meta');
+        $hotel->image = $imagePath;
+        $hotel->phone = $request->input('phone');
+        $hotel->latitude = $request->input('lat');
+        $hotel->longitude = $request->input('long');
+        $hotel->district_id = $request->input('district');
+        $hotel->village_id = $request->input('village');
+        $hotel->room = $request->input('room');
+        $hotel->min_price = $request->input('min');
+        $hotel->max_price = $request->input('max');
+        $hotel->category_id = $request->input('category');
+        if($request->verified == 'on'){
+            $hotel->is_verified = true;
+        }else{
+            $hotel->is_verified = false;
+        }
+        $hotel->save();
+
+        $image = New HotelImage();
+        $image->hotel_id = $id;
+        $image->image = $imagePath;
+        $image->save();
+
+        
+        if(is_array($request->facility)){
+            foreach ($request->facility as  $data) {
+                HotelFacility::updateOrInsert([
+                    'hotel_id' => $id,
+                    'facility_id' => $data
+                ]);
+            }
+        }
+        return redirect()->route('admin.hotel.hotel.pengunjung', $id)->with('success','Berhasil menambahkan hotel');
+    }
+
+    public function hotelEdit($id){
+        $data = [
+            'title' => 'Hotel',
+            'subTitle' => 'Edit Hotel',
+            'page_id' => 5,
+            'facility' => Facility::all(),
+            'district' => District::all(),
+            'hotel' => Hotel::findOrFail($id),
+            'category' => HotelCategory::all()
+        ];
+        return view('admin.pages.hotel.edit',  $data);
+    }
+
+    public function hotelUpdate($id, Request $request){
+        $validator = Validator::make($request->all(), [
+            'thumbnail' => 'nullable|sometimes|image|mimes:jpeg,bmp,png,jpg,svg|max:2000',
+            'owner' => 'required',
+            'meta' => 'required',
+            'name' => 'required',
+            'category' => 'required',
+            'phone' => 'required',
+            'district' => 'required',
+            'village' => 'required',
+            'lat' => 'required',
+            'long' => 'required',
+            'address' => 'required',
+            'room' => 'required',
+            'min' => 'required',
+            'max' => 'required',
+            'description' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return redirect()->route('admin.hotel.hotel.edit', $id)->with('error', 'Gagal merubah data hotel')->withInput()->withErrors($validator);
+        }
+
+        $hotel = Hotel::findOrFail($id);
+        $hotel->name =$request->input('name');
+        $hotel->owner = $request->input('owner');
+        $hotel->address = $request->input('address');
+        $hotel->description = $request->input('description');
+        $hotel->excerpt = $request->input('meta');
+        if($request->has('thumbnail')){
+            $hotel->image = $request->file('thumbnail')->store('hotel', 'public');
+        }
+        $hotel->phone = $request->input('phone');
+        $hotel->latitude = $request->input('lat');
+        $hotel->longitude = $request->input('long');
+        $hotel->district_id = $request->input('district');
+        $hotel->village_id = $request->input('village');
+        $hotel->room = $request->input('room');
+        $hotel->min_price = $request->input('min');
+        $hotel->max_price = $request->input('max');
+        $hotel->category_id = $request->input('category');
+        if($request->verified == 'on'){
+            $hotel->is_verified = true;
+        }else{
+            $hotel->is_verified = false;
+        }
+        $hotel->save();
+        
+        if(is_array($request->facility)){
+            HotelFacility::where('hotel_id', $id)->delete();
+            foreach ($request->facility as  $data) {
+                HotelFacility::updateOrInsert([
+                    'hotel_id' => $id,
+                    'facility_id' => $data
+                ]);
+            }
+        }else{
+            HotelFacility::where('hotel_id', $id)->delete();
+        }
+        return redirect()->route('admin.hotel.hotel.pengunjung', $id)->with('success','Berhasil menambahkan hotel');
     }
     
     public function hotelVisitor($id){
