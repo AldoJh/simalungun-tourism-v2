@@ -3,14 +3,19 @@
 namespace App\Http\Controllers\Web\Admin;
 
 use App\Models\Tourism;
-use Illuminate\Http\Request;
-use App\Models\TourismReview;
-use App\Models\TourismVisitor;
-use App\Http\Controllers\Controller;
+use App\Models\District;
+use App\Models\Facility;
 use App\Models\TourismAdmin;
 use App\Models\TourismGuide;
 use App\Models\TourismImage;
+use Illuminate\Http\Request;
+use App\Models\TourismReview;
+use App\Models\TourismVisitor;
+use App\Models\TourismCategory;
+use App\Models\TourismFacility;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
+use sirajcse\UniqueIdGenerator\UniqueIdGenerator;
 
 class TourismController extends Controller
 {
@@ -25,6 +30,75 @@ class TourismController extends Controller
             'tourism' => $data
         ];
         return view('admin.pages.tourism.tourism',  $data);
+    }
+
+    public function tourismAdd(){
+        $data = [
+            'title' => 'Wisata',
+            'subTitle' => 'Tambah Wisata',
+            'page_id' => 5,
+            'facility' => Facility::all(),
+            'district' => District::all(),
+            'category' => TourismCategory::all()
+        ];
+        return view('admin.pages.tourism.add',  $data);
+    }
+
+    public function tourismStore(Request $request){
+        $validator = Validator::make($request->all(), [
+            'thumbnail' => 'required|image|mimes:jpeg,bmp,png,jpg,svg|max:2000',
+            'meta' => 'required',
+            'name' => 'required',
+            'category' => 'required',
+            'phone' => 'required',
+            'district' => 'required',
+            'village' => 'required',
+            'lat' => 'required',
+            'long' => 'required',
+            'address' => 'required',
+            'description' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return redirect()->route('admin.wisata.wisata.add')->with('error', 'Gagal menambahkan wisata baru')->withInput()->withErrors($validator);
+        }
+        $id = UniqueIdGenerator::generate(['table' => 'restaurants', 'length' => 9, 'prefix' => date('ymd')]);
+        $imagePath = $request->file('thumbnail')->store('resto', 'public');
+
+        $restaurant = new Tourism();
+        $restaurant->id = $id;
+        $restaurant->name =$request->input('name');
+        $restaurant->address = $request->input('address');
+        $restaurant->description = $request->input('description');
+        $restaurant->excerpt = $request->input('meta');
+        $restaurant->image = $imagePath;
+        $restaurant->phone = $request->input('phone');
+        $restaurant->latitude = $request->input('lat');
+        $restaurant->longitude = $request->input('long');
+        $restaurant->district_id = $request->input('district');
+        $restaurant->village_id = $request->input('village');
+        $restaurant->category_id = $request->input('category');
+        if($request->recomended == 'on'){
+            $restaurant->is_recomended = true;
+        }else{
+            $restaurant->is_recomended = false;
+        }
+        $restaurant->save();
+
+        $image = New TourismImage();
+        $image->tourism_id = $id;
+        $image->image = $imagePath;
+        $image->save();
+
+        
+        if(is_array($request->facility)){
+            foreach ($request->facility as  $data) {
+                TourismFacility::updateOrInsert([
+                    'tourism_id' => $id,
+                    'facility_id' => $data
+                ]);
+            }
+        }
+        return redirect()->route('admin.wisata.wisata.pengunjung', $id)->with('success','Berhasil menambahkan wisata');
     }
 
     public function review(){
