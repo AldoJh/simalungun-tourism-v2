@@ -241,6 +241,48 @@
 
         <div class="line mt-60 mb-60"></div>
 
+        <h2 class="text-30">Pemandu Wisata</h2>
+
+        <div class="overallRating mt-30">
+          <div class="overallRating__list">
+            @if ($tourism->tourismGuide->isEmpty() )
+            <div class="text-center">
+              <span class="text-center">~ Belum ada pemandu wisata ~</span>
+            </div>
+            @else
+            @foreach ($tourism->tourismGuide as $item)
+              <div class="overallRating__item">
+                <div class="overallRating__content">
+                  <div class="overallRating__icon size-50 relative rounded-12 -hover-image-scale__image">
+                    @if(Storage::disk('public')->exists($item->image))
+                      <img src="{{ Storage::url($item->image) }}" alt="image" class="img-ratio rounded-12">
+                    @else
+                      <img src="{{ asset('front-assets/no-image.png') }}" alt="default image" class="img-ratio rounded-12">
+                    @endif
+                  </div>
+
+                  <div class="overallRating__info">
+                    <h5 class="text-16 fw-500">{{ $item->name }}</h5>
+                    <div class="lh-15 text-14">{{ $item->phone }}</div>
+                  </div>
+                </div>
+
+                <div class="overallRating__rating d-flex items-center">
+                  <a href="tel:{{ $item->phone }}" class="button px-15 py-15 lh-12 -accent-1 text-accent-1 bg-accent-1-05 border-accent-1 ml-20">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-telephone-fill text-16" viewBox="0 0 16 16">
+                      <path fill-rule="evenodd" d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z"/>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+            @endforeach
+            @endif
+
+          </div>
+        </div>
+
+        <div class="line mt-60 mb-60"></div>
+
         <h2 class="text-30">Reviews Teratas</h2>
 
         @if ($review->isEmpty())
