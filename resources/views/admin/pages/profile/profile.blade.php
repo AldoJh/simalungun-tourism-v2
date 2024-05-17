@@ -91,13 +91,13 @@
     </div>
     <div class="card-body pt-0">
       <div id="kt_account_profile_details">
-        <form action="{{ route('admin.profil.update') }}" method="POST" enctype="multipart/form-data" class="form">
+        <form action="{{ route('admin.profil.change') }}" method="POST"  class="form">
           @csrf
           <div class="card-body border-top">
             <div class="row mb-6">
               <label class="col-lg-4 col-form-label required fw-bold fs-6">Password Lama</label>
               <div class="col-lg-8 fv-row">
-                <input type="text" class="form-control form-control-lg form-control-solid  @error('oldPassword') is-invalid @enderror" name="oldPassword" placeholder="********"  />
+                <input type="password" class="form-control form-control-lg form-control-solid  @error('oldPassword') is-invalid @enderror" name="oldPassword" placeholder="********" required  />
                 @error('oldPassword')
                   <div class="invalid-feedback">
                     {{ $message }}
@@ -108,7 +108,7 @@
             <div class="row mb-6">
               <label class="col-lg-4 col-form-label required fw-bold fs-6">Password baru</label>
               <div class="col-lg-8 fv-row">
-                <input type="text" class="form-control form-control-lg form-control-solid  @error('newPassword') is-invalid @enderror" name="newPassword" placeholder="********" />
+                <input type="password" class="form-control form-control-lg form-control-solid  @error('newPassword') is-invalid @enderror" name="newPassword" placeholder="********" required />
                 @error('newPassword')
                   <div class="invalid-feedback">
                     {{ $message }}

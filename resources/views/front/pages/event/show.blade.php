@@ -177,7 +177,6 @@
                       <img src="{{ asset('front-assets/no-image.png') }}" alt="default image" class="img-ratio rounded-12">
                     @endif
                   </div>
-
                   <div class="overallRating__info">
                     <h5 class="text-16 fw-500">{{ $item->name }}</h5>
                     <div class="lh-15">{{ $item->description }}</div>
@@ -191,10 +190,8 @@
               </div>
             @endforeach
             @endif
-
           </div>
         </div>
-
 
       </div>
 
@@ -261,7 +258,7 @@
 @section('script')
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-  var data = <?php echo json_encode($visitor); ?>; 
+  var data = {!! json_encode($visitor) !!}; 
   var ctx = document.getElementById('lineChart').getContext('2d');
   var myChart = new Chart(ctx, {
       type: 'line',

@@ -27,12 +27,11 @@
               <a href="{{ route('festival.show', $event->slug) }}" target="_blank" class="btn btn-sm btn-light me-2" id="kt_user_follow_button">
                 Lihat
               </a>         
-              <a href="{{ route('admin.festival.festival.edit', $event->id) }}" class="btn btn-sm btn-light-primary me-3">
-                Rute
-              </a> 
-              <a href="{{ route('admin.festival.festival.edit', $event->id) }}" class="btn btn-sm btn-primary me-3">
-                Edit
-              </a>
+              @if (Auth::user()->role == 'superadmin')           
+                <a href="{{ route('admin.festival.festival.edit', $event->id) }}" class="btn btn-sm btn-primary me-3">
+                  Edit
+                </a>
+              @endif
             </div>
           </div>
           <div class="d-flex flex-wrap flex-stack">

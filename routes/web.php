@@ -238,6 +238,7 @@ Route::prefix('/akun')->middleware(['auth'])->group(function () {
     Route::prefix('/profil')->group(function () {
         Route::get('/', [ProfileController::class, 'profile'])->name('admin.profil');
         Route::post('/', [ProfileController::class, 'profileUpdate'])->name('admin.profil.update');
+        Route::post('/change-password', [ProfileController::class, 'changePassword'])->name('admin.profil.change');
     });
 });
 

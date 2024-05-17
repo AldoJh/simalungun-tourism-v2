@@ -19,12 +19,22 @@ use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
-    public function user(){
+    public function user(Request $request){
+        $search = $request->input('q');
+        $data = User::where(function ($query) use ($search) {
+            $query->where('name', 'LIKE', '%' . $search . '%');
+        })
+        ->where(function ($query) {
+            $query->where('role', 'superadmin')
+                ->orWhere('role', 'admin');
+        })
+        ->paginate(10);        
+        $data->appends(['q' => $search]);
         $data = [
             'title' => 'Pengguna',
             'subTitle' => null,
             'page_id' => 10,
-            'user' => User::where('role', 'superadmin')->orWhere('role', 'admin')->paginate(10)
+            'user' => $data
         ];
         return view('admin.pages.user.user',  $data);
     }

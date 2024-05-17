@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class ProfileController extends Controller
@@ -38,5 +39,29 @@ class ProfileController extends Controller
         $profile->save();
 
         return redirect()->route('admin.profil')->with('success', 'Berhasil merubah profil');
+    }
+
+    public function changePassword(Request $request){
+        $user = Auth::user();
+        $oldPassword = $request->input('oldPassword');
+    
+        if (!Hash::check($oldPassword, $user->password)) {
+            return redirect()->route('admin.profil')->with('error', 'Password lama salah');
+        }
+        
+        $validator = Validator::make($request->all(), [
+            'oldPassword' => 'required',
+            'newPassword' => 'required|string|min:8',
+        ]);
+    
+        if ($validator->fails()) {
+            return redirect()->route('admin.profil')->with('error', 'Validation Error')->withErrors($validator);
+        }
+    
+        $userSave = User::findOrFail($user->id);
+        $userSave->password = Hash::make($request->input('newPassword'));
+        $userSave->save();
+    
+        return redirect()->route('admin.profil')->with('success', 'Berhasil merubah password');
     }
 }

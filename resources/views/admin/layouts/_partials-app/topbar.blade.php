@@ -47,7 +47,7 @@
       <div class="d-flex justify-content-between  pt-3 pt-lg-0">
 
         <div class="d-flex align-items-center">
-          <div class="d-flex align-items-center">
+          {{-- <div class="d-flex align-items-center">
             <div class="d-flex">
               <div class="d-flex align-items-center">
                 <a href="#" class="btn btn-sm btn-icon btn-icon-muted btn-active-icon-primary" data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-attach="parent" data-kt-menu-placement="bottom">
@@ -95,7 +95,7 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> --}}
 
           <div class="d-flex align-items-center">
             <a href="#" class="btn btn-sm btn-icon btn-icon-muted btn-active-icon-primary" data-kt-menu-trigger="{default:'click', lg: 'hover'}" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">

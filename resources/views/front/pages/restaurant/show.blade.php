@@ -254,6 +254,42 @@
 
         <div class="line mt-60 mb-60"></div>
 
+        <h2 class="text-30">Menu</h2>
+
+        <div class="overallRating mt-30">
+          <div class="overallRating__list">
+            @if ($restaurant->restaurantmenu->isEmpty() )
+            <div class="text-center">
+              <span class="text-center">~ Belum ada menu ~</span>
+            </div>
+            @else
+            @foreach ($restaurant->restaurantmenu as $item)
+              <div class="overallRating__item">
+                <div class="overallRating__content">
+                  <div class="overallRating__icon size-50 relative rounded-12 -hover-image-scale__image">
+                    @if(Storage::disk('public')->exists($item->image))
+                      <img src="{{ Storage::url($item->image) }}" alt="image" class="img-ratio rounded-12">
+                    @else
+                      <img src="{{ asset('front-assets/no-image.png') }}" alt="default image" class="img-ratio rounded-12">
+                    @endif
+                  </div>
+                  <div class="overallRating__info">
+                    <h5 class="text-16 fw-500">{{ $item->name }}</h5>
+                    <div class="lh-15">{{ $item->description }}</div>
+                  </div>
+                </div>
+
+                <div class="overallRating__rating d-flex items-center">
+                  Rp. {{ $item->price }}
+                </div>
+              </div>
+            @endforeach
+            @endif
+          </div>
+        </div>
+
+        <div class="line mt-60 mb-60"></div>
+
         <h2 class="text-30">Reviews Teratas</h2>
         @if ($review->isEmpty())
         <div class="text-center">
