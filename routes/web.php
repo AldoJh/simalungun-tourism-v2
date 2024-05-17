@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Web\Auth\AuthController;
 use App\Http\Controllers\Web\Admin\BoatController;
+use App\Http\Controllers\Web\Admin\DashboardController;
 use App\Http\Controllers\web\admin\DestinationController;
 use App\Http\Controllers\Web\Front\MainController;
 use App\Http\Controllers\Web\Front\NewsController;
@@ -54,13 +55,7 @@ Route::prefix('/auth')->middleware(['guest'])->group(function () {
 });
 Route::get('/auth/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
 
-Route::get('/dashboard', function () {
-    return view('admin.dashboard', [
-        'title' => 'Dashboard',
-        'subTitle' => null,
-        'page_id' => 1
-        ]);
-})->name('dashboard'); 
+Route::get('/dashboard',[DashboardController::class, 'index'])->middleware('auth')->name('dashboard'); 
 
 Route::prefix('/menu')->middleware(['auth'])->group(function () {
     Route::prefix('/data-master')->middleware(['role:superadmin'])->group(function () {
