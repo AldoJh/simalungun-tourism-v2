@@ -28,16 +28,16 @@ Route::get('/', [MainController::class, 'index'])->name('home');
 Route::get('/hotel', [HotelController::class, 'index'])->name('hotel');
 Route::get('/hotel/{slug}', [HotelController::class, 'show'])->name('hotel.show');
 Route::get('/hotel/{slug}', [HotelController::class, 'show'])->name('hotel.show');
-Route::post('/hotel/{id}/review', [HotelController::class, 'store'])->name('hotel.review');
+Route::post('/hotel/{id}/review', [HotelController::class, 'store'])->middleware('auth')->name('hotel.review');
 Route::get('/restoran', [RestaurantController::class, 'index'])->name('restoran');
 Route::get('/restoran/{slug}', [RestaurantController::class, 'show'])->name('restoran.show');
-Route::post('/restoran/{id}/review', [RestaurantController::class, 'store'])->name('restoran.review');
+Route::post('/restoran/{id}/review', [RestaurantController::class, 'store'])->middleware('auth')->name('restoran.review');
 Route::get('/wisata', [TourismController::class, 'index'])->name('wisata');
 Route::get('/wisata/{slug}', [TourismController::class, 'show'])->name('wisata.show');
-Route::post('/wisata/{id}/review', [TourismController::class, 'store'])->name('wisata.review');
+Route::post('/wisata/{id}/review', [TourismController::class, 'store'])->middleware('auth')->name('wisata.review');
 Route::get('/berita', [NewsController::class, 'index'])->name('berita');
 Route::get('/berita/{slug}', [NewsController::class, 'show'])->name('berita.show');
-Route::post('/berita/{id}/comment', [NewsController::class, 'store'])->name('berita.comment');  
+Route::post('/berita/{id}/comment', [NewsController::class, 'store'])->middleware('auth')->name('berita.comment');  
 Route::get('/festival', [EventController::class, 'index'])->name('festival');
 Route::get('/festival/{slug}', [EventController::class, 'show'])->name('festival.show');
 Route::get('/kuisioner', [FeedbackController::class, 'index'])->name('kuisioner');
@@ -109,6 +109,7 @@ Route::prefix('/menu')->middleware(['auth'])->group(function () {
             Route::get('/{id}/destroy', [AdminEventController::class, 'eventDestroy'])->name('admin.festival.festival.destroy');
             Route::get('/pengunjung', [AdminEventController::class, 'visitor'])->name('admin.festival.pengunjung');
         });
+        Route::middleware(['admin:event'])->group(function(){
             Route::get('/{id}/pengunjung', [AdminEventController::class, 'eventVisitor'])->name('admin.festival.festival.pengunjung');
             Route::post('/{id}/pengunjung', [AdminEventController::class, 'eventVisitorStore'])->name('admin.festival.festival.pengunjung.store');
             Route::post('/{id}/pengunjung/{idVisitor}/update', [AdminEventController::class, 'eventVisitorUpdate'])->name('admin.festival.festival.pengunjung.update');
@@ -120,6 +121,7 @@ Route::prefix('/menu')->middleware(['auth'])->group(function () {
             Route::post('/{id}/atribut', [AdminEventController::class, 'eventAttributeStore'])->name('admin.festival.festival.atribut.store');
             Route::post('/{id}/atribut/{idAttribute}/update', [AdminEventController::class, 'eventAttributeUpdate'])->name('admin.festival.festival.atribut.update');
             Route::get('/{id}/admin', [AdminEventController::class, 'eventAdmin'])->name('admin.festival.festival.admin');
+        });
     });
 
     Route::prefix('/restoran')->group(function () {
@@ -135,6 +137,7 @@ Route::prefix('/menu')->middleware(['auth'])->group(function () {
             Route::get('/review/{id}/destroy', [AdminRestaurantController::class, 'reviewDestroy'])->name('admin.restoran.review.destroy');
             Route::get('/pengunjung', [AdminRestaurantController::class, 'visitor'])->name('admin.restoran.pengunjung');
         });
+        Route::middleware(['admin:restaurant'])->group(function(){
             Route::get('/{id}/pengunjung', [AdminRestaurantController::class, 'restaurantVisitor'])->name('admin.restoran.restoran.pengunjung');
             Route::post('/{id}/pengunjung', [AdminRestaurantController::class, 'restaurantVisitorStore'])->name('admin.restoran.restoran.pengunjung.store');
             Route::post('/{id}/pengunjung/{idVisitor}/update', [AdminRestaurantController::class, 'restaurantVisitorUpdate'])->name('admin.restoran.restoran.pengunjung.update');
@@ -148,6 +151,7 @@ Route::prefix('/menu')->middleware(['auth'])->group(function () {
             Route::post('/{id}/menu/{idMenu}/update', [AdminRestaurantController::class, 'restaurantMenuUpdate'])->name('admin.restoran.restoran.menu.update');
             Route::get('/{id}/menu/{idMenu}/destroy', [AdminRestaurantController::class, 'restaurantMenuDestroy'])->name('admin.restoran.restoran.menu.destroy');
             Route::get('/{id}/admin', [AdminRestaurantController::class, 'restaurantAdmin'])->name('admin.restoran.restoran.admin');
+        });
     });
     
     Route::prefix('/hotel')->group(function () {
@@ -163,6 +167,7 @@ Route::prefix('/menu')->middleware(['auth'])->group(function () {
             Route::get('/review/{id}/destroy', [AdminHotelController::class, 'reviewDestroy'])->name('admin.hotel.review.destroy');
             Route::get('/pengunjung', [AdminHotelController::class, 'visitor'])->name('admin.hotel.pengunjung');
         });
+        Route::middleware(['admin:hotel'])->group(function(){
             Route::get('/{id}/pengunjung', [AdminHotelController::class, 'hotelVisitor'])->name('admin.hotel.hotel.pengunjung');
             Route::post('/{id}/pengunjung', [AdminHotelController::class, 'hotelVisitorStore'])->name('admin.hotel.hotel.pengunjung.store');
             Route::post('/{id}/pengunjung/{idVisitor}/update', [AdminHotelController::class, 'hotelVisitorUpdate'])->name('admin.hotel.hotel.pengunjung.update');
@@ -172,6 +177,7 @@ Route::prefix('/menu')->middleware(['auth'])->group(function () {
             Route::post('/{id}/galeri', [AdminHotelController::class, 'hotelGalleryStore'])->name('admin.hotel.hotel.galeri.store');
             Route::get('/{id}/galeri{idGallery}/destroy', [AdminHotelController::class, 'hotelGalleryDestroy'])->name('admin.hotel.hotel.galeri.destroy');
             Route::get('/{id}/admin', [AdminHotelController::class, 'hotelAdmin'])->name('admin.hotel.hotel.admin');
+        });
     });
     
     Route::prefix('/wisata')->group(function () {
@@ -187,19 +193,21 @@ Route::prefix('/menu')->middleware(['auth'])->group(function () {
             Route::get('/review/{id}/destroy', [AdminTourismController::class, 'reviewDestroy'])->name('admin.wisata.review.destroy');
             Route::get('/pengunjung', [AdminTourismController::class, 'visitor'])->name('admin.wisata.pengunjung');
         });
-        Route::get('/{id}/pengunjung', [AdminTourismController::class, 'tourismVisitor'])->name('admin.wisata.wisata.pengunjung');
-        Route::post('/{id}/pengunjung', [AdminTourismController::class, 'tourismVisitorStore'])->name('admin.wisata.wisata.pengunjung.store');
-        Route::post('/{id}/pengunjung/{idVisitor}/update', [AdminTourismController::class, 'tourismVisitorUpdate'])->name('admin.wisata.wisata.pengunjung.update');
-        Route::get('/{id}/pengunjung/{idVisitor}/destroy', [AdminTourismController::class, 'tourismVisitorDestroy'])->name('admin.wisata.wisata.pengunjung.destroy');
-        Route::get('/{id}/pemandu', [AdminTourismController::class, 'tourismGuide'])->name('admin.wisata.wisata.pemandu');
-        Route::post('/{id}/pemandu', [AdminTourismController::class, 'tourismGuideStore'])->name('admin.wisata.wisata.pemandu.store');
-        Route::post('/{id}/pemandu/{idGuide}/update', [AdminTourismController::class, 'tourismGuideUpdate'])->name('admin.wisata.wisata.pemandu.update');
-        Route::get('/{id}/pemandu/{idGuide}/destroy', [AdminTourismController::class, 'tourismGuideDestroy'])->name('admin.wisata.wisata.pemandu.destroy');
-        Route::get('/{id}/review', [AdminTourismController::class, 'tourismReview'])->name('admin.wisata.wisata.review');
-        Route::get('/{id}/galeri', [AdminTourismController::class, 'tourismGallery'])->name('admin.wisata.wisata.galeri');
-        Route::post('/{id}/galeri', [AdminTourismController::class, 'tourismGalleryStore'])->name('admin.wisata.wisata.galeri.store');
-        Route::get('/{id}/galeri{idGallery}/destroy', [AdminTourismController::class, 'tourismGalleryDestroy'])->name('admin.wisata.wisata.galeri.destroy');
-        Route::get('/{id}/admin', [AdminTourismController::class, 'tourismAdmin'])->name('admin.wisata.wisata.admin');
+        Route::middleware(['admin:tourism'])->group(function(){
+            Route::get('/{id}/pengunjung', [AdminTourismController::class, 'tourismVisitor'])->name('admin.wisata.wisata.pengunjung');
+            Route::post('/{id}/pengunjung', [AdminTourismController::class, 'tourismVisitorStore'])->name('admin.wisata.wisata.pengunjung.store');
+            Route::post('/{id}/pengunjung/{idVisitor}/update', [AdminTourismController::class, 'tourismVisitorUpdate'])->name('admin.wisata.wisata.pengunjung.update');
+            Route::get('/{id}/pengunjung/{idVisitor}/destroy', [AdminTourismController::class, 'tourismVisitorDestroy'])->name('admin.wisata.wisata.pengunjung.destroy');
+            Route::get('/{id}/pemandu', [AdminTourismController::class, 'tourismGuide'])->name('admin.wisata.wisata.pemandu');
+            Route::post('/{id}/pemandu', [AdminTourismController::class, 'tourismGuideStore'])->name('admin.wisata.wisata.pemandu.store');
+            Route::post('/{id}/pemandu/{idGuide}/update', [AdminTourismController::class, 'tourismGuideUpdate'])->name('admin.wisata.wisata.pemandu.update');
+            Route::get('/{id}/pemandu/{idGuide}/destroy', [AdminTourismController::class, 'tourismGuideDestroy'])->name('admin.wisata.wisata.pemandu.destroy');
+            Route::get('/{id}/review', [AdminTourismController::class, 'tourismReview'])->name('admin.wisata.wisata.review');
+            Route::get('/{id}/galeri', [AdminTourismController::class, 'tourismGallery'])->name('admin.wisata.wisata.galeri');
+            Route::post('/{id}/galeri', [AdminTourismController::class, 'tourismGalleryStore'])->name('admin.wisata.wisata.galeri.store');
+            Route::get('/{id}/galeri{idGallery}/destroy', [AdminTourismController::class, 'tourismGalleryDestroy'])->name('admin.wisata.wisata.galeri.destroy');
+            Route::get('/{id}/admin', [AdminTourismController::class, 'tourismAdmin'])->name('admin.wisata.wisata.admin');
+        });
     });
 
     Route::prefix('/pengaturan')->middleware(['role:superadmin'])->group(function () {
