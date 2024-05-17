@@ -104,12 +104,12 @@ Route::prefix('/menu')->middleware(['auth'])->group(function () {
             Route::get('/', [AdminEventController::class, 'event'])->name('admin.festival.festival');
             Route::get('/add', [AdminEventController::class, 'eventAdd'])->name('admin.festival.festival.add');
             Route::post('/add', [AdminEventController::class, 'eventStore'])->name('admin.festival.festival.store');
-            Route::get('/{id}/edit', [AdminEventController::class, 'eventEdit'])->name('admin.festival.festival.edit');
-            Route::post('/{id}/edit', [AdminEventController::class, 'eventUpdate'])->name('admin.festival.festival.update');
             Route::get('/{id}/destroy', [AdminEventController::class, 'eventDestroy'])->name('admin.festival.festival.destroy');
             Route::get('/pengunjung', [AdminEventController::class, 'visitor'])->name('admin.festival.pengunjung');
         });
         Route::middleware(['admin:event'])->group(function(){
+            Route::get('/{id}/edit', [AdminEventController::class, 'eventEdit'])->name('admin.festival.festival.edit');
+            Route::post('/{id}/edit', [AdminEventController::class, 'eventUpdate'])->name('admin.festival.festival.update');
             Route::get('/{id}/pengunjung', [AdminEventController::class, 'eventVisitor'])->name('admin.festival.festival.pengunjung');
             Route::post('/{id}/pengunjung', [AdminEventController::class, 'eventVisitorStore'])->name('admin.festival.festival.pengunjung.store');
             Route::post('/{id}/pengunjung/{idVisitor}/update', [AdminEventController::class, 'eventVisitorUpdate'])->name('admin.festival.festival.pengunjung.update');
@@ -129,8 +129,6 @@ Route::prefix('/menu')->middleware(['auth'])->group(function () {
             Route::get('/', [AdminRestaurantController::class, 'restaurant'])->name('admin.restoran.restoran');
             Route::get('/add', [AdminRestaurantController::class, 'restaurantAdd'])->name('admin.restoran.restoran.add');
             Route::post('/add', [AdminRestaurantController::class, 'restaurantStore'])->name('admin.restoran.restoran.store');
-            Route::get('/{id}/edit', [AdminRestaurantController::class, 'restaurantEdit'])->name('admin.restoran.restoran.edit');
-            Route::post('/{id}/edit', [AdminRestaurantController::class, 'restaurantUpdate'])->name('admin.restoran.restoran.update');
             Route::get('/{id}/destroy', [AdminRestaurantController::class, 'restaurantDestroy'])->name('admin.restoran.restoran.destroy');
             Route::get('/{id}/pengunjung', [AdminRestaurantController::class, 'restaurantVisitor'])->name('admin.restoran.restoran.pengunjung');
             Route::get('/review', [AdminRestaurantController::class, 'review'])->name('admin.restoran.review');
@@ -138,6 +136,8 @@ Route::prefix('/menu')->middleware(['auth'])->group(function () {
             Route::get('/pengunjung', [AdminRestaurantController::class, 'visitor'])->name('admin.restoran.pengunjung');
         });
         Route::middleware(['admin:restaurant'])->group(function(){
+            Route::get('/{id}/edit', [AdminRestaurantController::class, 'restaurantEdit'])->name('admin.restoran.restoran.edit');
+            Route::post('/{id}/edit', [AdminRestaurantController::class, 'restaurantUpdate'])->name('admin.restoran.restoran.update');
             Route::get('/{id}/pengunjung', [AdminRestaurantController::class, 'restaurantVisitor'])->name('admin.restoran.restoran.pengunjung');
             Route::post('/{id}/pengunjung', [AdminRestaurantController::class, 'restaurantVisitorStore'])->name('admin.restoran.restoran.pengunjung.store');
             Route::post('/{id}/pengunjung/{idVisitor}/update', [AdminRestaurantController::class, 'restaurantVisitorUpdate'])->name('admin.restoran.restoran.pengunjung.update');
@@ -159,8 +159,6 @@ Route::prefix('/menu')->middleware(['auth'])->group(function () {
             Route::get('/', [AdminHotelController::class, 'hotel'])->name('admin.hotel.hotel');
             Route::get('/add', [AdminHotelController::class, 'hotelAdd'])->name('admin.hotel.hotel.add');
             Route::post('/add', [AdminHotelController::class, 'hotelStore'])->name('admin.hotel.hotel.store');
-            Route::get('/{id}/edit', [AdminHotelController::class, 'hotelEdit'])->name('admin.hotel.hotel.edit');
-            Route::post('/{id}/edit', [AdminHotelController::class, 'hotelUpdate'])->name('admin.hotel.hotel.update');
             Route::get('/{id}/destroy', [AdminHotelController::class, 'hotelDestroy'])->name('admin.hotel.hotel.destroy');
             Route::get('/{id}/pengunjung', [AdminHotelController::class, 'hotelVisitor'])->name('admin.hotel.hotel.pengunjung');
             Route::get('/review', [AdminHotelController::class, 'review'])->name('admin.hotel.review');
@@ -168,6 +166,8 @@ Route::prefix('/menu')->middleware(['auth'])->group(function () {
             Route::get('/pengunjung', [AdminHotelController::class, 'visitor'])->name('admin.hotel.pengunjung');
         });
         Route::middleware(['admin:hotel'])->group(function(){
+            Route::get('/{id}/edit', [AdminHotelController::class, 'hotelEdit'])->name('admin.hotel.hotel.edit');
+            Route::post('/{id}/edit', [AdminHotelController::class, 'hotelUpdate'])->name('admin.hotel.hotel.update');
             Route::get('/{id}/pengunjung', [AdminHotelController::class, 'hotelVisitor'])->name('admin.hotel.hotel.pengunjung');
             Route::post('/{id}/pengunjung', [AdminHotelController::class, 'hotelVisitorStore'])->name('admin.hotel.hotel.pengunjung.store');
             Route::post('/{id}/pengunjung/{idVisitor}/update', [AdminHotelController::class, 'hotelVisitorUpdate'])->name('admin.hotel.hotel.pengunjung.update');
@@ -185,8 +185,6 @@ Route::prefix('/menu')->middleware(['auth'])->group(function () {
             Route::get('/', [AdminTourismController::class, 'tourism'])->name('admin.wisata.wisata');
             Route::get('/add', [AdminTourismController::class, 'tourismAdd'])->name('admin.wisata.wisata.add');
             Route::post('/add', [AdminTourismController::class, 'tourismStore'])->name('admin.wisata.wisata.store');
-            Route::get('/{id}/edit', [AdminTourismController::class, 'tourismEdit'])->name('admin.wisata.wisata.edit');
-            Route::post('/{id}/edit', [AdminTourismController::class, 'tourismUpdate'])->name('admin.wisata.wisata.update');
             Route::get('/{id}/destroy', [AdminTourismController::class, 'tourismDestroy'])->name('admin.wisata.wisata.destroy');
             Route::get('/{id}/pengunjung', [AdminTourismController::class, 'tourismVisitor'])->name('admin.wisata.wisata.pengunjung');
             Route::get('/review', [AdminTourismController::class, 'review'])->name('admin.wisata.review');
@@ -194,6 +192,8 @@ Route::prefix('/menu')->middleware(['auth'])->group(function () {
             Route::get('/pengunjung', [AdminTourismController::class, 'visitor'])->name('admin.wisata.pengunjung');
         });
         Route::middleware(['admin:tourism'])->group(function(){
+            Route::get('/{id}/edit', [AdminTourismController::class, 'tourismEdit'])->name('admin.wisata.wisata.edit');
+            Route::post('/{id}/edit', [AdminTourismController::class, 'tourismUpdate'])->name('admin.wisata.wisata.update');
             Route::get('/{id}/pengunjung', [AdminTourismController::class, 'tourismVisitor'])->name('admin.wisata.wisata.pengunjung');
             Route::post('/{id}/pengunjung', [AdminTourismController::class, 'tourismVisitorStore'])->name('admin.wisata.wisata.pengunjung.store');
             Route::post('/{id}/pengunjung/{idVisitor}/update', [AdminTourismController::class, 'tourismVisitorUpdate'])->name('admin.wisata.wisata.pengunjung.update');
