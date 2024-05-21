@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\QueryException;
@@ -15,11 +16,12 @@ class AccountController extends Controller
 {
     public function me()
     {
+        $data = User::where('id', auth()->user()->id)->get();
         return response()->json([
             'response' => Response::HTTP_OK,
             'success' => true,
-            'message' => 'user recent retrived',
-            'data' => auth()->user()
+            'message' => 'User recent retrived',
+            'data' => UserResource::collection($data)->first()
         ], Response::HTTP_OK);
     }
 
@@ -42,7 +44,7 @@ class AccountController extends Controller
         try {
             $user = User::findOrFail(Auth::user()->id);
             if($request->hasFile('photo')){
-                $user->photo =  $request->file('image')->store('user', 'public');
+                $user->photo =  $request->file('photo')->store('user', 'public');
             }
             $user->name  = $request->name;
             $user->email  = $request->email;
@@ -67,7 +69,7 @@ class AccountController extends Controller
     {    
         $validator = Validator::make($request->all(), [
             'password' => 'required|string|min:6|confirmed',
-            'password_confirmation' => 'required|string|min:6'
+            'passwordConfirmation' => 'required|string|min:6'
         ]);
 
         if ($validator->fails()) {
