@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\Hotel;
 use App\Models\HotelReview;
+use App\Models\HotelViewer;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
@@ -51,6 +52,12 @@ class HotelController extends Controller
     public function show($id){
         try {
             $data = Hotel::where('id', $id)->get();
+
+            $viewer = New HotelViewer();
+            $viewer->hotel_id = $id;
+            $viewer->user_id = Auth::user()->id ?? null;
+            $viewer->save();
+
             if (!$data) {
                 return response()->json([
                     'response' => Response::HTTP_NOT_FOUND,

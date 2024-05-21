@@ -6,6 +6,7 @@ use App\Models\Tourism;
 use App\Models\TourismGuide;
 use Illuminate\Http\Request;
 use App\Models\TourismReview;
+use App\Models\TourismViewer;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -52,6 +53,12 @@ class TourismController extends Controller
 
     public function show($id){
         try {
+
+            $viewer = new TourismViewer();
+            $viewer->tourism_id = $id;
+            $viewer->user_id = Auth::user()->id ?? null;
+            $viewer->save();
+
             $tourism = Tourism::where('id', $id)->get();
             if (!$tourism) {
                 return response()->json([

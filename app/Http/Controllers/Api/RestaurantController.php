@@ -5,15 +5,16 @@ namespace App\Http\Controllers\Api;
 use App\Models\Restaurant;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use App\Models\RestaurantMenu;
 use App\Models\RestaurantReview;
+use App\Models\RestaurantViewer;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\RestaurantMenuResource;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\ReviewResource;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Resources\RestaurantResource;
-use App\Models\RestaurantMenu;
+use App\Http\Resources\RestaurantMenuResource;
 
 class RestaurantController extends Controller
 {
@@ -52,6 +53,12 @@ class RestaurantController extends Controller
 
     public function show($id){
         try {
+            
+            $viewer = New RestaurantViewer();
+            $viewer->restaurant_id = $id;
+            $viewer->user_id = Auth::user()->id ?? null;
+            $viewer->save();
+
             $data = Restaurant::where('id', $id)->get();
             if (!$data) {
                 return response()->json([
