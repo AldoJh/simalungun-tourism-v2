@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\web\admin;
+namespace App\Http\Controllers\Web\Admin;
 
 use App\Models\EventAdmin;
 use App\Models\HotelAdmin;

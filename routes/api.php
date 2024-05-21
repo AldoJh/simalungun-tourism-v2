@@ -27,12 +27,12 @@ Route::prefix('/v1')->group(function () {
     Route::post('/{id}/comment', [NewsController::class, 'comment']);
   });  
 
-  Route::prefix('/festival')->middleware('auth:sanctum')->group(function () {
+  Route::prefix('/event')->middleware('auth:sanctum')->group(function () {
     Route::get('/', [EventController::class, 'index']);
     Route::get('/{id}', [EventController::class, 'show']);
   });  
 
-  Route::prefix('/wisata')->middleware('auth:sanctum')->group(function () {
+  Route::prefix('/tourism')->middleware('auth:sanctum')->group(function () {
     Route::get('/', [TourismController::class, 'index']);
     Route::get('/{id}', [TourismController::class, 'show']);
   });  

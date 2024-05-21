@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Web\Auth\AuthController;
 use App\Http\Controllers\Web\Admin\BoatController;
 use App\Http\Controllers\Web\Admin\DashboardController;
-use App\Http\Controllers\web\admin\DestinationController;
+use App\Http\Controllers\Web\Admin\DestinationController;
 use App\Http\Controllers\Web\Front\MainController;
 use App\Http\Controllers\Web\Front\NewsController;
 use App\Http\Controllers\Web\Front\EventController;
