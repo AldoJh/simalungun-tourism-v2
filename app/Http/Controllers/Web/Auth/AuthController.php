@@ -80,7 +80,7 @@ class AuthController extends Controller
         $user->is_active = true;
         $user->save();
 
-        Mail::send('email.RegisterMail', ['email' => $request->email], function ($message) use ($request) {
+        Mail::send('email.registerMail', ['email' => $request->email], function ($message) use ($request) {
             $message->to($request->email);
             $message->subject('Registrasi Berhasil');
         });

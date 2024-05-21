@@ -36,7 +36,7 @@ class AccountController extends Controller
             return response()->json([
                 'response' => Response::HTTP_BAD_REQUEST,
                 'success' => false,
-                'message' => $validator->errors(),
+                'message' => $validator->errors()->all(),
             ], Response::HTTP_BAD_REQUEST);
         }
         try {
@@ -74,7 +74,7 @@ class AccountController extends Controller
             return response()->json([
                 'response' => Response::HTTP_BAD_REQUEST,
                 'success' => false,
-                'message' => $validator->errors(),
+                'message' => $validator->errors()->all(),
             ], Response::HTTP_BAD_REQUEST);
         }
         try {

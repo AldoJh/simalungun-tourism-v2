@@ -27,7 +27,7 @@ class AuthController extends Controller
             return response()->json([
                 'response' => Response::HTTP_BAD_REQUEST,
                 'success' => false,
-                'message' => $validator->errors(),
+                'message' => $validator->errors()->all(),
             ], Response::HTTP_BAD_REQUEST);
         }
 
@@ -41,7 +41,7 @@ class AuthController extends Controller
             $user->save();
 
             $token = $user->createToken('auth_token')->plainTextToken;
-            Mail::send('email.RegisterMail', ['email' => $request->email], function ($message) use ($request) {
+            Mail::send('email.registerMail', ['email' => $request->email], function ($message) use ($request) {
                 $message->to($request->email);
                 $message->subject('Registrasi Berhasil');
             });
@@ -74,7 +74,7 @@ class AuthController extends Controller
             return response()->json([
                 'response' => Response::HTTP_BAD_REQUEST,
                 'success' => false,
-                'message' => $validator->errors(),
+                'message' => $validator->errors()->all(),
             ], Response::HTTP_BAD_REQUEST);
         }
         
@@ -117,7 +117,7 @@ class AuthController extends Controller
             return response()->json([
                 'response' => Response::HTTP_BAD_REQUEST,
                 'success' => false,
-                'message' => $validator->errors(),
+                'message' => $validator->errors()->all(),
             ], Response::HTTP_BAD_REQUEST);
         }
 

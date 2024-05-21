@@ -22,6 +22,7 @@ class TourismController extends Controller
             'page_id' => null,
             'tourism' => $data
         ];
+        dd($data);
         return view('front.pages.tourism.index',  $data);
     }
 

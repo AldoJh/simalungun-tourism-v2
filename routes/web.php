@@ -14,7 +14,7 @@ use App\Http\Controllers\Web\Admin\SettingController;
 use App\Http\Controllers\Web\Front\TourismController;
 use App\Http\Controllers\Web\Admin\MasterDataController;
 use App\Http\Controllers\Web\Front\RestaurantController;
-use App\Http\Controllers\web\admin\ReviewController;
+use App\Http\Controllers\Web\Admin\ReviewController;
 use App\Http\Controllers\Web\Admin\UserController;
 use App\Http\Controllers\Web\Front\FeedbackController;
 use App\Http\Controllers\Web\Admin\EventController as AdminEventController;

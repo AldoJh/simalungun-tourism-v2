@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\web\admin;
+namespace App\Http\Controllers\Web\Admin;
 
 use App\Models\Tourism;
 use App\Models\HotelReview;

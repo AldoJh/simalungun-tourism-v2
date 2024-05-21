@@ -9,6 +9,7 @@ use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Validator;
 
 class NewsController extends Controller
 {
@@ -61,11 +62,22 @@ class NewsController extends Controller
     }
 
     public function comment($id, Request $request){
+        $validator = Validator::make($request->all(), [
+            'comment' => 'required'
+        ]);
+        if ($validator->fails()) {
+            return response()->json([
+                'response' => Response::HTTP_BAD_REQUEST,
+                'success' => false,
+                'message' => $validator->errors()->all(),
+            ], Response::HTTP_BAD_REQUEST);
+        }
+        
         try {
             $comment = New Comment();
             $comment->news_id = $id;
             $comment->user_id = Auth::user()->id;
-            $comment->content = $request->input('comment');
+            $comment->content = $request->comment;
             $comment->save();
             return response()->json([
                 'response' => Response::HTTP_OK,
