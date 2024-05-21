@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\AccountController;
 use App\Http\Controllers\Api\CollectionController;
 use App\Http\Controllers\Api\EventController;
 use App\Http\Controllers\Api\HotelController;
+use App\Http\Controllers\Api\RestaurantController;
 use App\Http\Controllers\Api\TourismController;
 
 Route::get('/kecamatan', [CollectionController::class, 'kecamatan'])->name('kecamatan');
@@ -46,6 +47,14 @@ Route::prefix('/v1')->group(function () {
     Route::get('/{id}', [HotelController::class, 'show']);
     Route::get('/{id}/review', [HotelController::class, 'review']);
     Route::post('/{id}/review', [HotelController::class, 'reviewStore']);
+  });  
+
+  Route::prefix('/restaurant')->middleware('auth:sanctum')->group(function () {
+    Route::get('/', [RestaurantController::class, 'index']);
+    Route::get('/{id}', [RestaurantController::class, 'show']);
+    Route::get('/{id}/menu', [RestaurantController::class, 'menu']);
+    Route::get('/{id}/review', [RestaurantController::class, 'review']);
+    Route::post('/{id}/review', [RestaurantController::class, 'reviewStore']);
   });  
 
   Route::prefix('/account')->middleware('auth:sanctum')->group(function () {

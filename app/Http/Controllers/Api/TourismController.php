@@ -109,7 +109,7 @@ class TourismController extends Controller
                 return response()->json([
                     'response' => Response::HTTP_NOT_FOUND,
                     'success' => false,
-                    'message' => 'Guide not found',
+                    'message' => 'Review not found',
                 ], Response::HTTP_NOT_FOUND);
             }
             return response()->json([
