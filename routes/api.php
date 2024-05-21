@@ -35,6 +35,9 @@ Route::prefix('/v1')->group(function () {
   Route::prefix('/tourism')->middleware('auth:sanctum')->group(function () {
     Route::get('/', [TourismController::class, 'index']);
     Route::get('/{id}', [TourismController::class, 'show']);
+    Route::get('/{id}/guide', [TourismController::class, 'guide']);
+    Route::get('/{id}/review', [TourismController::class, 'review']);
+    Route::post('/{id}/review', [TourismController::class, 'reviewStore']);
   });  
 
   Route::prefix('/account')->middleware('auth:sanctum')->group(function () {

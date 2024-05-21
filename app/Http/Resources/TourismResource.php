@@ -18,6 +18,10 @@ class TourismResource extends JsonResource
             'id' => $this->id,
             'slug' => $this->slug,
             'name' => $this->name,
+            'rating' => [
+                'rate' => round($this->tourismReview->average('rating'), 1),
+                'count' => count($this->tourismReview)
+            ],
             'category' => [
                 'id' => $this->tourismCategory->id,
                 'name' => $this->tourismCategory->name
@@ -53,7 +57,9 @@ class TourismResource extends JsonResource
                 'facebook' => 'https://www.facebook.com/sharer/sharer.php?u='.route('wisata.show', $this->slug),
                 'linkedin' => 'http://www.linkedin.com/shareArticle?mini=true&url='.route('wisata.show', $this->slug),
                 'whatsapp' => 'https://api.whatsapp.com/send?&text='.route('wisata.show', $this->slug)
-            ]
+            ],
+            'createdAt' => $this->created_at,
+            'updatedAt' => $this->updated_at
         ];
     }
 }
