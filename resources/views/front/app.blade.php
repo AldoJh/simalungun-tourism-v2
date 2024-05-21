@@ -38,7 +38,7 @@
       <div data-anim="fade delay-3" class="header__container container">
         <div class="headerMobile__left">
           <div class="header__logo">
-            <a href="index.html" class="header__logo">
+            <a href="{{ route('home') }}" class="header__logo">
               <img src="{{ asset('front-assets/img/logo_sipar.png') }}" width="50" alt="logo icon">
             </a>
           </div>
@@ -46,7 +46,7 @@
 
         <div class="header__left md:d-none">
           <div class="header__logo">
-            <a href="index.html" class="header__logo">
+            <a href="{{ route('home') }}" class="header__logo">
               <img src="{{ asset('front-assets/img/logo_sipar.png') }}" width="50" alt="logo icon">
             </a>
           </div>

@@ -40,9 +40,9 @@ class EventResource extends JsonResource
                 ];
             }),
             'share' =>[
-                'facebook' => 'https://www.facebook.com/sharer/sharer.php?u='.route('hotel.show', $this->slug),
-                'linkedin' => 'http://www.linkedin.com/shareArticle?mini=true&url='.route('hotel.show', $this->slug),
-                'whatsapp' => 'https://api.whatsapp.com/send?&text='.route('hotel.show', $this->slug)
+                'facebook' => 'https://www.facebook.com/sharer/sharer.php?u='.route('festival.show', $this->slug),
+                'linkedin' => 'http://www.linkedin.com/shareArticle?mini=true&url='.route('festival.show', $this->slug),
+                'whatsapp' => 'https://api.whatsapp.com/send?&text='.route('festival.show', $this->slug)
             ],
             'createdAt' => $this->created_at,
             'updatedAt' => $this->updated_at
