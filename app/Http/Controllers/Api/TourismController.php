@@ -54,7 +54,6 @@ class TourismController extends Controller
                     'message' => 'Tourism not found',
                 ], Response::HTTP_NOT_FOUND);
             }
-            // return $tourism;
             return response()->json([
                 'response' => Response::HTTP_OK,
                 'success' => true,
