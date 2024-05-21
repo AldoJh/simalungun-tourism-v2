@@ -52,7 +52,7 @@ class BoatController extends Controller
             'route' => 'required',
         ]);
         if ($validator->fails()) {
-            return redirect()->route('admin.kapal')->with('error', 'Gagal merubah data fasilitas')->withInput()->withErrors($validator);
+            return redirect()->route('admin.kapal')->with('error', 'Gagal merubah data kapal')->withInput()->withErrors($validator);
         }
         $boats = Boat::findOrFail($id);
         $boats->name = $request->input('name');
@@ -62,7 +62,7 @@ class BoatController extends Controller
         $boats->route = $request->input('route');
         $boats->updated_by = Auth::user()->email;
         $boats->save();
-        return redirect()->route('admin.kapal')->with('success','Berhasil merubah data fasilitas');
+        return redirect()->route('admin.kapal')->with('success','Berhasil merubah data kapal');
     }
     
     public function boatDestroy($id){

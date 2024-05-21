@@ -102,7 +102,7 @@ class NewsController extends Controller
             return response()->json([
                 'response' => Response::HTTP_OK,
                 'success' => true,
-                'message' => 'News show retrieved successfully',
+                'message' => 'Comment store successfully',
                 'data' => $comment
             ], Response::HTTP_OK);
             

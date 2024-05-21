@@ -38,7 +38,7 @@ class ProfileController extends Controller
         }
         $profile->save();
 
-        return redirect()->route('admin.profil')->with('success', 'Berhasil merubah profil');
+        return redirect()->route('admin.profil')->with('success', 'Berhasil mengubah profil');
     }
 
     public function changePassword(Request $request){
@@ -62,6 +62,6 @@ class ProfileController extends Controller
         $userSave->password = Hash::make($request->input('newPassword'));
         $userSave->save();
     
-        return redirect()->route('admin.profil')->with('success', 'Berhasil merubah password');
+        return redirect()->route('admin.profil')->with('success', 'Berhasil mengubah password');
     }
 }

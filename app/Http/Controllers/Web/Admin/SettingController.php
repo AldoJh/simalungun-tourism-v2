@@ -43,6 +43,6 @@ class SettingController extends Controller
         $setting->facebook = $request->input('facebook');
         $setting->save();
 
-        return redirect()->route('admin.pengaturan')->with('success', 'Berhasil merubah pengaturan');
+        return redirect()->route('admin.pengaturan')->with('success', 'Berhasil mengubah pengaturan');
     }
 }

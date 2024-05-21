@@ -140,7 +140,7 @@ class HotelController extends Controller
             'description' => 'required',
         ]);
         if ($validator->fails()) {
-            return redirect()->route('admin.hotel.hotel.edit', $id)->with('error', 'Gagal merubah data hotel')->withInput()->withErrors($validator);
+            return redirect()->route('admin.hotel.hotel.edit', $id)->with('error', 'Gagal mengubah data hotel')->withInput()->withErrors($validator);
         }
 
         $hotel = Hotel::findOrFail($id);
@@ -179,7 +179,7 @@ class HotelController extends Controller
         }else{
             HotelFacility::where('hotel_id', $id)->delete();
         }
-        return redirect()->route('admin.hotel.hotel.pengunjung', $id)->with('success','Berhasil menambahkan hotel');
+        return redirect()->route('admin.hotel.hotel.pengunjung', $id)->with('success','Berhasil mengubah data hotel');
     }
     
     public function hotelVisitor($id){
@@ -222,7 +222,7 @@ class HotelController extends Controller
             'visitor' => 'required',
         ]);
         if ($validator->fails()) {
-            return redirect()->route('admin.hotel.hotel.pengunjung', $id)->with('error', 'Gagal menambahkan data pengunjung')->withInput()->withErrors($validator);
+            return redirect()->route('admin.hotel.hotel.pengunjung', $id)->with('error', 'Gagal mengubah data pengunjung')->withInput()->withErrors($validator);
         }
         $hotel = HotelVisitor::findOrFail($idVisitor);
         $hotel->hotel_id = $id;
@@ -233,13 +233,13 @@ class HotelController extends Controller
             $hotel->attachment =  $request->file('attachment')->store('pengunjung-hotel', 'public');
         }
         $hotel->save();
-        return redirect()->route('admin.hotel.hotel.pengunjung', $id)->with('success', 'Berhasil menambahkan data pengunjung');
+        return redirect()->route('admin.hotel.hotel.pengunjung', $id)->with('success', 'Berhasil mengubah data pengunjung');
     }
 
     public function hotelVisitorDestroy($id, $idVisitor){
         $visitor = HotelVisitor::findOrFail($idVisitor);
         $visitor->delete();
-        return redirect()->route('admin.hotel.hotel.pengunjung', $id)->with('success','Berhasil menghapus menu');
+        return redirect()->route('admin.hotel.hotel.pengunjung', $id)->with('success','Berhasil menghapus data pengunjung');
     }
 
     public function hotelReview($id){

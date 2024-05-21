@@ -84,7 +84,7 @@ class RestaurantController extends Controller
     public function restaurantVisitorDestroy($id, $idVisitor){
         $visitor = RestaurantVisitor::findOrFail($idVisitor);
         $visitor->delete();
-        return redirect()->route('admin.restoran.restoran.pengunjung', $id)->with('success','Berhasil menghapus data  pengunjung');
+        return redirect()->route('admin.restoran.restoran.pengunjung', $id)->with('success','Berhasil menghapus data pengunjung');
     }
 
     public function restaurantReview($id){
@@ -152,7 +152,7 @@ class RestaurantController extends Controller
             'price' => 'required'
         ]);
         if ($validator->fails()) {
-            return redirect()->route('admin.restoran.restoran.menu', $id)->with('error', 'Gagal mengubah data menu')->withInput()->withErrors($validator);
+            return redirect()->route('admin.restoran.restoran.menu', $id)->with('error', 'Gagal menambahkan data menu')->withInput()->withErrors($validator);
         }
         $menu = new RestaurantMenu();
         $menu->restaurant_id = $id;
@@ -162,7 +162,7 @@ class RestaurantController extends Controller
         $menu->type = $request->input('type');
         $menu->image =  $request->file('image')->store('menu-resto', 'public');
         $menu->save();
-        return redirect()->route('admin.restoran.restoran.menu', $id)->with('success', 'Berhasil mengubah data menu');
+        return redirect()->route('admin.restoran.restoran.menu', $id)->with('success', 'Berhasil menambahkan data menu');
     }
 
     public function restaurantMenuUpdate($id, $idMenu, Request $request){

@@ -41,12 +41,12 @@ class MasterDataController extends Controller
             'name' => 'required',
         ]);
         if ($validator->fails()) {
-            return redirect()->route('admin.data-master.fasilitas')->with('error', 'Gagal merubah data fasilitas')->withInput()->withErrors($validator);
+            return redirect()->route('admin.data-master.fasilitas')->with('error', 'Gagal mengubah data fasilitas')->withInput()->withErrors($validator);
         }
         $fasilitas = Facility::findOrFail($id);
         $fasilitas->name = $request->input('name');
         $fasilitas->save();
-        return redirect()->route('admin.data-master.fasilitas')->with('success','Berhasil merubah data fasilitas');
+        return redirect()->route('admin.data-master.fasilitas')->with('success','Berhasil mengubah data fasilitas');
     }
 
     public function facilityDestroy($id){
@@ -84,12 +84,12 @@ class MasterDataController extends Controller
             'name' => 'required',
         ]);
         if ($validator->fails()) {
-            return redirect()->route('admin.data-master.kategori-wisata')->with('error', 'Gagal merubah data kategori')->withInput()->withErrors($validator);
+            return redirect()->route('admin.data-master.kategori-wisata')->with('error', 'Gagal mengubah data kategori')->withInput()->withErrors($validator);
         }
         $category = TourismCategory::findOrFail($id);
         $category->name = $request->input('name');
         $category->save();
-        return redirect()->route('admin.data-master.kategori-wisata')->with('success','Berhasil merubah data kategori');
+        return redirect()->route('admin.data-master.kategori-wisata')->with('success','Berhasil mengubah data kategori');
     }
 
     public function tourismCategoryDestroy($id){
@@ -127,12 +127,12 @@ class MasterDataController extends Controller
             'name' => 'required',
         ]);
         if ($validator->fails()) {
-            return redirect()->route('admin.data-master.kategori-hotel')->with('error', 'Gagal merubah data kategori')->withInput()->withErrors($validator);
+            return redirect()->route('admin.data-master.kategori-hotel')->with('error', 'Gagal mengubah data kategori')->withInput()->withErrors($validator);
         }
         $category = HotelCategory::findOrFail($id);
         $category->name = $request->input('name');
         $category->save();
-        return redirect()->route('admin.data-master.kategori-hotel')->with('success','Berhasil merubah data kategori');
+        return redirect()->route('admin.data-master.kategori-hotel')->with('success','Berhasil mengubah data kategori');
     }
 
     public function hotelCategoryDestroy($id){

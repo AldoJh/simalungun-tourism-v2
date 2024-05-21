@@ -98,7 +98,7 @@ class TourismController extends Controller
                 ]);
             }
         }
-        return redirect()->route('admin.wisata.wisata.pengunjung', $id)->with('success','Berhasil menambahkan wisata');
+        return redirect()->route('admin.wisata.wisata.pengunjung', $id)->with('success','Berhasil menambahkan wisata baru');
     }
 
     public function tourismEdit($id){
@@ -129,7 +129,7 @@ class TourismController extends Controller
             'description' => 'required',
         ]);
         if ($validator->fails()) {
-            return redirect()->route('admin.wisata.wisata.edit', $id)->with('error', 'Gagal menambahkan wisata baru')->withInput()->withErrors($validator);
+            return redirect()->route('admin.wisata.wisata.edit', $id)->with('error', 'Gagal mengubah data wisata')->withInput()->withErrors($validator);
         }
         $tourism = Tourism::findOrFail($id);
         $tourism->name =$request->input('name');
@@ -163,7 +163,7 @@ class TourismController extends Controller
         }else{
             TourismFacility::where('tourism_id', $id)->delete();
         }
-        return redirect()->route('admin.wisata.wisata.pengunjung', $id)->with('success','Berhasil menambahkan wisata');
+        return redirect()->route('admin.wisata.wisata.pengunjung', $id)->with('success','Berhasil mengubah data wisata');
     }
 
     public function review(){
@@ -213,7 +213,7 @@ class TourismController extends Controller
             'visitor' => 'required',
         ]);
         if ($validator->fails()) {
-            return redirect()->route('admin.wisata.wisata.pengunjung', $id)->with('error', 'Gagal menambahkan data pengunjung')->withInput()->withErrors($validator);
+            return redirect()->route('admin.wisata.wisata.pengunjung', $id)->with('error', 'Gagal mengubah data pengunjung')->withInput()->withErrors($validator);
         }
         $visitor = TourismVisitor::findOrFail($idVisitor);
         $visitor->tourism_id = $id;
@@ -223,13 +223,13 @@ class TourismController extends Controller
             $visitor->attachment =  $request->file('attachment')->store('pengunjung-wisata', 'public');
         }
         $visitor->save();
-        return redirect()->route('admin.wisata.wisata.pengunjung', $id)->with('success', 'Berhasil menambahkan data pengunjung');
+        return redirect()->route('admin.wisata.wisata.pengunjung', $id)->with('success', 'Berhasil mengubah data pengunjung');
     }
 
     public function tourismVisitorDestroy($id, $idVisitor){
         $visitor = TourismVisitor::findOrFail($idVisitor);
         $visitor->delete();
-        return redirect()->route('admin.wisata.wisata.pengunjung', $id)->with('success','Berhasil menghapus review');
+        return redirect()->route('admin.wisata.wisata.pengunjung', $id)->with('success','Berhasil menghapus data pengunjung');
     }
 
     public function tourismReview($id){

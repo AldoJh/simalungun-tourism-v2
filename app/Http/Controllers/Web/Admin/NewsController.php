@@ -89,7 +89,7 @@ class NewsController extends Controller
             'content' => 'required',
         ]);
         if ($validator->fails()) {
-            return redirect()->route('admin.berita.berita.eddit', $id)->with('error', 'Gagal merubah berita')->withInput()->withErrors($validator);
+            return redirect()->route('admin.berita.berita.eddit', $id)->with('error', 'Gagal mengubah berita')->withInput()->withErrors($validator);
         }
 
         $news = News::findOrFail($id);
@@ -103,7 +103,7 @@ class NewsController extends Controller
         $news->content = $request->input('content');
         $news->save();
 
-        return redirect()->route('admin.berita.berita.komentar', $id)->with('success', 'Berhasil merubah berita');
+        return redirect()->route('admin.berita.berita.komentar', $id)->with('success', 'Berhasil mengubah berita');
     }
 
     public function newsDestroy($id){
