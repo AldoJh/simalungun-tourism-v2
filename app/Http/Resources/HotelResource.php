@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class TourismResource extends JsonResource
+class HotelResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -18,14 +18,20 @@ class TourismResource extends JsonResource
             'id' => $this->id,
             'slug' => $this->slug,
             'name' => $this->name,
+            'owner' => $this->owner,
             'phone' => $this->phone,
+            'roomCount' => $this->room,
+            'price' => [
+                'min' => $this->min_price,
+                'max' => $this->max_price,
+            ],
             'rating' => [
-                'rate' => round($this->tourismReview->average('rating'), 1),
-                'count' => count($this->tourismReview)
+                'rate' => round($this->hotelReview->average('rating'), 1),
+                'count' => count($this->hotelReview)
             ],
             'category' => [
-                'id' => $this->tourismCategory->id,
-                'name' => $this->tourismCategory->name
+                'id' => $this->hotelCategory->id,
+                'name' => $this->hotelCategory->name
             ],
             'image' => url('storage/'.$this->image),
             'metaDescription' => $this->excerpt,
@@ -44,20 +50,20 @@ class TourismResource extends JsonResource
                 'address' => $this->address,
                 'maps' => 'https://maps.google.com/?q='.$this->latitude.','.$this->longitude
             ],
-            'images' => $this->tourismImage->map(function ($image) {
+            'images' => $this->hotelImage->map(function ($image) {
                 return url('storage/'.$image->image);
             }),
-            'facilities' => $this->tourismFacility->map(function ($facility) {
+            'facilities' => $this->hotelFacility->map(function ($facility) {
                 return [
                     'id' => $facility->id,
                     'name' => $facility->facility->name
                 ];
             }),
-            'isRecomended' => $this->is_recomended ? true : false,
+            'isVerified' => $this->is_verified ? true : false,
             'share' =>[
-                'facebook' => 'https://www.facebook.com/sharer/sharer.php?u='.route('wisata.show', $this->slug),
-                'linkedin' => 'http://www.linkedin.com/shareArticle?mini=true&url='.route('wisata.show', $this->slug),
-                'whatsapp' => 'https://api.whatsapp.com/send?&text='.route('wisata.show', $this->slug)
+                'facebook' => 'https://www.facebook.com/sharer/sharer.php?u='.route('hotel.show', $this->slug),
+                'linkedin' => 'http://www.linkedin.com/shareArticle?mini=true&url='.route('hotel.show', $this->slug),
+                'whatsapp' => 'https://api.whatsapp.com/send?&text='.route('hotel.show', $this->slug)
             ],
             'createdAt' => $this->created_at,
             'updatedAt' => $this->updated_at

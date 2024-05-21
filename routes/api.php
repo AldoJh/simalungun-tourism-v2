@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\NewsController;
 use App\Http\Controllers\Api\AccountController;
 use App\Http\Controllers\Api\CollectionController;
 use App\Http\Controllers\Api\EventController;
+use App\Http\Controllers\Api\HotelController;
 use App\Http\Controllers\Api\TourismController;
 
 Route::get('/kecamatan', [CollectionController::class, 'kecamatan'])->name('kecamatan');
@@ -38,6 +39,13 @@ Route::prefix('/v1')->group(function () {
     Route::get('/{id}/guide', [TourismController::class, 'guide']);
     Route::get('/{id}/review', [TourismController::class, 'review']);
     Route::post('/{id}/review', [TourismController::class, 'reviewStore']);
+  });  
+
+  Route::prefix('/hotel')->middleware('auth:sanctum')->group(function () {
+    Route::get('/', [HotelController::class, 'index']);
+    Route::get('/{id}', [HotelController::class, 'show']);
+    Route::get('/{id}/review', [HotelController::class, 'review']);
+    Route::post('/{id}/review', [HotelController::class, 'reviewStore']);
   });  
 
   Route::prefix('/account')->middleware('auth:sanctum')->group(function () {
