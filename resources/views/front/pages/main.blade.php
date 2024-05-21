@@ -12,7 +12,7 @@
   <meta property="og:url" content="{{ route('home') }}" />
   <meta property="og:title" content="Simalungun | {{$title ?? ''}}" />
   <meta property="og:type" content="article" />
-  <meta property="og:image" content="{{ asset('front-assets/meta/berita.png') }}" />
+  <meta property="og:image" content="{{ asset('front-assets/meta/meta.png') }}" />
   <meta
     property="og:description"
     content="{!! \App\Models\Setting::webBase()->description !!}"

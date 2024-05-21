@@ -94,7 +94,7 @@
     <div class="card-header align-items-center py-5 gap-2 gap-md-5">
       <div class="card-title">
         <h3 class="card-title align-items-start flex-column">
-          <span class="card-label fw-bold fs-3 mb-1">Atribut</span>
+          <span class="card-label fw-bold fs-3 mb-1">Menu</span>
         </h3>
       </div>
       <div class="card-toolbar">
@@ -307,7 +307,7 @@
             <div class="modal-body">
               <div class="mb-3">
                 <label for="exampleFormControlInput1" class="required form-label">Nama</label>
-                <input type="text" name="name" class="form-control form-control-solid @error('name') is-invalid @enderror"  value="{{ old('name') ?? $item->name }}" placeholder="Nama Atribut" required/>
+                <input type="text" name="name" class="form-control form-control-solid @error('name') is-invalid @enderror"  value="{{ old('name') ?? $item->name }}" placeholder="Nama" required/>
                 @error('name')
                   <div class="invalid-feedback">
                     {{ $message }}

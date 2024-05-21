@@ -48,11 +48,11 @@
       <div class="col-auto">
         <div class="breadcrumbs">
           <span class="breadcrumbs__item">
-            <a href="#">Home</a>
+            <a href="{{ route('home') }}">Home</a>
           </span>
           <span>></span>
           <span class="breadcrumbs__item">
-            <a href="#">Festival</a>
+            <a href="{{ route('festival') }}">Festival</a>
           </span>
         </div>
       </div>

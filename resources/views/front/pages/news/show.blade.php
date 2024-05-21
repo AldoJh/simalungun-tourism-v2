@@ -45,7 +45,19 @@
 <div data-anim="fade" class="container">
   <div class="row justify-between py-30 mt-80">
     <div class="col-auto">
-      <div class="text-14">Home > Berita > {{ $news->slug }}</div>
+      <div class="breadcrumbs">
+        <span class="breadcrumbs__item">
+          <a href="{{ route('home') }}">Home</a>
+        </span>
+        <span>></span>
+        <span class="breadcrumbs__item">
+          <a href="{{ route('berita') }}">Berita</a>
+        </span>
+        <span>></span>
+        <span class="breadcrumbs__item">
+          <a href="{{ route('berita.show', $news->slug ) }}">{{ $news->slug }}</a>
+        </span>
+      </div>
     </div>
   </div>
 </div>

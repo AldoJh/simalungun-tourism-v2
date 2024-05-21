@@ -46,7 +46,19 @@
 <div data-anim="fade" class="container">
   <div class="row justify-between pt-30 mt-80">
     <div class="col-auto">
-      <div class="text-14">Home > Festival > {{ $event->slug }}</div>
+      <div class="breadcrumbs">
+        <span class="breadcrumbs__item">
+          <a href="{{ route('home') }}">Home</a>
+        </span>
+        <span>></span>
+        <span class="breadcrumbs__item">
+          <a href="{{ route('festival') }}">Festival</a>
+        </span>
+        <span>></span>
+        <span class="breadcrumbs__item">
+          <a href="{{ route('festival.show', $event->slug) }}">{{ $event->slug }}</a>
+        </span>
+      </div>
     </div>
   </div>
 </div>

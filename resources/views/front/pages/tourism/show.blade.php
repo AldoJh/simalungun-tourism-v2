@@ -48,8 +48,20 @@
 
 <div data-anim="fade" class="container">
   <div class="row justify-between py-30 mt-80">
-    <div class="col-12">
-      <div class="text-14">Home > Wisata > {{ $tourism->slug }}</div>
+    <div class="col-auto">
+      <div class="breadcrumbs">
+        <span class="breadcrumbs__item">
+          <a href="{{ route('home') }}">Home</a>
+        </span>
+        <span>></span>
+        <span class="breadcrumbs__item">
+          <a href="{{ route('wisata') }}">Wisata</a>
+        </span>
+        <span>></span>
+        <span class="breadcrumbs__item">
+          <a href="{{ route('wisata.show', $tourism->slug ) }}">{{ $tourism->slug }}</a>
+        </span>
+      </div>
     </div>
     <div class="col-12">
       <h2 class="text-40 sm:text-30 lh-14 mt-20">
