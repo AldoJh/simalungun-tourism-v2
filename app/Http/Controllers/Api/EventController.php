@@ -22,6 +22,18 @@ class EventController extends Controller
                 'response' => Response::HTTP_OK,
                 'success' => true,
                 'message' => 'Event retrieved successfully',
+                'meta' => [
+                    'query' => $keyword,
+                    'path' => $data->path(),
+                    'total' => $data->total(),                
+                    'perPage' => $data->perPage(),
+                    'currentPage' => $data->currentPage(),
+                    'lastPage' => $data->lastPage(),
+                    'from' => $data->firstItem(),
+                    'to' => $data->lastItem(),
+                    'hasNext' => $data->hasMorePages(),
+                    'hasPrevious' => $data->currentPage() > 1,
+                ],
                 'data' => EventResource::collection($data)
             ], Response::HTTP_OK);
             
