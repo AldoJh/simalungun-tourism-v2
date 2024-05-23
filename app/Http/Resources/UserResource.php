@@ -14,12 +14,17 @@ class UserResource extends JsonResource
      */
     public function toArray($request)
     {
+        if($this->user->photo){
+            $image = url('storage/'.$this->photo);
+        }else{
+            $image = ' https://ui-avatars.com/api/?background=E79024&color=fff&name='.$this->name;
+        }
         return[
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
             'phone' => $this->phone,
-            'photo' => url('storage/'.$this->photo),
+            'photo' => $image,
             'createdAt' => $this->created_at,
             'updatedAt' => $this->updated_at,
         ];
