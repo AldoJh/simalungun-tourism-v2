@@ -83,4 +83,8 @@ After confirming that your system meets the requirements, follow these steps to 
     php artisan import:tourism
     ```
 
-Your Simalungun Tourism App should now be set up and ready to use. If you encounter any issues, please refer to the Laravel documentation or seek assistance from the project maintainers.
+## API Doc
+
+Application Programming Interface (API) documentation for mobile applications:
+
+https://documenter.getpostman.com/view/31416230/2sA3JT4Jmc
