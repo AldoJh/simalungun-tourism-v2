@@ -4,6 +4,12 @@
 
 **Simalungun Tourism** is a promotional website for Simalungun tourism, managed by the Simalungun Regency Culture, Tourism, and Creative Economy Service.
 
+## ERD
+
+Entity Relationship Diagram (ERD) :
+
+![erd](https://github.com/fajar-dev/simalungun-tourism-v2/assets/69442735/d9d67f6f-5db0-4d75-bbff-72f70a2f1636)
+
 ## Installation
 
 To set up this project, please ensure that your system meets the following requirements:
