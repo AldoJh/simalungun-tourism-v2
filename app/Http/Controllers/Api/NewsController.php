@@ -84,17 +84,23 @@ class NewsController extends Controller
     public function comment($id, Request $request){
         $validator = Validator::make($request->all(), [
             'comment' => 'required'
-        ]);
+        ]);    
+        $validation = array_fill_keys(array_keys($request->all()), []);    
         if ($validator->fails()) {
+            foreach ($validator->errors()->toArray() as $key => $errors) {
+                $validation[$key] = $errors;
+            }
             return response()->json([
                 'response' => Response::HTTP_BAD_REQUEST,
                 'success' => false,
-                'message' => $validator->errors()->all(),
+                'message' => 'Validation error occurred',
+                'validation' => $validation,
+                'data' => []
             ], Response::HTTP_BAD_REQUEST);
         }
-        
+    
         try {
-            $comment = New Comment();
+            $comment = new Comment();
             $comment->news_id = $id;
             $comment->user_id = Auth::user()->id;
             $comment->content = $request->comment;
@@ -102,10 +108,10 @@ class NewsController extends Controller
             return response()->json([
                 'response' => Response::HTTP_OK,
                 'success' => true,
-                'message' => 'Comment store successfully',
+                'message' => 'Comment stored successfully',
+                'validation' => $validation,
                 'data' => $comment
             ], Response::HTTP_OK);
-            
         } catch (QueryException $e) {
             return response()->json([
                 'response' => Response::HTTP_INTERNAL_SERVER_ERROR,

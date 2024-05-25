@@ -56,7 +56,7 @@
         </span>
         <span>></span>
         <span class="breadcrumbs__item">
-          <a href="{{ route('festival.show', $event->slug) }}">{{ $event->slug }}</a>
+          <a href="{{ route('festival.show', $event->slug ) }}">{{ $event->slug }}</a>
         </span>
       </div>
     </div>

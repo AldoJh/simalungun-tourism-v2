@@ -21,26 +21,34 @@ class AuthController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8',
-            'phone' => 'required|numeric|min:10|unique:users',
+            'phone' => 'required|numeric|digits_between:10,15|unique:users',
         ]);
+
+        $validation = array_fill_keys(array_keys($request->all()), []);
         if ($validator->fails()) {
+            foreach ($validator->errors()->toArray() as $key => $errors) {
+                $validation[$key] = $errors;
+            }
             return response()->json([
                 'response' => Response::HTTP_BAD_REQUEST,
                 'success' => false,
-                'message' => $validator->errors()->all(),
+                'message' => 'Validation error occurred', 
+                'validation' => $validation,
+                'data' => []
             ], Response::HTTP_BAD_REQUEST);
         }
 
         try {
-            $user = new User();
-            $user->name  = $request->name;
-            $user->email  = $request->email;
-            $user->password  = Hash::make($request->password);
-            $user->phone = $request->phone;
-            $user->is_active = true;
-            $user->save();
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'phone' => $request->phone,
+                'is_active' => true,
+            ]);
 
             $token = $user->createToken('auth_token')->plainTextToken;
+            
             Mail::send('email.registerMail', ['email' => $request->email], function ($message) use ($request) {
                 $message->to($request->email);
                 $message->subject('Registrasi Berhasil');
@@ -50,6 +58,7 @@ class AuthController extends Controller
                 'response' => Response::HTTP_CREATED,
                 'success' => true,
                 'message' => 'Account created successfully',
+                'validation' => $validation,
                 'data' => [
                     'data' => $user,
                     'access_token' => $token,
@@ -70,30 +79,38 @@ class AuthController extends Controller
             'email' => 'required|email',
             'password' => 'required',
         ]);
+        $validation = array_fill_keys(array_keys($request->all()), []);
         if ($validator->fails()) {
+            foreach ($validator->errors()->toArray() as $key => $errors) {
+                $validation[$key] = $errors;
+            }
             return response()->json([
                 'response' => Response::HTTP_BAD_REQUEST,
                 'success' => false,
-                'message' => $validator->errors()->all(),
+                'message' => 'Validation error occurred',
+                'validation' => $validation,
+                'data' => []
             ], Response::HTTP_BAD_REQUEST);
         }
-        
+
         try {
-            if (! $token = auth()->attempt($request->all())) {
+            if (! $token = auth()->attempt($request->only('email', 'password'))) {
                 return response()->json([
                     'response' => Response::HTTP_UNAUTHORIZED,
                     'success' => false,
                     'message' => 'Username or password wrong',
+                    'validation' => $validation,
+                    'data' => []
                 ], Response::HTTP_UNAUTHORIZED);
             }
-            $user = User::where('email', $request->email)->firstOrFail();
 
+            $user = User::where('email', $request->email)->firstOrFail();
             $token = $user->createToken('auth_token')->plainTextToken;
-    
             return response()->json([
                 'response' => Response::HTTP_OK,
                 'success' => true,
                 'message' => 'Account login successfully',
+                'validation' => $validation,
                 'data' => [
                     'data' => $user,
                     'access_token' => $token,
@@ -106,35 +123,45 @@ class AuthController extends Controller
                 'success' => false,
                 'message' => $e->getMessage(),
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
-        }   
+        }
     }
 
     public function forget(Request $request){
         $validator = Validator::make($request->all(), [
             'email' => 'required|email|exists:users,email',
         ]);
+        $validation = array_fill_keys(array_keys($request->all()), []);
         if ($validator->fails()) {
+            foreach ($validator->errors()->toArray() as $key => $errors) {
+                $validation[$key] = $errors;
+            }
             return response()->json([
                 'response' => Response::HTTP_BAD_REQUEST,
                 'success' => false,
-                'message' => $validator->errors()->all(),
+                'message' => 'Validation error occurred',
+                'validation' => $validation,
+                'data' => []
             ], Response::HTTP_BAD_REQUEST);
         }
 
         try {
             $token = Uuid::uuid4();
             DB::table('password_reset_tokens')->insert([
-                'email' => $request->email, 
-                'token' => $token, 
-            ]); 
+                'email' => $request->email,
+                'token' => $token,
+            ]);
+
             Mail::send('email.forgetPassword', ['token' => $token, 'email' => $request->email], function ($message) use ($request) {
                 $message->to($request->email);
                 $message->subject('Reset Password');
             });
+
             return response()->json([
                 'response' => Response::HTTP_OK,
                 'success' => true,
-                'message' => 'email sent successfully',
+                'message' => 'Email sent successfully',
+                'validation' => $validation,
+                'data' => []
             ], Response::HTTP_OK);
         } catch (QueryException $e) {
             return response()->json([
@@ -152,6 +179,7 @@ class AuthController extends Controller
             'response' => Response::HTTP_OK,
             'success' => true,
             'message' => 'Account logged out successfully',
+            'data' => []
         ], Response::HTTP_OK);
     }
 }

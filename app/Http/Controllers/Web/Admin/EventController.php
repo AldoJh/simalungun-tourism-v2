@@ -104,7 +104,7 @@ class EventController extends Controller
             $event->image =   $request->file('thumbnail')->store('event', 'public');
         }
         $event->save();
-        return redirect()->route('admin.festival.festival.pengunjung', $id)->with('success', 'Berhasil menambahkan data festival');
+        return redirect()->route('admin.festival.festival.pengunjung', $id)->with('success', 'Berhasil merubah data festival');
     }
 
     public function eventDestroy($id){
@@ -167,7 +167,7 @@ class EventController extends Controller
     public function eventVisitorDestroy($id, $idVisitor){
         $comment = EventVisitor::findOrFail($idVisitor);
         $comment->delete();
-        return redirect()->route('admin.festival.festival.pengunjung', $id)->with('success','Berhasil menghapus data  pengunjung');
+        return redirect()->route('admin.festival.festival.pengunjung', $id)->with('success','Berhasil menghapus data pengunjung');
     }
 
     public function eventGallery($id){
@@ -222,7 +222,7 @@ class EventController extends Controller
             'value' => 'required'
         ]);
         if ($validator->fails()) {
-            return redirect()->route('admin.festival.festival.atribut', $id)->with('error', 'Gagal menambahkan data pengunjung')->withInput()->withErrors($validator);
+            return redirect()->route('admin.festival.festival.atribut', $id)->with('error', 'Gagal menambahkan data atribut')->withInput()->withErrors($validator);
         }
         $event = New EventAttribute();
         $event->event_id = $id;
@@ -231,7 +231,7 @@ class EventController extends Controller
         $event->value = $request->input('value');
         $event->image =  $request->file('image')->store('event/attribute-event', 'public');
         $event->save();
-        return redirect()->route('admin.festival.festival.atribut', $id)->with('success', 'Berhasil menambahkan data pengunjung');
+        return redirect()->route('admin.festival.festival.atribut', $id)->with('success', 'Berhasil menambahkan data atribut');
     }
 
     public function eventAttributeUpdate($id, $idAttribute, Request $request){
@@ -242,7 +242,7 @@ class EventController extends Controller
             'value' => 'required'
         ]);
         if ($validator->fails()) {
-            return redirect()->route('admin.festival.festival.atribut', $id)->with('error', 'Gagal menambahkan data pengunjung')->withInput()->withErrors($validator);
+            return redirect()->route('admin.festival.festival.atribut', $id)->with('error', 'Gagal mengubah data atribut')->withInput()->withErrors($validator);
         }
         $event = EventAttribute::findOrFail($idAttribute);
         $event->event_id = $id;
@@ -253,7 +253,7 @@ class EventController extends Controller
             $event->image =  $request->file('image')->store('event/attribute-event', 'public');
         }
         $event->save();
-        return redirect()->route('admin.festival.festival.atribut', $id)->with('success', 'Berhasil menambahkan data pengunjung');
+        return redirect()->route('admin.festival.festival.atribut', $id)->with('success', 'Berhasil mengubah data atribut');
     }
 
     public function eventAdmin($id){

@@ -32,30 +32,38 @@ class AccountController extends Controller
             'email' => 'required|email',
             'phone' => 'required',
             'photo' => 'image|mimes:jpeg,png,jpg,gif|max:2048'
-        ]);
-
+        ]);    
+        $validation = array_fill_keys(array_keys($request->all()), []);    
         if ($validator->fails()) {
+            foreach ($validator->errors()->toArray() as $key => $errors) {
+                $validation[$key] = $errors;
+            }
             return response()->json([
                 'response' => Response::HTTP_BAD_REQUEST,
                 'success' => false,
-                'message' => $validator->errors()->all(),
+                'message' => 'Validation error occurred',
+                'validation' => $validation,
+                'data' => []
             ], Response::HTTP_BAD_REQUEST);
         }
+    
         try {
             $user = User::findOrFail(Auth::user()->id);
-            if($request->hasFile('photo')){
-                $user->photo =  $request->file('photo')->store('user', 'public');
+            if ($request->hasFile('photo')) {
+                $user->photo = $request->file('photo')->store('user', 'public');
             }
-            $user->name  = $request->name;
-            $user->email  = $request->email;
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->phone = $request->phone;
             $user->save();
             return response()->json([
                 'response' => Response::HTTP_OK,
                 'success' => true,
-                'message' => 'User account update with photo successfully',
-                'data' => $request->all()
+                'message' => 'User account updated successfully',
+                'validation' => $validation,
+                'data' => $user
             ], Response::HTTP_OK);
-            
+    
         } catch (QueryException $e) {
             return response()->json([
                 'response' => Response::HTTP_INTERNAL_SERVER_ERROR,
@@ -64,6 +72,7 @@ class AccountController extends Controller
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
+    
 
     public function password_change(Request $request)
     {    
@@ -71,24 +80,32 @@ class AccountController extends Controller
             'password' => 'required|string|min:6|confirmed',
             'passwordConfirmation' => 'required|string|min:6'
         ]);
-
+        $validation = array_fill_keys(array_keys($request->all()), []);
         if ($validator->fails()) {
+            foreach ($validator->errors()->toArray() as $key => $errors) {
+                $validation[$key] = $errors;
+            }
             return response()->json([
                 'response' => Response::HTTP_BAD_REQUEST,
                 'success' => false,
-                'message' => $validator->errors()->all(),
+                'message' => 'Validation error occurred',
+                'validation' => $validation,
+                'data' => []
             ], Response::HTTP_BAD_REQUEST);
         }
+
         try {
             $user = User::findOrFail(Auth::user()->id);
-            $user->password  = Hash::make($request->password);
+            $user->password = Hash::make($request->password);
             $user->save();
             return response()->json([
                 'response' => Response::HTTP_OK,
                 'success' => true,
-                'message' => 'Change password successfully',
-                'data' => $request->all()
+                'message' => 'Password changed successfully',
+                'validation' => $validation,
+                'data' => $user
             ], Response::HTTP_OK);
+
         } catch (QueryException $e) {
             return response()->json([
                 'response' => Response::HTTP_INTERNAL_SERVER_ERROR,
@@ -97,4 +114,5 @@ class AccountController extends Controller
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
+
 }

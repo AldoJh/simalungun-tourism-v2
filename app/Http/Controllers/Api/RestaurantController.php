@@ -139,17 +139,23 @@ class RestaurantController extends Controller
         $validator = Validator::make($request->all(), [
             'rate' => 'required',
             'comment' => 'required'
-        ]);
+        ]);    
+        $validation = array_fill_keys(array_keys($request->all()), []);
         if ($validator->fails()) {
+            foreach ($validator->errors()->toArray() as $key => $errors) {
+                $validation[$key] = $errors;
+            }
             return response()->json([
                 'response' => Response::HTTP_BAD_REQUEST,
                 'success' => false,
-                'message' => $validator->errors()->all(),
+                'message' => 'Validation error occurred',
+                'validation' => $validation,
+                'data' => []
             ], Response::HTTP_BAD_REQUEST);
         }
-        
+    
         try {
-            $data = New RestaurantReview();
+            $data = new RestaurantReview();
             $data->restaurant_id = $id;
             $data->user_id = Auth::user()->id;
             $data->rating = $request->rate;
@@ -158,10 +164,10 @@ class RestaurantController extends Controller
             return response()->json([
                 'response' => Response::HTTP_OK,
                 'success' => true,
-                'message' => 'Review store successfully',
+                'message' => 'Review stored successfully',
+                'validation' => $validation,
                 'data' => $data
             ], Response::HTTP_OK);
-            
         } catch (QueryException $e) {
             return response()->json([
                 'response' => Response::HTTP_INTERNAL_SERVER_ERROR,
@@ -170,4 +176,5 @@ class RestaurantController extends Controller
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
+    
 }
