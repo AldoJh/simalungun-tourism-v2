@@ -50,12 +50,14 @@
                 </div>
               @enderror
             </div>
-            <div>
-              <label for="exampleFormControlInput1" class="col-form-label required fw-bold fs-6">Rekomendasi</label>
-              <div class="form-check form-switch form-check-custom form-check-solid">
-                <input class="form-check-input" type="checkbox" name="recomended" @if ($tourism->is_recomended) checked @endif id="flexSwitchDefault"/>
+            @if (Auth::user()->role == 'superadmin')
+              <div>
+                <label for="exampleFormControlInput1" class="col-form-label required fw-bold fs-6">Rekomendasi</label>
+                <div class="form-check form-switch form-check-custom form-check-solid">
+                  <input class="form-check-input" type="checkbox" name="recomended" @if ($tourism->is_recomended) checked @endif id="flexSwitchDefault"/>
+                </div>
               </div>
-            </div>
+            @endif
           </div>
         </div>
       </div>

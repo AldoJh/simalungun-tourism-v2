@@ -59,12 +59,14 @@
                 </div>
               @enderror
             </div>
-            <div>
-              <label for="exampleFormControlInput1" class="col-form-label required fw-bold fs-6">Verified</label>
-              <div class="form-check form-switch form-check-custom form-check-solid">
-                <input class="form-check-input" type="checkbox" name="verified" @if ($hotel->is_verified) checked @endif id="flexSwitchDefault"/>
+            @if (Auth::user()->role == 'superadmin')
+              <div>
+                <label for="exampleFormControlInput1" class="col-form-label required fw-bold fs-6">Verified</label>
+                <div class="form-check form-switch form-check-custom form-check-solid">
+                  <input class="form-check-input" type="checkbox" name="verified" @if ($hotel->is_verified) checked @endif id="flexSwitchDefault"/>
+                </div>
               </div>
-            </div>
+            @endif
           </div>
         </div>
       </div>
