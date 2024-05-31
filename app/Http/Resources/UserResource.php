@@ -14,7 +14,7 @@ class UserResource extends JsonResource
      */
     public function toArray($request)
     {
-        if($this->user->photo){
+        if($this->photo){
             $image = url('storage/'.$this->photo);
         }else{
             $image = ' https://ui-avatars.com/api/?background=E79024&color=fff&name='.$this->name;
