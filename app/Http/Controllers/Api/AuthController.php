@@ -34,7 +34,7 @@ class AuthController extends Controller
                 'success' => false,
                 'message' => 'Validation error occurred', 
                 'validation' => $validation,
-                'data' => []
+                'data' => null
             ], Response::HTTP_BAD_REQUEST);
         }
 
@@ -89,7 +89,7 @@ class AuthController extends Controller
                 'success' => false,
                 'message' => 'Validation error occurred',
                 'validation' => $validation,
-                'data' => []
+                'data' => null
             ], Response::HTTP_BAD_REQUEST);
         }
 
@@ -100,7 +100,7 @@ class AuthController extends Controller
                     'success' => false,
                     'message' => 'Username or password wrong',
                     'validation' => $validation,
-                    'data' => []
+                    'data' => null
                 ], Response::HTTP_UNAUTHORIZED);
             }
 
@@ -140,7 +140,7 @@ class AuthController extends Controller
                 'success' => false,
                 'message' => 'Validation error occurred',
                 'validation' => $validation,
-                'data' => []
+                'data' => null
             ], Response::HTTP_BAD_REQUEST);
         }
 
@@ -161,7 +161,7 @@ class AuthController extends Controller
                 'success' => true,
                 'message' => 'Email sent successfully',
                 'validation' => $validation,
-                'data' => []
+                'data' => null
             ], Response::HTTP_OK);
         } catch (QueryException $e) {
             return response()->json([
@@ -179,7 +179,7 @@ class AuthController extends Controller
             'response' => Response::HTTP_OK,
             'success' => true,
             'message' => 'Account logged out successfully',
-            'data' => []
+            'data' => null
         ], Response::HTTP_OK);
     }
 }

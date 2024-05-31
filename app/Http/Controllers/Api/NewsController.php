@@ -95,7 +95,7 @@ class NewsController extends Controller
                 'success' => false,
                 'message' => 'Validation error occurred',
                 'validation' => $validation,
-                'data' => []
+                'data' => null
             ], Response::HTTP_BAD_REQUEST);
         }
     
