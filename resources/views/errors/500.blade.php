@@ -1,6 +1,8 @@
 @extends('front.app')
 @section('content')
-
+@php
+    $title = $title ?? '500';
+@endphp
 <section class="nopage mt-header">
   <div class="container">
     <div class="row y-gap-30 justify-center items-center">

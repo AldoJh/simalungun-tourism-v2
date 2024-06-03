@@ -54,12 +54,12 @@
 
         <div class="headerMobile__right">
           <button class="header__menuBtn js-menu-button">
-            <i class="icon-main-menu @if ($title ?? '' == 'Home') text-white @endif"></i>
+            <i class="icon-main-menu @if ($title == 'Home') text-white @endif"></i>
           </button>
         </div>
         <div class="header__right">
           <button class="header__menuBtn ml-30 js-menu-button">
-            <i class="icon-main-menu @if ($title ?? '' == 'Home') text-white @endif"></i>
+            <i class="icon-main-menu @if ($title == 'Home') text-white @endif"></i>
           </button>
         </div>
       </div>
