@@ -19,6 +19,7 @@ class NewsResource extends JsonResource
         }else{
             $image = ' https://ui-avatars.com/api/?background=E79024&color=fff&name='.$this->user->name;
         }
+
         return[
             'id' => $this->id,
             'slug' => $this->slug,
@@ -40,6 +41,23 @@ class NewsResource extends JsonResource
                 'linkedin' => 'http://www.linkedin.com/shareArticle?mini=true&url='.route('berita.show', $this->slug),
                 'whatsapp' => 'https://api.whatsapp.com/send?&text='.route('berita.show', $this->slug)
             ],
+            'comment' => $this->comment->map(function ($comment) {
+                if($comment->user->photo){
+                    $commentImage = url('storage/'.$comment->user->photo);
+                }else{
+                    $commentImage = ' https://ui-avatars.com/api/?background=E79024&color=fff&name='.$comment->user->name;
+                }
+                $commentData = [
+                    'id' => $comment->id,
+                    'content' => $comment->content,
+                    'user' => [
+                        'id' => $comment->user->id,
+                        'name' => $comment->user->name,
+                        'image' => $commentImage
+                    ]
+                ];
+                return $commentData;
+            }),
             'createdAt' => $this->created_at,
             'updatedAt' => $this->updated_at
         ];
