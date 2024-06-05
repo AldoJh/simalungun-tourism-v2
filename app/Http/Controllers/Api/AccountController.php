@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Auth;
@@ -28,9 +29,18 @@ class AccountController extends Controller
     public function update(Request $request)
     {    
         $validator = Validator::make($request->all(), [
-            'name' => 'required',
-            'email' => 'required|email',
-            'phone' => 'required',
+            'name' => 'nullable|sometimes|',
+            'email' => [
+                'nullable',
+                'sometimes',
+                'email',
+                Rule::unique('users')->ignore(Auth::user()->id),
+            ],
+            'phone' => [
+                'nullable',
+                'sometimes',
+                Rule::unique('users')->ignore(Auth::user()->id),
+            ],
             'photo' => 'image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);    
         $validation = array_fill_keys(array_keys($request->all()), []);    
