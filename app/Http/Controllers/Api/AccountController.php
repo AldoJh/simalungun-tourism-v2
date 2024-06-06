@@ -66,12 +66,13 @@ class AccountController extends Controller
             $user->email = $request->email;
             $user->phone = $request->phone;
             $user->save();
+            $data = User::where('id', auth()->user()->id)->get();
             return response()->json([
                 'response' => Response::HTTP_OK,
                 'success' => true,
                 'message' => 'User account updated successfully',
                 'validation' => $validation,
-                'data' => $user
+                'data' => UserResource::collection($data)->first()
             ], Response::HTTP_OK);
     
         } catch (QueryException $e) {
