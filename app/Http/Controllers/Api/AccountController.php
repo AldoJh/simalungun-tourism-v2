@@ -62,9 +62,15 @@ class AccountController extends Controller
             if ($request->hasFile('photo')) {
                 $user->photo = $request->file('photo')->store('user', 'public');
             }
-            $user->name = $request->name;
-            $user->email = $request->email;
-            $user->phone = $request->phone;
+            if($request->has('name')){
+                $user->name = $request->name;
+            }
+            if($request->has('email')){
+                $user->email = $request->email;
+            }
+            if($request->has('phone')){
+                $user->phone = $request->phone;
+            }
             $user->save();
             $data = User::where('id', auth()->user()->id)->get();
             return response()->json([
