@@ -144,7 +144,7 @@
                           <div class="fs-6 fw-bold">{{ $item->role }}</div>
                         </div>
                       </td>
-                      @if ($item->role == 'superadmin')
+                      @if ($item->role != 'admin')
                         <td>
                           <div class="d-flex">
                             <div class="fs-6 fw-bold">-</div>
@@ -289,6 +289,7 @@
                               <option value="">Pilih Role</option>
                               <option value="superadmin" @if ($item->role == 'superadmin') selected @endif>Super Admin</option>
                               <option value="admin" @if ($item->role == 'admin') selected @endif>admin</option>
+                              <option value="user" @if ($item->role == 'user') selected @endif>user</option>
                           </select>
                           @error('role')
                             <div class="invalid-feedback">

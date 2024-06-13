@@ -24,10 +24,6 @@ class UserController extends Controller
         $data = User::where(function ($query) use ($search) {
             $query->where('name', 'LIKE', '%' . $search . '%');
         })
-        ->where(function ($query) {
-            $query->where('role', 'superadmin')
-                ->orWhere('role', 'admin');
-        })
         ->paginate(10);        
         $data->appends(['q' => $search]);
         $data = [
